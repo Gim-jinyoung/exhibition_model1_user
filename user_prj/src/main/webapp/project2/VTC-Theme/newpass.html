@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <meta charset="UTF-8" />
+        <!-- CSS Files -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href="fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+        <link href="fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
+        <link href="css/animate.css" rel="stylesheet" media="screen">
+        <link href="css/owl.theme.css" rel="stylesheet">
+        <link href="css/owl.carousel.css" rel="stylesheet">
+        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+        <!-- Colors -->
+        <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
+        <!-- <link href="css/css-index-green.css" rel="stylesheet" media="screen"> -->
+        <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
+        <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
+        <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
+        <link href="css/css-index-yellow.css" rel="stylesheet" media="screen"> 
+
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>새 비밀번호 확인</title>
+</head>
+<script type="text/javascript">
+function ok(){
+	window.opener.location.href="passclear.html";
+	self.close();
+}
+</script>
+<body>
+	<div class="w3-content w3-container w3-margin-top" style="width: 500px">
+		<div class="w3-container w3-card-4">
+			<form action="../member/find_id.do" method="post">
+				
+				<div>
+					<p>
+						<label>새 비밀번호</label>
+						<input class="w3-input" type="password" id="pass" name="pass" required>
+					</p>
+					<p>
+						<label>새 비밀번호확인</label>
+						<input class="w3-input" type="password" id="pass" name="pass" required>
+					</p>
+					<p class="w3-center">
+						
+					<input type="button" onclick="ok()" class="btn btn-warning" value="새로 변경"/>
+					
+						
+					</p>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
