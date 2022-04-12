@@ -87,7 +87,7 @@
                                         </div>
 
                                         <div class="form-group last">
-                                            <a href="#void"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="예약하기"></a>
+                                           <a href="reservation_clear.html"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="예약하기"></a>
                                         </div>
                                     </div>
 
@@ -200,13 +200,16 @@
         <script src="js/snap.svg-min.js"></script> 
 
 
+
         <script>
                                                 new WOW().init();
                                                 $('#date_time').datetimepicker({
                                                     format: 'dd/MM/yyyy hh:mm:ss',
                                                     language: 'en-US',
                                                     pickDate: true, // disables the date picker
-                                                    pickTime: true
+                                                    pickTime: true,
+                                                    
+                                                    
                                                 });
         </script>
 
@@ -234,6 +237,7 @@
                 init();
             })();
         </script>
+
 
     </body>
 </html>

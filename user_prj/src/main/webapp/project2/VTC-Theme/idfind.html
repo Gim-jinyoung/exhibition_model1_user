@@ -75,15 +75,15 @@
                         <form action="my-account.html" method="post">
                             <div class="form-group">
                                 <label for="email">이름</label>
-                                <input class="form-control" id="email" type="text">
+                                <input class="form-control" id="name" type="text">
                             </div>
                             <div class="form-group">
                                 <label for="password">휴대번호</label>
-                                <input class="form-control" id="password" type="password">
+                                <input class="form-control" id="phone_num" type="text">
                             </div>
                             
                             <div class="text-center">
-                              <a href="idclear.html"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="next>"></a>  
+                              <input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="next>">
                             </div>
                         </form>
 
@@ -148,6 +148,23 @@
         <script>
             new WOW().init();
 
+        </script>
+        <script type="text/javascript">
+        $(function(){
+        	$("#find_direction").click(function() {
+        		var name=$("#name").val();
+        		var phone=$("#phone_num").val();
+				if(name==""){
+					alert("이름을 입력해주세요.");
+					return;
+				}
+				if(phone==""){
+					alert("휴대폰번호를 입력해주세요.");
+					return;
+				}
+				location.href="idclear.html";
+			});
+        });
         </script>
 
     </body>

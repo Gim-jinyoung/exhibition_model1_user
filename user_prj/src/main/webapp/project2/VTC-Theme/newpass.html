@@ -32,12 +32,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>새 비밀번호 확인</title>
 </head>
-<script type="text/javascript">
-function ok(){
-	window.opener.location.href="passclear.html";
-	self.close();
-}
-</script>
 <body>
 	<div class="w3-content w3-container w3-margin-top" style="width: 500px">
 		<div class="w3-container w3-card-4">
@@ -46,15 +40,15 @@ function ok(){
 				<div>
 					<p>
 						<label>새 비밀번호</label>
-						<input class="w3-input" type="password" id="pass" name="pass" required>
+						<input class="w3-input" type="password"  name="pass1">
 					</p>
 					<p>
 						<label>새 비밀번호확인</label>
-						<input class="w3-input" type="password" id="pass" name="pass" required>
+						<input class="w3-input" type="password" name="pass2" >
 					</p>
 					<p class="w3-center">
 						
-					<input type="button" onclick="ok()" class="btn btn-warning" value="새로 변경"/>
+					<input type="button"  class="btn btn-warning" value="새로 변경" onclick="vaild(this.form)"/>
 					
 						
 					</p>
@@ -64,3 +58,37 @@ function ok(){
 	</div>
 </body>
 </html>
+<script type="text/javascript">
+
+function vaild(x){
+	var alphaDigit= "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+
+		if (x.pass1.value=="") {
+		    alert("비밀번호를 입력하셔야 합니다.")
+		    x.pass1.focus();
+		    return;
+		    }
+	 	if (x.pass2.value==""){
+		    alert("비밀번호를 확인 입력해 주셔야 합니다.")
+		    x.pass2.focus();
+		    return;
+		    }
+		if (x.pass1.value != x.pass2.value) {
+		    alert("비밀번호가 서로 일치하지 않습니다.");
+		    x.pass1.value=x.pass2.value="";
+		    x.pass1.focus();
+		    return;
+		    } 
+		if (x.pass1.value.indexOf(" ") >= 0) {
+		    alert("비밀번호에는 공백이 들어가면 안됩니다.");
+		    x.pass1.value=x.pass2.value="";
+		    x.pass1.focus();
+		    return;
+		    }
+		if(x.pass1.value==x.pass2.value){
+			location.href="file:///C:/Users/user/Desktop/prj/VTC-Theme/passclear.html"
+		}
+		
+}//vaild
+
+</script>
