@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +20,7 @@ input:hover {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 function reservationCancel() {
-	window.opener.location.href="reservation_cancel.html";
+	window.opener.location.href="reservation_cancel.jsp";
 	self.close();
 }
 </script>

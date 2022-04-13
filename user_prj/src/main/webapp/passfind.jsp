@@ -1,9 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
 
         <!-- /.website title -->
-        <title>VTC Theme | reservation clear</title>
+        <title>VTC Theme | FQA Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -45,12 +47,12 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.html">Exhibition</a>
+                            <a href="index.jsp">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
                         <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                           예약취소
+                           비밀번호 찾기
                         </h2>
 
                     </div>
@@ -60,49 +62,36 @@
         
         
             <!-- NAVIGATION -->
-        <div id="menu">
-               <div class="container""> 
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand site-name" href="#top">Exhibition</a>
-                    </div>
-
-                    <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
-                        <ul class="nav navbar-nav">
-                            <li><a href="list.html">전체 전시 보기</a></li>
-                            <li><a href="list.html">지역별 전시 보기</a></li>
-                            <li><a href="taxi.html">예약하기</a></li>
-                                    <li><a href="board.html">게시판</a></li>
-                        
-                        </ul>
-                    </div>
-                 </div>  
-        </div>
+        
 
         <!-- /.Cars section -->
         <div id="sign-in" style="margin-left: 30%">
             <div class="container">
                 <div class="col-sm-6">
                     <div class="text-center">
-                        <h2 class="wow fadeInLeft">전시설명/예약정보</h2>
-                        <br/>
-                        <h2 class="wow fadeInLeft">예약을 취소하시겠습니까?</h2>
+                        <h2 class="wow fadeInLeft">비밀번호 찾기</h2>
                         <div class="title-line wow fadeInRight"></div>
                     </div>
                     <div class="row sign-in">
 
-                        <form action="my-account.html" method="post">
+                        <form action="my-account.jsp" method="post">
+                            <div class="form-group">
+                                <label for="name">이름</label>
+                                <input class="form-control" id="name" type="text">
+                            </div>
+                             <div class="form-group">
+                                <label for="id">아이디</label>
+                                <input class="form-control" id="id" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_num">휴대번호</label>
+                                <input class="form-control" id="phone_num" type="text">
+                            </div>
                             
                             <div class="text-center">
-                              <a href="reservation_cancel2.html"><input type="button"  class="btn btn-warning "  style="width:80px " value="예"></a> 
-                              &nbsp;&nbsp;&nbsp;&nbsp; 
-                              <a href="index.html"><input type="button"  class="btn btn-warning" value="아니요" style="width:80px "></a>  
+                              <input type="button" class="btn btn-warning btn-block btn-lg"  id="pass_find" value="next>">
                             </div>
+              
                         </form>
 
                     </div>
@@ -163,6 +152,31 @@
 
 
 
+<script type="text/javascript">
+function newpass() {
+	window.open("newpass.jsp","emailCheck","width=700px, height=500px ");	
+}
+
+$(function(){
+	$("#pass_find").click(function(){
+		var name=$("#name").val();
+		var id=$("#id").val();
+		var phone=$("#phone_num").val();
+		
+		if(name==""){
+			alert("이름을 입력하세요.");
+			return;
+		}else if(id==""){
+			alert("아이디를 입력하세요.");
+			return;
+		}else if(phone==""){
+			alert("휴대폰번호를 입력하세요.");
+			return;
+		}
+		newpass();
+	});
+});
+</script>
         <script>
             new WOW().init();
 

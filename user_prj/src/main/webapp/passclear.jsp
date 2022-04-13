@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -45,12 +47,12 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.html">Exhibition</a>
+                            <a href="index.jsp">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
                         <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                           로그인
+                           비밀번호 찾기
                         </h2>
 
                     </div>
@@ -60,56 +62,22 @@
         
         
             <!-- NAVIGATION -->
-        <div id="menu">
-               <div class="container""> 
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand site-name" href="index.html">Exhibition</a>
-                    </div>
-
-                    <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
-                        <ul class="nav navbar-nav">
-                            <li><a href="list.html">전체 전시 보기</a></li>
-                            <li><a href="list.html">지역별 전시 보기</a></li>
-                            <li><a href="reservation.html">예약하기</a></li>
-                                    <li><a href="board.html">게시판</a></li>
-                        
-                        </ul>
-                    </div>
-                 </div>  
-        </div>
+        
 
         <!-- /.Cars section -->
         <div id="sign-in" style="margin-left: 30%">
             <div class="container">
                 <div class="col-sm-6">
-                    <div class="text-center">
-                        <h2 class="wow fadeInLeft">로그인</h2>
-                        <div class="title-line wow fadeInRight"></div>
+                    <div class="text-center" style="height: 200px;">
+                        <h2 class="wow fadeInLeft" style="margin-top: 20px">비밀번호 변경이 완료되었습니다.</h2>
                     </div>
+                        <div class="title-line wow fadeInRight"></div>
                     <div class="row sign-in">
 
-                        <form action="my-account.html" method="post">
-                            <div class="form-group">
-                                <label for="email">아이디</label>
-                                <input class="form-control" type="text" id="id-box">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">비밀번호</label>
-                                <input class="form-control"  type="password" id="pass-box">
-                            </div>
-                            <div>
-                            	<a href="terms.html">회원가입</a> 
-                            	<a href="idfind.html" style="margin-left: 30%">아이디 찾기</a> 
-                            	<a href="passfind.html" style="float: right;">비밀번호 찾기</a>
-                            </div>
+                        <form action="my-account.jsp" method="post">
                             <div class="text-center">
-                              <input type="button"  id="login-button" class="btn btn-warning btn-block btn-lg" value="로그인">  
+                              <a href="index.jsp"><input type="button" id="find_direction"  class="btn btn-warning" value="메인으로 돌아가기"></a>  
+                              <a href="login.jsp"><input type="button" id="find_direction"  class="btn btn-warning" value="로그인하기"></a>  
                             </div>
                         </form>
 
@@ -170,23 +138,7 @@
             <script src="js/jquery.validate.min.js"></script> 
 
 
-<script type="text/javascript">
-$(function(){
-	$("#login-button").click(function(){
-		var id=$("#id-box").val();
-		var pass=$("#pass-box").val();
-		
-		if(id==""){
-			alert("아이디를 입력해주세요.");
-			return;
-		}else if(pass==""){
-			alert("비밀번호를 입력해주세요.");
-			return;	
-		}
-		location.href="index.html";
-	});
-});
-</script>
+
         <script>
             new WOW().init();
 

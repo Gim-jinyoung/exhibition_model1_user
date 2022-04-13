@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -46,7 +48,7 @@
 
                             <!-- /.logo -->
                             <div class="logo wow fadeInDown">
-                                <a href="index.html">Exhibition</a>
+                                <a href="index.jsp">Exhibition</a>
                             </div>
 
                             <!-- /.main title -->
@@ -67,31 +69,32 @@
                         <div class="col-md-5">
 
                             <div class="signup-header wow fadeInUp">
-                                <h3 class="form-title text-center">예약하기</h3>
+                                <h3 class="form-title text-center">예약</h3>
                                 <form class="form-header" action="booking-step-two.html" role="form" method="POST" id="bookingForm"> 
                                     <div id="booking_control" class="booking_control">
+                                    
+                                           <div class="form-group">
+                                            <select class="form-control input-lg" name="picking_up" id="picking_up">
+                                            <option value="서울">서울</option>
+                                            </select>
+                                        </div> 
                                         
                                         <div class="form-group">
-                                         <select class="form-control input-lg" name="people" id="people">
-                                            <option value="1">1명</option>
-                                            <option value="1">2명</option>
-                                            <option value="1">3명</option>
+                                           <select class="form-control input-lg" name="Exhibition" id="Exhibition">
+                                            <option value="00전시">00전시</option>
                                             </select>
-                                            
-                                            
-                                        </div>
-
-                                        <div id="date_time" class="form-group">
-                                           <input class="form-control input-lg" name="pick_up_date" class="pick_up_date" id="pick_up_date" type="text" placeholder="날짜선택" required>
-                                            <a class="add-on btn-geolocation btn-calendar" href="#"><i class="pe-7s-date" ></i></a>
                                         </div>
 
                                         <div class="form-group last">
-                                           <input type="button" id="find_direction" onclick="reservation()" class="btn btn-warning btn-block btn-lg" value="예약하기"/>
+                                           <a href="reservation2.jsp"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="다음"></a> 
+                                           
                                         </div>
                                     </div>
 
-                                    
+                                  
+                                            
+                                        
+                                                         
                                 </form>
                             </div>				
 
@@ -102,7 +105,8 @@
         </div>
 
 
-          <!-- NAVIGATION -->
+      
+        <!-- NAVIGATION -->
         <div id="menu">
                <div class="container""> 
                     <div class="navbar-header">
@@ -112,15 +116,15 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.html">Exhibition</a>
+                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                              <li><a href="list.html">전체 전시 보기</a></li>
-                            <li><a href="list.html">지역별 전시 보기</a></li>
-                            <li><a href="reservation.html">예약하기</a></li>
-                                    <li><a href="board.html">게시판</a></li>
+                             <li><a href="list.jsp">전체 전시 보기</a></li>
+                            <li><a href="list.jsp">지역별 전시 보기</a></li>
+                            <li><a href="reservation_clear.jsp">예약하기</a></li>
+                                    <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>
                     </div>
@@ -180,6 +184,9 @@
                     </div>
                     </footer>
 
+
+
+
         <!-- /.javascript files -->
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -200,25 +207,13 @@
         <script src="js/snap.svg-min.js"></script> 
 
 
-<script type="text/javascript">
-function reservation(){
-	var reser=document.getElementById("pick_up_date").value;
-	if(reser==""){
-		alert("날짜를 선택해주세요.");
-		return;
-	}
-	location.href="reservation_clear.html";
-}
-</script>
         <script>
                                                 new WOW().init();
                                                 $('#date_time').datetimepicker({
                                                     format: 'dd/MM/yyyy hh:mm:ss',
                                                     language: 'en-US',
                                                     pickDate: true, // disables the date picker
-                                                    pickTime: true,
-                                                    
-                                                    
+                                                    pickTime: true
                                                 });
         </script>
 
@@ -245,8 +240,6 @@ function reservation(){
                 }
                 init();
             })();
-            
-
         </script>
 
     </body>

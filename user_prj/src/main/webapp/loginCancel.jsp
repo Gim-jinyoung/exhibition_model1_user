@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +10,14 @@
 
 <meta charset="UTF-8" />
 <!-- CSS Files -->
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="fonts/icon-7-stroke/css/pe-icon-7-stroke.css"
 	rel="stylesheet">
 <link href="css/animate.css" rel="stylesheet" media="screen">
 <link href="css/owl.theme.css" rel="stylesheet">
 <link href="css/owl.carousel.css" rel="stylesheet">
+<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
 <!-- Colors -->
 <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
@@ -27,35 +31,6 @@
 <!-- Google Fonts -->
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
-
-</style>
-<!-- jQuery CDN -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js" defer></script>
-<style type="text/css">
-a{
-    color: #d1b702;
-    outline: 0;
-    font-weight: bold;
-    -webkit-transition: all .8s ease;
-    transition: all .8s ease;
-} 
-</style>
-<script type="text/javascript">
-$(document).ready(function() {
-	  $('#summernote1').summernote({height: 400});
-	  $("#btn").click(function(){
-		  $("#frm").submit();
-	  });
-	});
-</script>
 
 </head>
 
@@ -76,7 +51,7 @@ $(document).ready(function() {
 
 					<!-- /.logo -->
 					<div class="logo wow fadeInDown" style="margin-top: 50px">
-						<a href="index.html">Exhibition</a>
+						<a href="index.jsp">Exhibition</a>
 					</div>
 
 
@@ -103,53 +78,38 @@ $(document).ready(function() {
 			<div id="navbar-scroll"
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
-					<li><a href="list.html">전체 전시 보기</a></li>
-					<li><a href="list.html">지역별 전시 보기</a></li>
-					<li><a href="reservation.html">예약하기</a></li>
-					<li><a href="board.html">게시판</a></li>
+					<li><a href="list.jsp">전체 전시 보기</a></li>
+					<li><a href="list.jsp">지역별 전시 보기</a></li>
+					<li><a href="reservation.jsp">예약하기</a></li>
+					<li><a href="board.jsp">게시판</a></li>
 
 				</ul>
 			</div>
 		</div>
 	</div>
-
-
 	<!-- /.pricing section -->
-	<div id="myaccount">
+	<div id="sign-in" style="margin-left: 30%">
 		<div class="container">
-			<div class="text-center ">
-				<!-- /.pricing title -->
-				<h2 class="wow fadeInLeft">글쓰기</h2>
-				<div class="title-line wow fadeInRight"></div>
-			</div>
-			<div class="row account-details">
 
-				<!-- /.account-control -->
-				<div
-					class="panel panel-default sidebar-menu wow  fadeInLeft animated">
+			<div class="col-sm-6">
+				<div class="text-center ">
+					<h2 class="wow fadeInLeft">로그인 실패</h2>
+					<div class="title-line wow fadeInRight">
+					</div>
+					<div class="row register">
+					<div class="form-group">
+					
+					<h2 style="height: 200px; text-align: center; margin-top: 100px;">사용자 정보가<br/>올바르지 않습니다.</h2>
+
+					<a href="http://localhost/jsp_prj/project2/VTC-Theme/login.jsp"><input type="button" id="find_direction"
+						class="btn btn-warning btn-block btn-lg" value="확인"></a>
+					</div>
 				</div>
-					<div class="panel-heading">
-						<h3 class="panel-title">Menu</h3>
-						<input class="form-control" type="text">
-					</div>
-					<div class="panel-body">
-						<ul class="nav nav-pills nav-stacked">
-							<li class="active"><select class="form-control input-lg"
-								name="Exhibition" id="Exhibition">
-									<option value="00전시">00전시</option>
-									<option value="00전시">00전시</option>
-							</select></li>
-						</ul>
-					</div>
-				<form method="post" id="frm">
-					<textarea id="summernote1" name="ta"></textarea>
-					<br /> <a href="board.html"><input type="button" value="전송" id="btn"
-						class="btn btn-warning btn-block btn-lg" /></a>
-						</form>
-						
 			</div>
 		</div>
 	</div>
+	</div>
+
 
 
 
@@ -206,8 +166,6 @@ $(document).ready(function() {
 
 	<script>
 		new WOW().init();
-		
-		
 	</script>
 
 

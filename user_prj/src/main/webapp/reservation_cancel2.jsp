@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -45,7 +47,7 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.html">Exhibition</a>
+                            <a href="index.jsp">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
@@ -74,10 +76,10 @@
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="list.html">전체 전시 보기</a></li>
-                            <li><a href="list.html">지역별 전시 보기</a></li>
-                            <li><a href="taxi.html">예약하기</a></li>
-                                    <li><a href="board.html">게시판</a></li>
+                            <li><a href="list.jsp">전체 전시 보기</a></li>
+                            <li><a href="list.jsp">지역별 전시 보기</a></li>
+                            <li><a href="taxi.jsp">예약하기</a></li>
+                                    <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>
                     </div>
@@ -96,10 +98,10 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="my-account.html" method="post">
+                        <form action="my-account.jsp" method="post">
                             
                             <div class="text-center">
-                              <a href="index.html"><input type="button"  class="btn btn-warning "  style="width:80px " value="확인"></a> 
+                              <a href="index.jsp"><input type="button"  class="btn btn-warning "  style="width:80px " value="확인"></a> 
                             
                               
                             </div>

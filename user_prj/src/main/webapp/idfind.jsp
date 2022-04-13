@@ -1,9 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
 
         <!-- /.website title -->
-        <title>VTC Theme | reservation clear</title>
+        <title>VTC Theme | FQA Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -45,12 +47,12 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.html">Exhibition</a>
+                            <a href="index.jsp">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
                         <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                           예약완료
+                           아이디 찾기
                         </h2>
 
                     </div>
@@ -60,45 +62,30 @@
         
         
             <!-- NAVIGATION -->
-        <div id="menu">
-               <div class="container""> 
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand site-name" href="#top">Exhibition</a>
-                    </div>
-
-                    <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
-                        <ul class="nav navbar-nav">
-                            <li><a href="list.html">전체 전시 보기</a></li>
-                            <li><a href="list.html">지역별 전시 보기</a></li>
-                            <li><a href="taxi.html">예약하기</a></li>
-                                    <li><a href="board.html">게시판</a></li>
-                        
-                        </ul>
-                    </div>
-                 </div>  
-        </div>
+        
 
         <!-- /.Cars section -->
         <div id="sign-in" style="margin-left: 30%">
             <div class="container">
                 <div class="col-sm-6">
                     <div class="text-center">
-                        <h2 class="wow fadeInLeft">X시 N명 yyyy-mm-dd일 XXXXX원</h2>
-                        <h2 class="wow fadeInLeft">예약해주셔서 감사합니다.</h2>
+                        <h2 class="wow fadeInLeft">아이디찾기</h2>
                         <div class="title-line wow fadeInRight"></div>
                     </div>
                     <div class="row sign-in">
 
-                        <form action="my-account.html" method="post">
+                        <form action="my-account.jsp" method="post">
+                            <div class="form-group">
+                                <label for="email">이름</label>
+                                <input class="form-control" id="name" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">휴대번호</label>
+                                <input class="form-control" id="phone_num" type="text">
+                            </div>
                             
                             <div class="text-center">
-                              <a href="index.html"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>  
+                              <input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="next>">
                             </div>
                         </form>
 
@@ -163,6 +150,23 @@
         <script>
             new WOW().init();
 
+        </script>
+        <script type="text/javascript">
+        $(function(){
+        	$("#find_direction").click(function() {
+        		var name=$("#name").val();
+        		var phone=$("#phone_num").val();
+				if(name==""){
+					alert("이름을 입력해주세요.");
+					return;
+				}
+				if(phone==""){
+					alert("휴대폰번호를 입력해주세요.");
+					return;
+				}
+				location.href="idclear.html";
+			});
+        });
         </script>
 
     </body>

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -46,16 +48,16 @@
 
                             <!-- /.logo -->
                             <div class="logo wow fadeInDown">
-                                <a href="index.html">Exhibition</a>
+                                <a href="index.jsp">Exhibition</a>
                             </div>
                              <div class="head-btn wow fadeInLeft" style="width:1300px;  ">
-                                <a href="my_account_pass.html" class="btn btn-primary" style="float: right;">내 정보</a>
-                                <a href="login.html" class="btn btn-default" style="float: right;">로그인/회원가입</a>
+                                <a href="my_account_pass.jsp" class="btn btn-primary" style="float: right;">내 정보</a>
+                                <a href="login.jsp" class="btn btn-default" style="float: right;">로그인/회원가입</a>
                             </div>
 
                             <!-- /.main title -->
                             <h1 class="wow fadeInLeft">
-                                <span class="color"><a href="exhibition_detail.html">대표 전시</a></span> 
+                                <span class="color"><a href="exhibition_detail.jsp">대표 전시</a></span> 
                             </h1>
 
                             <!-- /.header paragraph -->
@@ -89,10 +91,10 @@
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="list.html">전체 전시 보기</a></li>
-                            <li><a href="list.html">지역별 전시 보기</a></li>
-                            <li><a href="reservation.html">예약하기</a></li>
-                                    <li><a href="board.html">게시판</a></li>
+                            <li><a href="list.jsp">전체 전시 보기</a></li>
+                            <li><a href="list.jsp">지역별 전시 보기</a></li>
+                            <li><a href="reservation.jsp">예약하기</a></li>
+                                    <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>
                     </div>
@@ -119,7 +121,7 @@
                     <div id="carssections" class="owl-carousel"> 
                         <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
                             <figure>
-                            <a href="exhibition_detail.html" ><img src="images/car1.png" /></a>
+                            <a href="exhibition_detail.jsp" ><img src="images/car1.png" /></a>
                                 
                                
                             </figure>
@@ -128,35 +130,35 @@
                         
                               <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
                             <figure>
-                            <a href="exhibition_detail.html" ><img src="images/car1.png" /></a>
+                            <a href="exhibition_detail.jsp" ><img src="images/car1.png" /></a>
                                 
                                
                             </figure>
                         </div>   
                               <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
                             <figure>
-                            <a href="exhibition_detail.html" ><img src="images/car1.png" /></a>
+                            <a href="exhibition_detail.jsp" ><img src="images/car1.png" /></a>
                                 
                                
                             </figure>
                         </div>   
                              <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
                             <figure>
-                            <a href="exhibition_detail.html" ><img src="images/car1.png" /></a>
+                            <a href="exhibition_detail.jsp" ><img src="images/car1.png" /></a>
                                 
                                
                             </figure>
                         </div>   
                              <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
                             <figure>
-                            <a href="exhibition_detail.html" ><img src="images/car1.png" /></a>
+                            <a href="exhibition_detail.jsp" ><img src="images/car1.png" /></a>
                                 
                                
                             </figure>
                         </div>   
                             <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
                             <figure>
-                            <a href="exhibition_detail.html" ><img src="images/car1.png" /></a>
+                            <a href="exhibition_detail.jsp" ><img src="images/car1.png" /></a>
                                 
                                
                             </figure>
@@ -164,7 +166,7 @@
           
                              <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
                             <figure>
-                            <a href="exhibition_detail.html" ><img src="images/car1.png" /></a>
+                            <a href="exhibition_detail.jsp" ><img src="images/car1.png" /></a>
                                 
                                
                             </figure>

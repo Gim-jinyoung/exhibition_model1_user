@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -45,12 +47,12 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.html">Exhibition</a>
+                            <a href="index.jsp">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
                         <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                           아이디 찾기
+                           비밀번호 찾기
                         </h2>
 
                     </div>
@@ -66,24 +68,18 @@
         <div id="sign-in" style="margin-left: 30%">
             <div class="container">
                 <div class="col-sm-6">
-                    <div class="text-center">
-                        <h2 class="wow fadeInLeft">아이디찾기</h2>
-                        <div class="title-line wow fadeInRight"></div>
+                    <div class="text-center" style="height: 200px; ">
+                        <h2 class="wow fadeInLeft" style="margin-top: 20px">아이디보여주기:~님의 아이디는~</h2>
                     </div>
+                        <div class="title-line wow fadeInRight"></div>
                     <div class="row sign-in">
-
-                        <form action="my-account.html" method="post">
-                            <div class="form-group">
-                                <label for="email">이름</label>
-                                <input class="form-control" id="name" type="text">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">휴대번호</label>
-                                <input class="form-control" id="phone_num" type="text">
-                            </div>
-                            
+						<br/>
+						
+                        <form action="my-account.jsp" method="post">
                             <div class="text-center">
-                              <input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="next>">
+                              <a href="index.jsp"><input type="button" id="find_direction" class="btn btn-warning" value="메인으로 돌아가기"></a>  
+                              <a href="passfind.jsp"><input type="button" id="find_direction"  class="btn btn-warning" value="비밀번호찾기"></a>  
+                              <a href="login.jsp"><input type="button" id="find_direction"  class="btn btn-warning" value="로그인하기"></a>  
                             </div>
                         </form>
 
@@ -148,23 +144,6 @@
         <script>
             new WOW().init();
 
-        </script>
-        <script type="text/javascript">
-        $(function(){
-        	$("#find_direction").click(function() {
-        		var name=$("#name").val();
-        		var phone=$("#phone_num").val();
-				if(name==""){
-					alert("이름을 입력해주세요.");
-					return;
-				}
-				if(phone==""){
-					alert("휴대폰번호를 입력해주세요.");
-					return;
-				}
-				location.href="idclear.html";
-			});
-        });
         </script>
 
     </body>

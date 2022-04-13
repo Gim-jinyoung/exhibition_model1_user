@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,7 +80,7 @@
  <h2 align="center">회원가입을 환영합니다.</h2><br/><br/>
  </div>
 <body>
-<form action="register.html" method="get" id="form1">
+<form action="register.jsp" method="get" id="form1">
 <div id="d1">
   <tr>
   <br/>

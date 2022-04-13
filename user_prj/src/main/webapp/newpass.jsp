@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html>
@@ -86,7 +88,7 @@ function vaild(x){
 		    return;
 		    }
 		if(x.pass1.value==x.pass2.value){
-			location.href="http://localhost/user_prj/project2/VTC-Theme/passclear.html"
+			location.href="http://localhost/user_prj/project2/VTC-Theme/passclear.jsp"
 		}
 		
 }//vaild

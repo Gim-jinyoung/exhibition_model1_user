@@ -1,9 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
 
         <!-- /.website title -->
-        <title>내정보 수정</title>
+        <title>VTC Theme | Register Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -29,10 +31,13 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
     </head>
-       <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	$("#next").click(function(){
+		check();
+	});//click
 	$("#find_addr").click(function(){
 		new daum.Postcode({
 		    oncomplete: function(data) {
@@ -77,20 +82,28 @@ $(function(){
 		}).open();
 	});
 	
-	$("#next").click(function(){
-		var check=["password",'name','addr1','addr2'];
-		var name=["비밀번호","이름","주소","주소"];
-	for(var i=0; i<check.length;i++){
-		if($("#"+check[i]).val() ==""){
-			alert(name[i]+"을/를 입력해주세요");
-			return;
-		}//end if 
-	}//end for
-	location.href="my_account_modify_success.html";
-	});//click
+	$("#idCheck").click(function(){
+		window.open("emailCheck.jsp","emailCheck","width=500px, height=300px ");
+	});
 });
+function check() {
+	var check=["id","password1",'password2','name','addr1','addr2'];
+	var name=["이메일","비밀번호","비밀번호","이름","주소","주소"];
+for(var i=0; i<check.length;i++){
+	if($("#"+check[i]).val() ==""){
+		alert(name[i]+"을/를 입력해주세요");
+		return;
+	}//end if 
+}//end for
+if($("#password1").val() != $("#password2").val()){
+	alert("비밀번호가 다릅니다.");
+	return;
+}//end if
+	location.href="registerSucess.jsp";
+}//end check
 
 </script>
+
     <body data-spy="scroll" data-target="#navbar-scroll">
 
         <!-- /.preloader -->
@@ -106,12 +119,12 @@ $(function(){
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.html">Exhibition</a>
+                            <a href="index.jsp">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
                         <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                            내정보 수정
+                            회원가입
                         </h2>
 
                     </div>
@@ -130,88 +143,65 @@ $(function(){
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.html">Exhibition</a>
+                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                               <li><a href="list.html">전체 전시 보기</a></li>
-                            <li><a href="list.html">지역별 전시 보기</a></li>
-                            <li><a href="reservation.html">예약하기</a></li>
-                                    <li><a href="board.html">게시판</a></li>
+                          <li><a href="list.jsp">전체 전시 보기</a></li>
+                            <li><a href="list.jsp">지역별 전시 보기</a></li>
+                            <li><a href="reservation.jsp">예약하기</a></li>
+                                    <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>
                     </div>
                  </div>  
         </div>
-        
-        <!-- /.pricing section -->
-        <div id="myaccount">
-            <div class="container">
-                <div class="text-center ">
-                    <!-- /.pricing title -->
-                    <h2 class="wow fadeInLeft">내 정보</h2>
-                    <div class="title-line wow fadeInRight"></div>
-                </div>
-                <div class="row account-details">
-
-                    <!-- /.account-control -->
-                    <div class="col-sm-3 account-control padding-b-50 padding-t-50">
-                        <div class="panel panel-default sidebar-menu wow  fadeInLeft animated">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Menu</h3>
-                            </div>
-                            <div class="panel-body">
-                                <ul class="nav nav-pills nav-stacked">
-                                  <li ><a href="#void">비밀번호 입력</a></li>
-                                    <li ><a href="my-account_rez.html">예약상황</a></li>
-                                    <li class="active"><a href="my_account_modify.html">내 정보 수정</a></li>
-                                    
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-        
 <div id="sign-in" style="margin-left: 30%">
             <div class="container">
       
                 <div class="col-sm-6"  >
-                    
+                    <div class="text-center">
+                        <h2 class="wow fadeInLeft">Register</h2>
+                        <div class="title-line wow fadeInRight"></div>
+                    </div>
                     <div class="row register">
-
-                        <form action="my-account.html" method="post">
+						
+                        <form action="my-account.jsp" method="post" name="pFrm">
                             <div class="form-group">
                                 <label for="email-login">이메일</label>
-                                <input class="form-control"  type="text" value="내 아이디" id="id"><br/>
+                                <input class="form-control" id="id" type="text"><br/>
+                             <input type="button" id="idCheck" class="btn btn-warning btn-block btn-lg" value="중복확인">
                             </div>
+                         
                             <div class="form-group">
                                 <label for="password-login">비밀번호</label>
-                                <input class="form-control"  type="password" id="password">
+                                <input class="form-control" id="password1" type="password">
                             </div>
-                              <a href="#void.html"><input type="button" class="btn btn-warning btn-block btn-lg" value="비밀번호 수정"></a> 
-                           <br/>
+                            <div class="form-group">
+                                <label for="password-login">비밀번호 확인</label>
+                                <input class="form-control" id="password2" type="password">
+                                <div id="output" style="height: 50px; width: 500px"></div>
+                            </div>
                             <div class="form-group">
                                 <label for="name-login">이름</label>
-                                <input class="form-control"  type="text" id="name">
+                                <input class="form-control" id="name" type="text">
                             </div>
                             <div class="form-group">
                                 <label for="addr-login">주소</label>
-                                <input class="form-control"  type="text" id="addr1"/>
-                                <input class="form-control"  type="text" id="addr2"><br/>
-                        <input type="button"  class="btn btn-warning btn-block btn-lg" value="우편번호 찾기" id="find_addr">
+                                <input class="form-control" id="addr1" type="text"/>
+                                <input class="form-control" id="addr2" type="text"><br/>
+                            <a href="#void"><input type="button" id="find_addr" class="btn btn-warning btn-block btn-lg" value="우편번호 찾기"></a> 
                             </div>
-                                <input type="button"  value="수정" id="next" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px">
-                                <a href="my_account_modify.html"><input type="button"   value="취소" style="width:260px; margin-left: 15px ;background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
-                            
+                            <div class="text-center">
+                                <input type="button" id="next" class="btn btn-warning btn-block btn-lg" value="다음">
+                            </div>
                         </form>
                     </div>
                 </div>
           </div>
           </div>
 
-</div>
-</div>
-</div>
 
         
         <!-- /.footer -->

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +51,7 @@
 
 					<!-- /.logo -->
 					<div class="logo wow fadeInDown" style="margin-top: 50px">
-						<a href="index.html">Exhibition</a>
+						<a href="index.jsp">Exhibition</a>
 					</div>
 
 
@@ -76,10 +78,10 @@
 			<div id="navbar-scroll"
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
-					<li><a href="list.html">전체 전시 보기</a></li>
-					<li><a href="list.html">지역별 전시 보기</a></li>
-					<li><a href="reservation.html">예약하기</a></li>
-					<li><a href="board.html">게시판</a></li>
+					<li><a href="list.jsp">전체 전시 보기</a></li>
+					<li><a href="list.jsp">지역별 전시 보기</a></li>
+					<li><a href="reservation.jsp">예약하기</a></li>
+					<li><a href="board.jsp">게시판</a></li>
 
 				</ul>
 			</div>
@@ -91,17 +93,16 @@
 
 			<div class="col-sm-6">
 				<div class="text-center ">
-					<h2 class="wow fadeInLeft">로그인 실패</h2>
+					<h2 class="wow fadeInLeft">내 정보 수정</h2>
 					<div class="title-line wow fadeInRight">
 					</div>
 					<div class="row register">
-					<div class="form-group">
-					
-					<h2 style="height: 200px; text-align: center; margin-top: 100px;">사용자 정보가<br/>올바르지 않습니다.</h2>
+					<div class="form-group" style="height: 150px; ">
+					<h2 style="margin-top: 50px">회원님의 정보가<br/>정상적으로 수정되었습니다.</h2>
 
-					<a href="http://localhost/jsp_prj/project2/VTC-Theme/login.html"><input type="button" id="find_direction"
-						class="btn btn-warning btn-block btn-lg" value="확인"></a>
 					</div>
+					<a href="index.jsp"><input type="button" id="find_direction"
+						class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>
 				</div>
 			</div>
 		</div>

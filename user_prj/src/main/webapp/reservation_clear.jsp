@@ -1,9 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
 
         <!-- /.website title -->
-        <title>VTC Theme | FQA Page</title>
+        <title>VTC Theme | reservation clear</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -45,12 +47,12 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.html">Exhibition</a>
+                            <a href="index.jsp">Exhibition</a>
                         </div>
 
                         <!-- /.main title -->
                         <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                           비밀번호 찾기
+                           예약완료
                         </h2>
 
                     </div>
@@ -60,22 +62,45 @@
         
         
             <!-- NAVIGATION -->
-        
+        <div id="menu">
+               <div class="container""> 
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand site-name" href="#top">Exhibition</a>
+                    </div>
+
+                    <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="list.jsp">전체 전시 보기</a></li>
+                            <li><a href="list.jsp">지역별 전시 보기</a></li>
+                            <li><a href="taxi.jsp">예약하기</a></li>
+                                    <li><a href="board.jsp">게시판</a></li>
+                        
+                        </ul>
+                    </div>
+                 </div>  
+        </div>
 
         <!-- /.Cars section -->
         <div id="sign-in" style="margin-left: 30%">
             <div class="container">
                 <div class="col-sm-6">
-                    <div class="text-center" style="height: 200px;">
-                        <h2 class="wow fadeInLeft" style="margin-top: 20px">비밀번호 변경이 완료되었습니다.</h2>
-                    </div>
+                    <div class="text-center">
+                        <h2 class="wow fadeInLeft">X시 N명 yyyy-mm-dd일 XXXXX원</h2>
+                        <h2 class="wow fadeInLeft">예약해주셔서 감사합니다.</h2>
                         <div class="title-line wow fadeInRight"></div>
+                    </div>
                     <div class="row sign-in">
 
-                        <form action="my-account.html" method="post">
+                        <form action="my-account.jsp" method="post">
+                            
                             <div class="text-center">
-                              <a href="index.html"><input type="button" id="find_direction"  class="btn btn-warning" value="메인으로 돌아가기"></a>  
-                              <a href="login.html"><input type="button" id="find_direction"  class="btn btn-warning" value="로그인하기"></a>  
+                              <a href="index.jsp"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>  
                             </div>
                         </form>
 

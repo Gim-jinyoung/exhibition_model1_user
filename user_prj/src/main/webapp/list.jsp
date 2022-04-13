@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head> 
@@ -28,13 +30,6 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
     </head>
-    <script type="text/javascript">
-    $(function(){
-    });//onload
-    function detail(){
-    		window.open("my-account_rez_child.html","detail","width=600px, height=500px");
-    }
-    </script>
 
     <body data-spy="scroll" data-target="#navbar-scroll">
         <!-- /.preloader -->
@@ -51,7 +46,7 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.html">Exhibition</a>
+                            <a href="index.jsp">Exhibition</a>
                         </div>
 
                        
@@ -72,15 +67,15 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.html">Exhibition</a>
+                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                     <li><a href="list.html">전체 전시 보기</a></li>
-                            <li><a href="list.html">지역별 전시 보기</a></li>
-                            <li><a href="reservation.html">예약하기</a></li>
-                                    <li><a href="board.html">게시판</a></li>
+                              <li><a href="list.jsp">전체 전시 보기</a></li>
+                            <li><a href="list.jsp">지역별 전시 보기</a></li>
+                            <li><a href="reservation.jsp">예약하기</a></li>
+                                    <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>
                     </div>
@@ -90,7 +85,7 @@
 
         <!-- /.pricing section -->
         <div id="myaccount">
-          <div class="container">
+         <div class="container">
              <form class="d-flex">
         <button class="btn btn-outline-success" type="submit" style="float: right; height: 50px">Search</button>
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="float: right; width: 200px">
@@ -99,74 +94,85 @@
             <div class="container">
                 <div class="text-center ">
                     <!-- /.pricing title -->
-                    <h2 class="wow fadeInLeft">내 정보</h2>
+                    <h2 class="wow fadeInLeft">전시 리스트</h2>
                     <div class="title-line wow fadeInRight"></div>
                 </div>
-                <div class="row account-details">
 
-                    <!-- /.account-control -->
-                    <div class="col-sm-3 account-control padding-b-50 padding-t-50">
-                        <div class="panel panel-default sidebar-menu wow  fadeInLeft animated">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Menu</h3>
-                            </div>
-                            <div class="panel-body">
-                                <ul class="nav nav-pills nav-stacked">
-                              		 <li> <a href="#void">비밀번호 입력</a></li>
-                                    <li class="active"><a href="#void">예약상황</a></li>
-                                    <li><a href="my_account_modify.html">내 정보 수정</a></li>
-                                    
-                                    
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                 
 
                     <div class="col-sm-9 account-data padding-b-50 padding-t-50">
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
-                            <h2 style="padding-bottom: 17px;">예약 상황</h2>
+                            <h2 style="padding-bottom: 17px;">목록</h2>
+					 
+                            <!-- /.Cars section -->
+        <div id="carssection">
+            <div class="container">
+              
+                <div class="row carssections">
 
-                                    
-                            <table id="mybooking-list" class="table booking-list stacktable large-only">
-                                <tbody>
-                                    <tr>
-                                        
-                                        <th>전시이름</th>
-                                        <th>방문 날짜</th> 
-                                        <th>방문 시간</th> 
-                                        <th>방문 인원</th> 
-                                        <th>예약 날짜</th> 
-                                        <th>예약 상황</th> 
-                                        
-                                    </tr>
-
-                                    <tr title="Booking id : 1448465068">
-                                        <td><a href="#void" onclick="detail()">전시1</a></td>
-                                        <td>2021-04-03 </td>
-                                        <td>15:00~16:00 </td>
-                                        <td>1</td>
-                                        <td>
-                                            12/22/2015<br>
-                                            11:11
-                                        </td>
-                                        <td>완료 </td>
-                                        
-                                    </tr> 
-                                    
-                                </tbody>
-                            </table>
-                         
-                            <div class="text-center">
-							<a href="my-account_rez.html"><input type="button" id="find_direction"  value="확인" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
-							</div>	                        
+                        <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                            <figure >
+                                <div class="screen wow fadeInUp" style="position:absolute; left:350px; width: 900px; height: 400px"><strong>전시 설명</strong><br/> 짧은 설명</div>
+                                <a href="exhibition_detail.jsp"><img src="images/car1.png" style="width:300px"/></a>
+                            
+                            </figure>
+                        </div>   
+                        
+                            <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                            <figure >
+                                <div class="screen wow fadeInUp" style="position:absolute; left:350px; width: 900px; height: 400px"><strong>전시 설명</strong><br/> 짧은 설명</div>
+                                <a href="exhibition_detail.jsp"><img src="images/car1.png" style="width:300px"/></a>
+                            
+                            </figure>
+                        </div>       
+                         <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                            <figure >
+                                <div class="screen wow fadeInUp" style="position:absolute; left:350px; width: 900px; height: 400px"><strong>전시 설명</strong><br/> 짧은 설명</div>
+                                <a href="exhibition_detail.jsp"><img src="images/car1.png" style="width:300px"/></a>                            
+                            </figure>
+                        </div>  
+                         <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                            <figure >
+                                <div class="screen wow fadeInUp" style="position:absolute; left:350px; width: 900px; height: 400px"><strong>전시 설명</strong><br/> 짧은 설명</div>
+                                <a href="exhibition_detail.jsp"><img src="images/car1.png" style="width:300px"/></a>
+                            
+                            </figure>
+                        </div>  
+                         <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                            <figure >
+                                <div class="screen wow fadeInUp" style="position:absolute; left:350px; width: 900px; height: 400px"><strong>전시 설명</strong><br/> 짧은 설명</div>
+                               <a href="exhibition_detail.jsp"><img src="images/car1.png" style="width:300px"/></a>
+                            
+                            </figure>
+                        </div>         
+                        </div>  
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                         
+                               <div class="text-center">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+ </div>       
+         
       
         
      <!-- /.footer -->
@@ -222,7 +228,7 @@
         <script>
             new WOW().init();
         </script>
-	
+
 
     </body>
 </html>

@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,14 +10,12 @@
 
 <meta charset="UTF-8" />
 <!-- CSS Files -->
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/font-awesome.min.css" rel="stylesheet">
 <link href="fonts/icon-7-stroke/css/pe-icon-7-stroke.css"
 	rel="stylesheet">
 <link href="css/animate.css" rel="stylesheet" media="screen">
 <link href="css/owl.theme.css" rel="stylesheet">
 <link href="css/owl.carousel.css" rel="stylesheet">
-<link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
 <!-- Colors -->
 <!-- <link href="css/css-index-blue.css" rel="stylesheet" media="screen"> -->
@@ -29,6 +29,46 @@
 <!-- Google Fonts -->
 <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
+
+</style>
+<!-- jQuery CDN -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- include libraries(jQuery, bootstrap) -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- include summernote css/js -->
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"
+	defer></script>
+<style type="text/css">
+a{
+    color: #d1b702;
+    outline: 0;
+    font-weight: bold;
+    -webkit-transition: all .8s ease;
+    transition: all .8s ease;
+} 
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#summernote1').summernote({
+			height : 400
+		});
+		$("#btn").click(function() {
+			$("#frm").submit();
+		});
+	});
+</script>
 
 </head>
 
@@ -49,7 +89,7 @@
 
 					<!-- /.logo -->
 					<div class="logo wow fadeInDown" style="margin-top: 50px">
-						<a href="index.html">Exhibition</a>
+						<a href="index.jsp">Exhibition</a>
 					</div>
 
 
@@ -62,7 +102,7 @@
 
 	<!-- NAVIGATION -->
 	<div id="menu">
-		<div class="container"">
+		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-backyard">
@@ -76,37 +116,61 @@
 			<div id="navbar-scroll"
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
-					<li><a href="list.html">전체 전시 보기</a></li>
-					<li><a href="list.html">지역별 전시 보기</a></li>
-					<li><a href="reservation.html">예약하기</a></li>
-					<li><a href="board.html">게시판</a></li>
+					<li><a href="list.jsp">전체 전시 보기</a></li>
+					<li><a href="list.jsp">지역별 전시 보기</a></li>
+					<li><a href="reservation.jsp">예약하기</a></li>
+					<li><a href="board.jsp">게시판</a></li>
 
 				</ul>
 			</div>
 		</div>
 	</div>
+
+
 	<!-- /.pricing section -->
-	<div id="sign-in" style="margin-left: 30%">
+	<div id="myaccount">
 		<div class="container">
-
-			<div class="col-sm-6">
-				<div class="text-center ">
-					<h2 class="wow fadeInLeft">내 정보 수정</h2>
-					<div class="title-line wow fadeInRight">
-					</div>
-					<div class="row register">
-					<div class="form-group" style="height: 150px; ">
-					<h2 style="margin-top: 50px">회원님의 정보가<br/>정상적으로 수정되었습니다.</h2>
-
-					</div>
-					<a href="index.html"><input type="button" id="find_direction"
-						class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>
-				</div>
+			<div class="text-center ">
+				<!-- /.pricing title -->
+				<h2 class="wow fadeInLeft">상세 게시판</h2>
+				<div class="title-line wow fadeInRight"></div>
 			</div>
+			<div class="row account-details">
+
+				<!-- /.account-control -->
+				<div
+					class="panel panel-default sidebar-menu wow  fadeInLeft animated">
+				</div>
+				<div class="panel-heading">
+					<h3 class="panel-title">제목</h3>
+					<input class="form-control" type="text" readonly="readonly"
+						style="background: #ffffff">
+					<textarea name="ta" readonly="readonly"
+						style="background: #ffffff; border-style: none; resize: none; width: 100%; height: 50%">가나다라</textarea>
+				</div>
+				</div>
+					<i class="fa fa-comment fa" ></i> REPLY
+				<div class="card-body">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							<div class="form-inline mb-2">
+								<label for="replyId"><i
+									class="fa fa-user-circle-o fa-2x"></i></label>
+							</div> <textarea class="form-control" id="exampleFormControlTextarea1" style="width: 100%;resize: none;"
+								rows="3"></textarea>
+							<button type="button" class="btn btn-dark mt-3" style="margin-top:10px;">댓글 작성</button>
+						</li>
+					</ul>
+				</div>
+				<br /> <a href="board.jsp"><input type="button" value="확인" id="btn"
+					class="btn btn-warning btn-block btn-lg" /></a>
+			</div>
+			
+			</form>
+
 		</div>
 	</div>
 	</div>
-
 
 
 

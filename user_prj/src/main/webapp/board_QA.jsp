@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head> 
         <!-- /.website title -->
-        <title>VTC Theme | My account</title>
+        <title>게시판-Q&A</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -44,7 +46,7 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.html">Exhibition</a>
+                            <a href="index.jsp">Exhibition</a>
                         </div>
 
                        
@@ -65,20 +67,21 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.html">Exhibition</a>
+                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                               <li><a href="list.html">전체 전시 보기</a></li>
-                            <li><a href="list.html">지역별 전시 보기</a></li>
-                            <li><a href="reservation.html">예약하기</a></li>
-                                    <li><a href="board.html">게시판</a></li>
+                               <li><a href="list.jsp">전체 전시 보기</a></li>
+                            <li><a href="list.jsp">지역별 전시 보기</a></li>
+                            <li><a href="reservation.jsp">예약하기</a></li>
+                                    <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>
                     </div>
                  </div>  
         </div>
+
 
         <!-- /.pricing section -->
         <div id="myaccount">
@@ -88,7 +91,7 @@
                     <h2 class="wow fadeInLeft">게시판</h2>
                     <div class="title-line wow fadeInRight"></div>
                 </div>
-   
+                   
       <div >
       <form class="d-flex">
         <button class="btn btn-outline-success" type="submit" style="float: right; height: 50px">Search</button>
@@ -111,7 +114,7 @@
                                             </select></li>
                                     
                                     
-                                    <li><a href="board_QA.html">Q&A</a> </li>
+                                    <li class="active"><a href="#void">Q&A</a> </li>
                                 </ul>
                             </div>
                         </div>
@@ -119,7 +122,7 @@
 
                     <div class="col-sm-9 account-data padding-b-50 padding-t-50">
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
-                            <h2 style="padding-bottom: 17px;">전시1</h2>
+                            <h2 style="padding-bottom: 17px;">Q&A</h2>
                             <a href="boardWrite.html"><input type="button"  class="btn btn-warning btn-block btn-lg" value="글 작성" style="width: 100px; float: right;"></a> <br/><br/>
 
                             <table  class="table booking-list stacktable large-only">
@@ -138,13 +141,13 @@
                                     <th><input type="checkbox" /></th>
                                         <td>1</td>
 								
-                                      <td style="text-align: center;">	<a href="boardDetail.html" style="color: #000000 ; font-weight: normal;">후기 </a></td>
+                                      <td style="text-align: center;">	<a href="boardDetail.jsp" style="color: #000000 ; font-weight: normal;">질문 </a></td>
                                         <td>3조</td>
                                         <td>
                                             12/22/2015
                                             11:11
                                         </td>
-                                        <td>0</td>
+                                        <td>1</td>
                                     </tr> 
                                 </tbody>
                             </table>
@@ -175,7 +178,9 @@
     </li>
   </ul>
 </nav>
- </div>     
+ </div>
+
+      
         
      <!-- /.footer -->
         <footer id="footer">
@@ -233,4 +238,4 @@
 
 
     </body>
-</html>
+    </html>

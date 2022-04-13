@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head> 
@@ -27,6 +29,7 @@
         <!-- Google Fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
+
     </head>
 
     <body data-spy="scroll" data-target="#navbar-scroll">
@@ -44,7 +47,7 @@
 
                         <!-- /.logo -->
                         <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.html">Exhibition</a>
+                            <a href="index.jsp">Exhibition</a>
                         </div>
 
                        
@@ -57,7 +60,7 @@
         
               <!-- NAVIGATION -->
         <div id="menu">
-               <div class="container"> 
+               <div class="container""> 
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
                             <span class="sr-only">Toggle navigation</span>
@@ -65,15 +68,15 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.html">Exhibition</a>
+                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                               <li><a href="list.html">전체 전시 보기</a></li>
-                            <li><a href="list.html">지역별 전시 보기</a></li>
-                            <li><a href="reservation.html">예약하기</a></li>
-                                    <li><a href="board.html">게시판</a></li>
+                     <li><a href="list.jsp">전체 전시 보기</a></li>
+                            <li><a href="list.jsp">지역별 전시 보기</a></li>
+                            <li><a href="reservation.jsp">예약하기</a></li>
+                                    <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>
                     </div>
@@ -86,16 +89,9 @@
             <div class="container">
                 <div class="text-center ">
                     <!-- /.pricing title -->
-                    <h2 class="wow fadeInLeft">게시판</h2>
+                    <h2 class="wow fadeInLeft">내 정보</h2>
                     <div class="title-line wow fadeInRight"></div>
                 </div>
-                   
-      <div >
-      <form class="d-flex">
-        <button class="btn btn-outline-success" type="submit" style="float: right; height: 50px">Search</button>
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="float: right; width: 200px">
-      </form>
-</div>
                 <div class="row account-details">
 
                     <!-- /.account-control -->
@@ -106,13 +102,11 @@
                             </div>
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
-                                    <li class="active">  <select class="form-control input-lg" name="Exhibition">
-                                            <option value="00전시">00전시</option>
-                                            <option value="00전시">00전시</option>
-                                            </select></li>
+                              		 <li class="active"> <a href="my_account_pass.jsp">비밀번호 입력</a></li>
+                                    <li ><a href="#void">예약상황</a></li>
+                                    <li><a href="#void">내 정보 수정</a></li>
                                     
                                     
-                                    <li class="active"><a href="#void">Q&A</a> </li>
                                 </ul>
                             </div>
                         </div>
@@ -120,63 +114,23 @@
 
                     <div class="col-sm-9 account-data padding-b-50 padding-t-50">
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
-                            <h2 style="padding-bottom: 17px;">Q&A</h2>
-                            <a href="boardWrite.html"><input type="button"  class="btn btn-warning btn-block btn-lg" value="글 작성" style="width: 100px; float: right;"></a> <br/><br/>
-
-                            <table  class="table booking-list stacktable large-only">
-                                <tbody>
-                                    <tr>
-                                        <th><input type="checkbox" /></th>
-                                        <th>번호</th>
-                                        <th style="width:400px; text-align: center;">제목</th> 
-                                        <th>작성자</th> 
-                                        <th>작성일</th> 
-                                        <th>댓글 수</th> 
-                                        
-                                        
-                                    </tr>
-                                    <tr title="Booking id : 1448465068">
-                                    <th><input type="checkbox" /></th>
-                                        <td>1</td>
-								
-                                      <td style="text-align: center;">	<a href="boardDetail.html" style="color: #000000 ; font-weight: normal;">질문 </a></td>
-                                        <td>3조</td>
-                                        <td>
-                                            12/22/2015
-                                            11:11
-                                        </td>
-                                        <td>1</td>
-                                    </tr> 
-                                </tbody>
-                            </table>
-
-                            
-
+                            <h2 style="padding-bottom: 17px;">비밀번호 확인</h2>
+								<br/>
+                           	<div class="form-group" style="width:500px; margin-left: 150px">
+                                <input class="form-control" id="password" type="password">
+                            </div>
+								<br/>
+								<br/>
+                            <div class="text-center">
+							<input type="button" id="find_direction"  value="확인" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px"> 
+							</div>	                        
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-<div class="text-center">
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
- </div>
+
 
       
         
@@ -234,6 +188,19 @@
             new WOW().init();
         </script>
 
-
+<script type="text/javascript">
+$(function(){
+	$("#find_direction").click(function(){
+	var pass=$(".form-control").val();
+	
+	if(pass==""){
+		alert("비밀번호를 입력해주세요");
+		return;
+	}
+	
+	location.href="my-account_rez.jsp";
+	});
+});
+</script>
     </body>
 </html>
