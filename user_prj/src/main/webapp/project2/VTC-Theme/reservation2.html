@@ -82,12 +82,12 @@
                                         </div>
 
                                         <div id="date_time" class="form-group">
-                                           <input class="form-control input-lg" name="pick_up_date" id="pick_up_date" type="text" placeholder="날짜선택" required>
+                                           <input class="form-control input-lg" name="pick_up_date" class="pick_up_date" id="pick_up_date" type="text" placeholder="날짜선택" required>
                                             <a class="add-on btn-geolocation btn-calendar" href="#"><i class="pe-7s-date" ></i></a>
                                         </div>
 
                                         <div class="form-group last">
-                                           <a href="reservation_clear.html"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="예약하기"></a>
+                                           <input type="button" id="find_direction" onclick="reservation()" class="btn btn-warning btn-block btn-lg" value="예약하기"/>
                                         </div>
                                     </div>
 
@@ -200,7 +200,16 @@
         <script src="js/snap.svg-min.js"></script> 
 
 
-
+<script type="text/javascript">
+function reservation(){
+	var reser=document.getElementById("pick_up_date").value;
+	if(reser==""){
+		alert("날짜를 선택해주세요.");
+		return;
+	}
+	location.href="reservation_clear.html";
+}
+</script>
         <script>
                                                 new WOW().init();
                                                 $('#date_time').datetimepicker({
@@ -236,8 +245,9 @@
                 }
                 init();
             })();
-        </script>
+            
 
+        </script>
 
     </body>
 </html>
