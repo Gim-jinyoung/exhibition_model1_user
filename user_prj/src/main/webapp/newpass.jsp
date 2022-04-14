@@ -88,7 +88,7 @@ function vaild(x){
 		    return;
 		    }
 		if(x.pass1.value==x.pass2.value){
-			location.href="http://localhost/user_prj/project2/VTC-Theme/passclear.jsp"
+			location.href="http://localhost/user_prj/passclear.jsp"
 		}
 		
 }//vaild
