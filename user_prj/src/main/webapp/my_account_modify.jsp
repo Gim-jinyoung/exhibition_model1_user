@@ -190,7 +190,7 @@ $(function(){
                                 <label for="password-login">비밀번호</label>
                                 <input class="form-control"  type="password" id="password">
                             </div>
-                              <a href="#void"><input type="button" class="btn btn-warning btn-block btn-lg" value="비밀번호 수정"></a> 
+                              <a href="http://localhost/user_prj/newpass.jsp"><input type="button" class="btn btn-warning btn-block btn-lg" value="비밀번호 수정"></a> 
                            <br/>
                             <div class="form-group">
                                 <label for="name-login">이름</label>
