@@ -4,6 +4,7 @@ public class ExhibitionVO {
  private String ex_name, ex_poster, ex_info, ex_intro , add_Img,exhibit_date, dead_line, input_date ;
  private char ex_status;
  private int ex_num, total_count;
+ 
  public ExhibitionVO() {
 	 
  }

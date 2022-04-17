@@ -1,20 +1,20 @@
 package VO;
 
 public class ExhibitionHallVO {
-	private String ex_name, adress1, address2, mgr_name, mgr_tel, ex_tel ,zipcode, input_date;
+	private String ex_name, adress1, adress2, mgr_name, mgr_tel, ex_tel ,zipcode, input_date;
 	private char hall_deleted;
 	private int ex_hall_num;
 	private double latitude, longitude;
 	public ExhibitionHallVO() {
 		
 	}
-	public ExhibitionHallVO(String ex_name, String adress1, String address2, String mgr_name, String mgr_tel,
+	public ExhibitionHallVO(String ex_name, String adress1, String adress2, String mgr_name, String mgr_tel,
 			String ex_tel, String zipcode, String input_date, char hall_deleted, int ex_hall_num, double latitude,
 			double longitude) {
 		super();
 		this.ex_name = ex_name;
 		this.adress1 = adress1;
-		this.address2 = address2;
+		this.adress2 = adress2;
 		this.mgr_name = mgr_name;
 		this.mgr_tel = mgr_tel;
 		this.ex_tel = ex_tel;
@@ -37,11 +37,11 @@ public class ExhibitionHallVO {
 	public void setAdress1(String adress1) {
 		this.adress1 = adress1;
 	}
-	public String getAddress2() {
-		return address2;
+	public String getAdress2() {
+		return adress2;
 	}
-	public void setAddress2(String address2) {
-		this.address2 = address2;
+	public void setAdress2(String adress2) {
+		this.adress2 = adress2;
 	}
 	public String getMgr_name() {
 		return mgr_name;
