@@ -1,13 +1,14 @@
 package VO;
 
 public class MemberVO {
-	private String userId,tel,zipcode,address1,address2,password,isSubscribeDate;
+	private String userId,tel,zipcode,address1,address2,password,isSubscribeDate,name;
 	private char isDeleted;
-	
-	
-	
+	public MemberVO() {
+		
+	}
 	public MemberVO(String userId, String tel, String zipcode, String address1, String address2, String password,
-			String isSubscribeDate, char isDeleted) {
+			String isSubscribeDate, String name, char isDeleted) {
+		super();
 		this.userId = userId;
 		this.tel = tel;
 		this.zipcode = zipcode;
@@ -15,15 +16,9 @@ public class MemberVO {
 		this.address2 = address2;
 		this.password = password;
 		this.isSubscribeDate = isSubscribeDate;
+		this.name = name;
 		this.isDeleted = isDeleted;
 	}
-	
-	
-	public MemberVO() {
-		
-	}
-
-
 	public String getUserId() {
 		return userId;
 	}
@@ -66,6 +61,12 @@ public class MemberVO {
 	public void setIsSubscribeDate(String isSubscribeDate) {
 		this.isSubscribeDate = isSubscribeDate;
 	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public char getIsDeleted() {
 		return isDeleted;
 	}
@@ -73,7 +74,7 @@ public class MemberVO {
 		this.isDeleted = isDeleted;
 	}
 	
-	
-	
-
 }
+	
+	
+	

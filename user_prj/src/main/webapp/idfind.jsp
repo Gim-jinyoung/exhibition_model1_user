@@ -164,7 +164,7 @@
 					alert("휴대폰번호를 입력해주세요.");
 					return;
 				}
-				location.href="idclear.html";
+				location.href="http://localhost/user_prj/idclear.jsp";
 			});
         });
         </script>
