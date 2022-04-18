@@ -129,10 +129,12 @@
                                     <tr>
                                         <th><input type="checkbox" /></th>
                                         <th>번호</th>
-                                        <th style="width:400px; text-align: center;">제목</th> 
+                                        <th style="width:350px; text-align: center;">제목</th> 
                                         <th>작성자</th> 
                                         <th>작성일</th> 
                                         <th>댓글 수</th> 
+                                        <th>조회
+                                        </th> 
                                         
                                         
                                     </tr>
@@ -147,7 +149,10 @@
                                             11:11
                                         </td>
                                         <td>0</td>
+                                        <td>0</td>
                                     </tr> 
+                                    
+                                    
                                 </tbody>
                             </table>
 
