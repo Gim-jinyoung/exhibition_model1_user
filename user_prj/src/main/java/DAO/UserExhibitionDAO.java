@@ -1,13 +1,9 @@
 package DAO;
 
-import java.io.Console;
-import java.security.interfaces.RSAKey;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,17 +12,12 @@ import VO.ExhibitionHallVO;
 import VO.ExhibitionVO;
 
 public class UserExhibitionDAO {
-	private static UserExhibitionDAO uehDAO;
-	
-	public UserExhibitionDAO(){
-
-	}
-	
+private static UserExhibitionDAO umDAO;
 	public static UserExhibitionDAO getInstance() {
-		if(uehDAO==null) {
-			uehDAO=new UserExhibitionDAO();
+		if(umDAO==null) {
+			umDAO=new UserExhibitionDAO();
 		}
-		return uehDAO;
+		return umDAO;
 	}
 	
 	public List<ExhibitionVO> selectAllExList(String ex_name)throws SQLException{
@@ -65,7 +56,7 @@ public class UserExhibitionDAO {
 		return list;
 	}
 	
-/*	public List<ExhibitionVO> selectLocalExList(String ex_loc)throws SQLException{
+	public List<ExhibitionVO> selectLocalExList(String ex_loc)throws SQLException{
 		List<ExhibitionVO> list=new ArrayList<ExhibitionVO>();
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -77,36 +68,28 @@ public class UserExhibitionDAO {
 			con=dc.getConn();
 			StringBuilder selectLocalExList=new StringBuilder();
 			selectLocalExList
-			.append("	select  ex.ex_num, ex.ex_name, exh.ex_hall_num, exh.ex_loc, exh.adress1, exh.adress2	")
+			.append("	select  ex.ex_num, ex.ex_name, exh.ex_loc	")
 			.append("	from    exhibition ex inner join exhibition_hall exh	")
 			.append("	on   ex.ex_hall_num = exh.ex_hall_num	")
-			.append("	where  exh.ex_loc like '	")
+			.append("	where  exh.ex_loc like '")
 			.append(ex_loc).append("'");
-			pstmt=con.prepareStatement(ex_loc);
-		
-			//4.
-			//5.
-				rs=pstmt.executeQuery();
+			pstmt=con.prepareStatement(selectLocalExList.toString());
+			rs=pstmt.executeQuery();
 		ExhibitionVO exVO=null;
-		ExhibitionHallVO exhVO=null;
 		while(rs.next()) {
-			exhVO=new ExhibitionHallVO();
 			exVO=new ExhibitionVO();
 			exVO.setEx_num(rs.getInt("ex_num"));
 			exVO.setEx_name(rs.getString("ex_name"));
-//			exhVO.setEx_loc(rs.getString("ex_loc"));
-			exhVO.setAdress1(rs.getString("adress1"));				
-			exhVO.setAdress2(rs.getString("adress2"));				
 			list.add(exVO);
 		}
 	}finally {
 		dc.close(rs, pstmt, con);
 	}
 		return list;
-	}*/
+	}
 	public static void main(String[] args) {
 		try {
-			System.out.println(UserExhibitionDAO.getInstance().selectAllExList("지금 이따가 다음에"));
+			System.out.println(UserExhibitionDAO.getInstance().selectLocalExList("경기 안산"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

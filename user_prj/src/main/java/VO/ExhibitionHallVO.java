@@ -1,7 +1,7 @@
 package VO;
 
 public class ExhibitionHallVO {
-	private String ex_name, adress1, adress2, mgr_name, mgr_tel, ex_tel ,zipcode, input_date;
+	private String ex_name, adress1, adress2, mgr_name, mgr_tel, ex_tel ,zipcode, input_date,ex_loc;
 	private char hall_deleted;
 	private int ex_hall_num;
 	private double latitude, longitude;
@@ -9,9 +9,8 @@ public class ExhibitionHallVO {
 		
 	}
 	public ExhibitionHallVO(String ex_name, String adress1, String adress2, String mgr_name, String mgr_tel,
-			String ex_tel, String zipcode, String input_date, char hall_deleted, int ex_hall_num, double latitude,
-			double longitude) {
-		super();
+			String ex_tel, String zipcode, String input_date, String ex_loc, char hall_deleted, int ex_hall_num,
+			double latitude, double longitude) {
 		this.ex_name = ex_name;
 		this.adress1 = adress1;
 		this.adress2 = adress2;
@@ -20,6 +19,7 @@ public class ExhibitionHallVO {
 		this.ex_tel = ex_tel;
 		this.zipcode = zipcode;
 		this.input_date = input_date;
+		this.ex_loc = ex_loc;
 		this.hall_deleted = hall_deleted;
 		this.ex_hall_num = ex_hall_num;
 		this.latitude = latitude;
@@ -73,6 +73,12 @@ public class ExhibitionHallVO {
 	public void setInput_date(String input_date) {
 		this.input_date = input_date;
 	}
+	public String getEx_loc() {
+		return ex_loc;
+	}
+	public void setEx_loc(String ex_loc) {
+		this.ex_loc = ex_loc;
+	}
 	public char getHall_deleted() {
 		return hall_deleted;
 	}
@@ -97,5 +103,6 @@ public class ExhibitionHallVO {
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
+	
 	
 }
