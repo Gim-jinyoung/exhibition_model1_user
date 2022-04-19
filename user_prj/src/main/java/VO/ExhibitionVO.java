@@ -3,13 +3,13 @@ package VO;
 public class ExhibitionVO {
  private String ex_name, ex_poster, ex_info, ex_intro , add_Img,exhibit_date, dead_line, input_date ;
  private char ex_status;
- private int ex_num, total_count;
+ private int ex_num, total_count,adult,teen,child;
  
  public ExhibitionVO() {
 	 
  }
 public ExhibitionVO(String ex_name, String ex_poster, String ex_info, String ex_intro, String add_Img,
-		String exhibit_date, String dead_line, String input_date, char ex_status, int ex_num, int total_count) {
+		String exhibit_date, String dead_line, String input_date, char ex_status, int ex_num, int total_count, int adult, int teen, int child) {
 	super();
 	this.ex_name = ex_name;
 	this.ex_poster = ex_poster;
@@ -22,6 +22,9 @@ public ExhibitionVO(String ex_name, String ex_poster, String ex_info, String ex_
 	this.ex_status = ex_status;
 	this.ex_num = ex_num;
 	this.total_count = total_count;
+	this.adult = adult;
+	this.teen = teen;
+	this.child = child;
 }
 public String getEx_name() {
 	return ex_name;
@@ -88,6 +91,42 @@ public int getTotal_count() {
 }
 public void setTotal_count(int total_count) {
 	this.total_count = total_count;
+}
+/**
+ * @return the adult
+ */
+public int getAdult() {
+	return adult;
+}
+/**
+ * @param adult the adult to set
+ */
+public void setAdult(int adult) {
+	this.adult = adult;
+}
+/**
+ * @return the teen
+ */
+public int getTeen() {
+	return teen;
+}
+/**
+ * @param teen the teen to set
+ */
+public void setTeen(int teen) {
+	this.teen = teen;
+}
+/**
+ * @return the child
+ */
+public int getChild() {
+	return child;
+}
+/**
+ * @param child the child to set
+ */
+public void setChild(int child) {
+	this.child = child;
 }
 
 }

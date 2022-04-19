@@ -34,26 +34,24 @@ function reservationCancel() {
 <br/>
 <table>
 <tr>
-	<th>사용자 테이블</th><td>userid</td>
+	<th>사용자: </th><td>userid</td>
 </tr>
 <tr>
-	<th>예약 번호</th><td>1234</td>
+	<th>예약 번호: </th><td>1234</td>
 </tr>
 <tr>
-	<th>전시 명</th><td>전시1</td>
+	<th>전시 명: </th><td>전시1</td>
 </tr>
 <tr>
-	<th>전시 장 : </th><td>전시장1</td>
+	<th>전시 장: </th><td>전시장1</td>
 </tr>
 <tr>
-	<th>방문 날짜</th><td>2021-04-07</td>
+	<th>방문 날짜: </th><td>2021-04-07</td>
 </tr>
 <tr>
-	<th>관람 인원</th><td>3명</td>
+	<th>관람 인원: </th><td>3명</td>
 </tr>
-<tr>
-	<th>총 가격</th><td>1500원</td>
-</tr>
+
 
 </table>
 <br/><br/>

@@ -7,10 +7,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import DbConnection.DbConnection;
+import DbConnection.DbcpConnection;
 import VO.BoardrVO;
 
 public class BoardDAO {
+	
+private static BoardDAO bDAO;
+	
+	public static BoardDAO getInstance() {
+		if(bDAO == null) {
+			bDAO=new BoardDAO();
+		}//end if
+		return bDAO;
+	}//getInstance
 	
 	/**
 	 * 게시판 페이지 보여주는 메소드
@@ -20,14 +29,14 @@ public class BoardDAO {
 	public List<BoardrVO> selectBoard(BoardrVO bVO) throws SQLException{
 		List<BoardrVO> list=new ArrayList<BoardrVO>();
 		
-		DbConnection dc=DbConnection.getInstance();
+		DbcpConnection dc=new DbcpConnection();
 		
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
 		try {
-			con=dc.getConn();
+			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
 			.append("select bd_id,title,recommend,views,input_date,userid")
@@ -52,7 +61,7 @@ public class BoardDAO {
 				
 			}//end while
 		}finally {
-			dc.close(rs, pstmt, con);
+			dc.dbClose(rs, pstmt, con);
 		}//end finally
 		
 		return list;
@@ -64,7 +73,7 @@ public class BoardDAO {
 	 * @return 삭제 완료/실패
 	 */
 	public boolean deleteBoard(int bd_id) throws SQLException {
-		DbConnection dc=DbConnection.getInstance();
+		DbcpConnection dc=new DbcpConnection();
 		
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -72,7 +81,7 @@ public class BoardDAO {
 		int n=0;
 		
 		try {
-			con=dc.getConn();
+			con=dc.getConnection();
 			pstmt=con.prepareStatement("delete from board where=bd_id=?");
 			pstmt.setInt(1, bd_id);			
 			n=pstmt.executeUpdate();
@@ -81,7 +90,7 @@ public class BoardDAO {
 			}
 				
 		}finally {
-			dc.close(null, pstmt, con);
+			dc.dbClose(null, pstmt, con);
 		}//end finally
 		return result;
 	}//deleteBoard
@@ -91,12 +100,12 @@ public class BoardDAO {
 	 * @param bVO (작성자, 일자 등 )
 	 */
 	public void insertBoard(BoardrVO bVO) throws SQLException{
-		DbConnection dc=DbConnection.getInstance();
+		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		
 		try {
-			con=dc.getConn();
+			con=dc.getConnection();
 			pstmt=con.prepareStatement("insert into board(title,description,cat_num,userid) values(?,?,?,?)");
 			pstmt.setString(1,bVO.getTitle());			
 			pstmt.setString(2,bVO.getDescription().toString());			
@@ -105,7 +114,7 @@ public class BoardDAO {
 			pstmt.executeQuery();
 				
 		}finally {
-			dc.close(null, pstmt, con);
+			dc.dbClose(null, pstmt, con);
 		}//end finally
 	}//insertBoard
 
@@ -115,7 +124,7 @@ public class BoardDAO {
 	 * @return
 	 */
 	public boolean updateBoard(BoardrVO bVO)  throws SQLException{
-		DbConnection dc=DbConnection.getInstance();
+		DbcpConnection dc=new DbcpConnection();
 		
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -123,7 +132,7 @@ public class BoardDAO {
 		int n=0;
 		
 		try {
-			con=dc.getConn();
+			con=dc.getConnection();
 			pstmt=con.prepareStatement("update board set title=?, description=?, cat_num=? where bd_id=? and userid=?");
 			pstmt.setString(1, bVO.getTitle());			
 			pstmt.setString(2, bVO.getDescription().toString());			
@@ -136,10 +145,10 @@ public class BoardDAO {
 			}
 				
 		}finally {
-			dc.close(null, pstmt, con);
+			dc.dbClose(null, pstmt, con);
 		}//end finally
 		return result;
-	}
+	}//updateBoard
 	
 	/**
 	 * 게시글 내용 보기
@@ -148,41 +157,42 @@ public class BoardDAO {
 	 */
 	public BoardrVO selectBoardDetail(int bd_id) throws SQLException {
 		
-		DbConnection dc=DbConnection.getInstance();
+		DbcpConnection dc=new DbcpConnection();
 		
-		BoardrVO eVO=null;
+		BoardrVO bVO=null;
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
 		try {
-			con=dc.getConn();
+			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select c.cat_name,b.title,b.userid,b.input_date,b.description,c.cm_description,c.input_date,c.cm_id,c.user_id")
-			.append("from board b, comment c")
-			.append("where (b.bd_id=c.bd_id) and bd_id=?");
+			.append("select c.cat_name,b.title,b.userid,b.input_date,b.description,c.cm_description,c.input_date ci,c.cm_id,c.user_id")
+			.append("from board b, comment_table  c,CATEGORY ct")
+			.append("where (b.bd_id=c.bd_id and b.cat_num=ct.cat_num) and bd_id=?");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1,bd_id);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
-				eVO=new BoardrVO();
-				eVO.setCat_name(rs.getString("cat_name"));
-				eVO.setTitle(rs.getString("title"));
-				eVO.setUserid(rs.getString("userid"));
-				eVO.setInput_date(rs.getString("input_date"));
-			//	eVO.setDescription(rs.getstring("description"));//질문(String Bulider는 어떻게, 같은 이름 input_date는 어떻게
-			//	eVO.setCm_description(rs.getString("cm_description"));
-				eVO.setCm_id(rs.getInt("cm_id"));
-				eVO.setUserid(rs.getString("userid"));
+				bVO=new BoardrVO();
+				bVO.setCat_name(rs.getString("cat_name"));
+				bVO.setTitle(rs.getString("title"));
+				bVO.setUserid(rs.getString("userid"));
+				bVO.setInput_date(rs.getString("input_date"));
+				bVO.setDescription(new StringBuilder(rs.getString("description")));
+				bVO.setCm_description(new StringBuilder(rs.getString("cm_description")));
+				bVO.setCm_id(rs.getInt("cm_id"));
+				bVO.setUserid(rs.getString("userid"));
+				bVO.setCm_input_date(rs.getString("ci"));
 				
 				
 			}//end while
 		}finally {
-			dc.close(rs, pstmt, con);
+			dc.dbClose(rs, pstmt, con);
 		}//end finally
-		return eVO; //리턴은 어떻게..?
+		return bVO; 
 		
 	}//selectBoardDetail
 
