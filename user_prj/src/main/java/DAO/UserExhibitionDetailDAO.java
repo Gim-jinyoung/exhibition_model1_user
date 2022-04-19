@@ -7,6 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import DbConnection.DbConnection;
 import VO.BoardrVO;
 import VO.CategoryVO;
@@ -15,10 +20,12 @@ import VO.ExhibitionVO;
 
 public class UserExhibitionDetailDAO {
 private static UserExhibitionDetailDAO uehdDAO;
-public UserExhibitionDetailDAO() {
-	
-}
 
+	public UserExhibitionDetailDAO() {
+	
+	}
+
+	
 	public static UserExhibitionDetailDAO getInstance() {
 		if(uehdDAO==null) {
 			uehdDAO=new UserExhibitionDetailDAO();
@@ -26,15 +33,26 @@ public UserExhibitionDetailDAO() {
 		return uehdDAO;
 	}
 	
+	private Connection getConnection() throws SQLException{
+		Connection con=null;
+		try {
+			Context ctx=new InitialContext();
+			DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/dbcp");
+			con=ds.getConnection();
+		}catch(NamingException ne) {
+			ne.getStackTrace();
+		}
+		return con;
+	}
 	public ExhibitionVO selectExhibition(int ex_num)throws SQLException{		
+		
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ExhibitionVO exVO=null;
 		
-		DbConnection dc=DbConnection.getInstance();
 		try {
-			con=dc.getConn();
+			con=getConnection();
 			
 			StringBuilder selectExhibition=new StringBuilder();
 			
@@ -56,7 +74,7 @@ public UserExhibitionDetailDAO() {
 			}
 
 		}finally {
-			dc.close(rs, pstmt, con);
+			dbClose(rs, pstmt, con);
 		}
 		return exVO;
 	}
@@ -68,10 +86,10 @@ public UserExhibitionDetailDAO() {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		DbConnection dc=DbConnection.getInstance();
 		
 		try {
-			con=dc.getConn();
+			con=getConnection();
+			
 			StringBuilder selectRelBoard=new StringBuilder();
 			
 			selectRelBoard
@@ -92,7 +110,7 @@ public UserExhibitionDetailDAO() {
 			list.add(boVO);
 		}
 	}finally {
-		dc.close(rs, pstmt, con);
+		dbClose(rs, pstmt, con);
 	}
 		return list;
 	}
@@ -110,9 +128,10 @@ public UserExhibitionDetailDAO() {
 			mapSelect
 			.append(" 	select EX_LOC ,EX_NAME, ADRESS1 ,ADRESS2 	")
 			.append("	from EXHIBITION_HALL	")
-			.append("	where ex_hall_num like 	").append(exhVO.getEx_hall_num());
+			.append("	where ex_hall_num like=?	");
 			
 			pstmt=con.prepareStatement(mapSelect.toString());
+			pstmt.setInt(1, exhVO.getEx_hall_num());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -127,4 +146,10 @@ public UserExhibitionDetailDAO() {
 		}
 		return exhVO;
 	}
+	public void dbClose(ResultSet rs, PreparedStatement pstmt, Connection con) throws SQLException{
+		if(rs!=null) {rs.close();}
+		if(pstmt!=null) {pstmt.close();}
+		if(con!=null) {con.close();}
+	}
+
 }

@@ -56,7 +56,7 @@
     #d1{
      width:770px;
      margin:0 auto;
- 
+ 	vertical-align: middle;
     }
     #accordion{ 
    margin: 0 auto; width:75%;
@@ -88,9 +88,10 @@
  
    <td><input type="checkbox" name="all" id="all"></td><hr/>
   </tr>
- <div id="accordion" >
+ <div id="accordion">
   
-   <h3><a href="#"><font size="2">윤프로젝트 이용약관 동의(필수)</font><input type="checkbox" name="c1" id="c1"/></a></h3>
+   <h3><a href="#"><font size="2">윤프로젝트 이용약관 동의(필수)</font>
+   <input type="checkbox" name="c1" id="c1"/></a></h3>
    <td><textarea readonly="readonly" rows="5" cols="66">
 제 1 조 (목적)
 
