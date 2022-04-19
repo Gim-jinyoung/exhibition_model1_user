@@ -7,6 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import DbConnection.DbConnection;
 import VO.ExhibitionHallVO;
 import VO.ExhibitionVO;
@@ -24,15 +29,27 @@ public class UserMainDAO {
 		}
 		return uehDAO;
 	}
+	
+	private Connection getConnection() throws SQLException{
+		Connection con=null;
+		try {
+			Context ctx=new InitialContext();
+			DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/dbcp");
+			con=ds.getConnection();
+		}catch(NamingException ne) {
+			ne.getStackTrace();
+		}
+		return con;
+	}
 	public ExhibitionVO selectExRepresent() throws SQLException{//대표전시
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ExhibitionVO exVO=null;
 		
-		DbConnection dc=DbConnection.getInstance();
 		try {
-			con=dc.getConn();
+			con=getConnection();
+			
 			StringBuilder selectExRepresent=new StringBuilder();
 			selectExRepresent
 			.append("	select   ex_num, ex_name, exhibition_poster,ex_intro	")
@@ -48,7 +65,7 @@ public class UserMainDAO {
 			exVO.setEx_name(rs.getString("ex_name"));
 		}
 		}finally {
-			dc.close(rs, pstmt, con);
+			dbClose(rs, pstmt, con);
 		}
 		return exVO;
 	}
@@ -58,10 +75,9 @@ public class UserMainDAO {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		DbConnection dc=DbConnection.getInstance();
 		
 		try {
-			con=dc.getConn();
+			con=getConnection();
 			StringBuilder selectExLocAll=new StringBuilder();
 			selectExLocAll
 			.append("	select  ex.ex_num, ex.ex_name, exh.ex_hall_num, exh.ex_loc, exh.adress1, exh.adress2	")
@@ -70,8 +86,8 @@ public class UserMainDAO {
 			
 			pstmt=con.prepareStatement(selectExLocAll.toString());
 			rs=pstmt.executeQuery();
+			
 		ExhibitionVO exVO=null;
-		ExhibitionHallVO exhVO=null;
 		while(rs.next()) {
 			exVO.setEx_num(rs.getInt("ex_num"));
 			exVO.setEx_name(rs.getString("ex_name"));
@@ -80,7 +96,7 @@ public class UserMainDAO {
 			list.add(exVO);
 		}
 	}finally {
-		dc.close(rs, pstmt, con);
+		dbClose(rs, pstmt, con);
 	}
 		return list;
 	}
@@ -92,9 +108,8 @@ public class UserMainDAO {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		DbConnection dc=DbConnection.getInstance();
 		try {
-			con=dc.getConn();
+			con=getConnection();
 			
 			StringBuilder viewExList=new StringBuilder();
 			
@@ -116,17 +131,15 @@ public class UserMainDAO {
 			}
 
 		}finally {
-			dc.close(rs, pstmt, con);
+			dbClose(rs, pstmt, con);
 		}
 		return list;	
 		}
 
-	
-	public static void main(String[] args) {
-		try {
-			System.out.println(UserMainDAO.getInstance().selectExRepresent());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public void dbClose(ResultSet rs, PreparedStatement pstmt, Connection con) throws SQLException{
+		if(rs!=null) {rs.close();}
+		if(pstmt!=null) {pstmt.close();}
+		if(con!=null) {con.close();}
 	}
+
 }

@@ -7,17 +7,38 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import DbConnection.DbConnection;
 import VO.ExhibitionHallVO;
 import VO.ExhibitionVO;
 
 public class UserExhibitionDAO {
 private static UserExhibitionDAO umDAO;
+
+	private UserExhibitionDAO() {
+		
+	}
 	public static UserExhibitionDAO getInstance() {
 		if(umDAO==null) {
 			umDAO=new UserExhibitionDAO();
 		}
 		return umDAO;
+	}
+	
+	private Connection getConnection() throws SQLException{
+		Connection con=null;
+		try {
+			Context ctx=new InitialContext();
+			DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/dbcp");
+			con=ds.getConnection();
+		}catch(NamingException ne) {
+			ne.getStackTrace();
+		}
+		return con;
 	}
 	
 	public List<ExhibitionVO> selectAllExList(String ex_name)throws SQLException{
@@ -27,9 +48,8 @@ private static UserExhibitionDAO umDAO;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
-		DbConnection dc=DbConnection.getInstance();
 		try {
-			con=dc.getConn();
+			con=getConnection();
 			
 			StringBuilder selectAllExList=new StringBuilder();
 			
@@ -37,6 +57,7 @@ private static UserExhibitionDAO umDAO;
 			.append("	select ex_num,ex_name,exhibition_poster,ex_intro	")
 			.append("	from exhibition	")
 			.append("	where ex_name like '").append(ex_name).append("'");
+			
 			pstmt=con.prepareStatement(selectAllExList.toString());
 			rs=pstmt.executeQuery();
 			ExhibitionVO exVO=null; 
@@ -51,21 +72,19 @@ private static UserExhibitionDAO umDAO;
 			}
 
 		}finally {
-			dc.close(rs, pstmt, con);
+			dbClose(rs,pstmt,con);
 		}
 		return list;
 	}
-	
+
 	public List<ExhibitionVO> selectLocalExList(String ex_loc)throws SQLException{
 		List<ExhibitionVO> list=new ArrayList<ExhibitionVO>();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		
-		DbConnection dc=DbConnection.getInstance();
-		
+				
 		try {
-			con=dc.getConn();
+			con=getConnection();
 			StringBuilder selectLocalExList=new StringBuilder();
 			selectLocalExList
 			.append("	select  ex.ex_num, ex.ex_name, exh.ex_loc	")
@@ -83,15 +102,14 @@ private static UserExhibitionDAO umDAO;
 			list.add(exVO);
 		}
 	}finally {
-		dc.close(rs, pstmt, con);
+		dbClose(rs, pstmt, con);
 	}
 		return list;
 	}
-	public static void main(String[] args) {
-		try {
-			System.out.println(UserExhibitionDAO.getInstance().selectLocalExList("경기 안산"));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public void dbClose(ResultSet rs, PreparedStatement pstmt, Connection con) throws SQLException{
+		if(rs!=null) {rs.close();}
+		if(pstmt!=null) {pstmt.close();}
+		if(con!=null) {con.close();}
 	}
+
 }
