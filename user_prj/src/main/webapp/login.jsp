@@ -96,24 +96,24 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="loginAction.jsp" method="post" id="frm">
+                        <form action="http://localhost/user_prj/loginAction.jsp" method="post" id="frmlog">
                             <div class="form-group">
                                 <label for="email">아이디</label>
-                                <input class="form-control" type="text" id="id-box" name="userID">
+                                <input class="form-control" type="text" id="id-box" name="userID" value="gggg">
                             </div>
                             <div class="form-group">
                                 <label for="password">비밀번호</label>
-                                <input class="form-control"  type="password" id="pass-box" name="userPassword">
-                            </div>
-                            <div>
-                            	<a href="terms.jsp">회원가입</a> 
-                            	<a href="idfind.jsp" style="margin-left: 30%">아이디 찾기</a> 
-                            	<a href="passfind.jsp" style="float: right;">비밀번호 찾기</a>
+                                <input class="form-control"  type="password" id="pass-box" name="userPassword" value="ggggg">
                             </div>
                             <div class="text-center">
                               <input type="button"  id="login-button" class="btn btn-warning btn-block btn-lg" value="로그인">  
                             </div>
                         </form>
+                            <div>
+                            	<a href="terms.jsp">회원가입</a> 
+                            	<a href="idfind.jsp" style="margin-left: 30%">아이디 찾기</a> 
+                            	<a href="passfind.jsp" style="float: right;">비밀번호 찾기</a>
+                            </div>
 
                     </div>
                 </div>
@@ -189,6 +189,15 @@
 		$("#frm").submit();
 	});
 }); */
+$(function(){
+	$("#login-button").click(function(){
+		$("#frmlog").submit();
+	}); 
+		
+	
+		
+	
+})//click
 </script>
         <script>
             new WOW().init();
