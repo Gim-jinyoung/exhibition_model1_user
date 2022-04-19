@@ -13,6 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import DbConnection.DbConnection;
+import DbConnection.DbcpConnection;
 import VO.BoardrVO;
 import VO.CategoryVO;
 import VO.ExhibitionHallVO;
@@ -33,26 +34,16 @@ private static UserExhibitionDetailDAO uehdDAO;
 		return uehdDAO;
 	}
 	
-	private Connection getConnection() throws SQLException{
-		Connection con=null;
-		try {
-			Context ctx=new InitialContext();
-			DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/dbcp");
-			con=ds.getConnection();
-		}catch(NamingException ne) {
-			ne.getStackTrace();
-		}
-		return con;
-	}
+
 	public ExhibitionVO selectExhibition(int ex_num)throws SQLException{		
-		
+		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ExhibitionVO exVO=null;
 		
 		try {
-			con=getConnection();
+			con=dc.getConnection();
 			
 			StringBuilder selectExhibition=new StringBuilder();
 			
@@ -74,21 +65,21 @@ private static UserExhibitionDetailDAO uehdDAO;
 			}
 
 		}finally {
-			dbClose(rs, pstmt, con);
+			dc.dbClose(rs, pstmt, con);
 		}
 		return exVO;
 	}
 	
 	public List<BoardrVO> selectRelBoard(int ex_num)throws SQLException{
 		List<BoardrVO> list=new ArrayList<BoardrVO>();
-		
+		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
 		
 		try {
-			con=getConnection();
+			con=dc.getConnection();
 			
 			StringBuilder selectRelBoard=new StringBuilder();
 			
@@ -110,7 +101,7 @@ private static UserExhibitionDetailDAO uehdDAO;
 			list.add(boVO);
 		}
 	}finally {
-		dbClose(rs, pstmt, con);
+		dc.dbClose(rs, pstmt, con);
 	}
 		return list;
 	}
@@ -145,11 +136,6 @@ private static UserExhibitionDetailDAO uehdDAO;
 			dc.close(rs, pstmt, con);
 		}
 		return exhVO;
-	}
-	public void dbClose(ResultSet rs, PreparedStatement pstmt, Connection con) throws SQLException{
-		if(rs!=null) {rs.close();}
-		if(pstmt!=null) {pstmt.close();}
-		if(con!=null) {con.close();}
 	}
 
 }

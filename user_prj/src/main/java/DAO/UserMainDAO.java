@@ -13,6 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import DbConnection.DbConnection;
+import DbConnection.DbcpConnection;
 import VO.ExhibitionHallVO;
 import VO.ExhibitionVO;
 
@@ -30,25 +31,16 @@ public class UserMainDAO {
 		return uehDAO;
 	}
 	
-	private Connection getConnection() throws SQLException{
-		Connection con=null;
-		try {
-			Context ctx=new InitialContext();
-			DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/dbcp");
-			con=ds.getConnection();
-		}catch(NamingException ne) {
-			ne.getStackTrace();
-		}
-		return con;
-	}
+
 	public ExhibitionVO selectExRepresent() throws SQLException{//대표전시
+		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ExhibitionVO exVO=null;
 		
 		try {
-			con=getConnection();
+			con=dc.getConnection();
 			
 			StringBuilder selectExRepresent=new StringBuilder();
 			selectExRepresent
@@ -65,19 +57,20 @@ public class UserMainDAO {
 			exVO.setEx_name(rs.getString("ex_name"));
 		}
 		}finally {
-			dbClose(rs, pstmt, con);
+			dc.dbClose(rs, pstmt, con);
 		}
 		return exVO;
 	}
 	public List<ExhibitionVO> selectExLocAll()throws SQLException{//지역별 지도
 		List<ExhibitionVO> list=new ArrayList<ExhibitionVO>();
+		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
 		
 		try {
-			con=getConnection();
+			con=dc.getConnection();
 			StringBuilder selectExLocAll=new StringBuilder();
 			selectExLocAll
 			.append("	select  ex.ex_num, ex.ex_name, exh.ex_hall_num, exh.ex_loc, exh.adress1, exh.adress2	")
@@ -96,20 +89,20 @@ public class UserMainDAO {
 			list.add(exVO);
 		}
 	}finally {
-		dbClose(rs, pstmt, con);
+		dc.dbClose(rs, pstmt, con);
 	}
 		return list;
 	}
 	
 	public List<ExhibitionVO> viewExList() throws SQLException{//전시리스트
 		List<ExhibitionVO> list=new ArrayList<ExhibitionVO>();
-		
+		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
 		try {
-			con=getConnection();
+			con=dc.getConnection();
 			
 			StringBuilder viewExList=new StringBuilder();
 			
@@ -131,15 +124,10 @@ public class UserMainDAO {
 			}
 
 		}finally {
-			dbClose(rs, pstmt, con);
+			dc.dbClose(rs, pstmt, con);
 		}
 		return list;	
 		}
 
-	public void dbClose(ResultSet rs, PreparedStatement pstmt, Connection con) throws SQLException{
-		if(rs!=null) {rs.close();}
-		if(pstmt!=null) {pstmt.close();}
-		if(con!=null) {con.close();}
-	}
 
 }

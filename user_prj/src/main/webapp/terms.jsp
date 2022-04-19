@@ -56,7 +56,6 @@
     #d1{
      width:770px;
      margin:0 auto;
- 	vertical-align: middle;
     }
     #accordion{ 
    margin: 0 auto; width:75%;
@@ -76,7 +75,7 @@
 </head>
 
 
-<div class="fullscreen landing parallax" style="background-image:url('images/bg.jpg');" data-img-width="2000" data-img-height="1333" data-diff="100">
+<div class="fullscreen landing parallax" style="background-image:url('images/bg.jpg'); " data-img-width="2000" data-img-height="1333" data-diff="100">
  <h2 align="center">회원가입을 환영합니다.</h2><br/><br/>
  </div>
 <body>

@@ -13,6 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import DbConnection.DbConnection;
+import DbConnection.DbcpConnection;
 import VO.ExhibitionHallVO;
 import VO.ExhibitionVO;
 
@@ -29,27 +30,17 @@ private static UserExhibitionDAO umDAO;
 		return umDAO;
 	}
 	
-	private Connection getConnection() throws SQLException{
-		Connection con=null;
-		try {
-			Context ctx=new InitialContext();
-			DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/dbcp");
-			con=ds.getConnection();
-		}catch(NamingException ne) {
-			ne.getStackTrace();
-		}
-		return con;
-	}
 	
 	public List<ExhibitionVO> selectAllExList(String ex_name)throws SQLException{
 		List<ExhibitionVO> list=new ArrayList<ExhibitionVO>();
 		
+		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		
 		try {
-			con=getConnection();
+			con=dc.getConnection();
 			
 			StringBuilder selectAllExList=new StringBuilder();
 			
@@ -72,19 +63,21 @@ private static UserExhibitionDAO umDAO;
 			}
 
 		}finally {
-			dbClose(rs,pstmt,con);
+			dc.dbClose(rs,pstmt,con);
 		}
 		return list;
 	}
 
 	public List<ExhibitionVO> selectLocalExList(String ex_loc)throws SQLException{
 		List<ExhibitionVO> list=new ArrayList<ExhibitionVO>();
+		
+		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 				
 		try {
-			con=getConnection();
+			con=dc.getConnection();
 			StringBuilder selectLocalExList=new StringBuilder();
 			selectLocalExList
 			.append("	select  ex.ex_num, ex.ex_name, exh.ex_loc	")
@@ -102,14 +95,9 @@ private static UserExhibitionDAO umDAO;
 			list.add(exVO);
 		}
 	}finally {
-		dbClose(rs, pstmt, con);
+		dc.dbClose(rs, pstmt, con);
 	}
 		return list;
-	}
-	public void dbClose(ResultSet rs, PreparedStatement pstmt, Connection con) throws SQLException{
-		if(rs!=null) {rs.close();}
-		if(pstmt!=null) {pstmt.close();}
-		if(con!=null) {con.close();}
 	}
 
 }
