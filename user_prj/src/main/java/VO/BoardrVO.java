@@ -1,7 +1,7 @@
 package VO;
 
 public class BoardrVO {
-private String title, userid, input_date, cat_name;
+private String title, userid, input_date, cat_name, cm_input_date;
 private int bd_id, cat_num, recommend, views, cm_id;
 private StringBuilder description, cm_description;
 private char isdeleted;
@@ -9,7 +9,7 @@ public BoardrVO() {
 	
 }
 public BoardrVO(String title, String userid, String input_date, int cat_num, String cat_name, int bd_id,
-		StringBuilder description, char isdeleted , int recommend, int views ,StringBuilder cm_description, int cm_id) {
+		StringBuilder description, char isdeleted , int recommend, int views ,StringBuilder cm_description, int cm_id, String cm_input_date) {
 	super();
 	this.title = title;
 	this.userid = userid;
@@ -23,6 +23,7 @@ public BoardrVO(String title, String userid, String input_date, int cat_num, Str
 	this.views = views;
 	this.cm_description = cm_description;
 	this.cm_id = cm_id;
+	this.cm_input_date = cm_input_date;
 }
 public String getTitle() {
 	return title;
@@ -119,6 +120,18 @@ public int getCm_id() {
  */
 public void setCm_id(int cm_id) {
 	this.cm_id = cm_id;
+}
+/**
+ * @return the cm_input_date
+ */
+public String getCm_input_date() {
+	return cm_input_date;
+}
+/**
+ * @param cm_input_date the cm_input_date to set
+ */
+public void setCm_input_date(String cm_input_date) {
+	this.cm_input_date = cm_input_date;
 }
 
 

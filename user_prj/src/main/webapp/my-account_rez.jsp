@@ -135,7 +135,6 @@
                                         
                                         <th>전시이름</th>
                                         <th>방문 날짜</th> 
-                                        <th>방문 시간</th> 
                                         <th>방문 인원</th> 
                                         <th>예약 날짜</th> 
                                         <th>예약 상황</th> 
@@ -145,7 +144,6 @@
                                     <tr title="Booking id : 1448465068">
                                         <td><a href="#void" onclick="detail()">전시1</a></td>
                                         <td>2021-04-03 </td>
-                                        <td>15:00~16:00 </td>
                                         <td>1</td>
                                         <td>
                                             12/22/2015<br>
