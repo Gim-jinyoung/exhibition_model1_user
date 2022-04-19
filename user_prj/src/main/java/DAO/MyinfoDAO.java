@@ -66,6 +66,65 @@ public class MyinfoDAO {
 
 		return flag;
 	}//비밀번호 변경
+	public boolean updateaddr(MemberVO mVO) {
+		boolean flag = false;
+		DbConnection dc=DbConnection.getInstance();
+		String sql = "UPDATE member "
+				+ "SET address1=?,address2=? WHERE userid=?"; 
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con=dc.getConn();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mVO.getAddress1());
+			pstmt.setString(2, mVO.getAddress2());
+			pstmt.setString(3, mVO.getUserId());
+			
+
+			int i = pstmt.executeUpdate();
+
+			if(i == 1) {
+				flag = true;
+			} else {
+				flag = false;
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		
+		}
+
+		return flag;
+	}//주소변경
+	
+	public boolean checkPass(MemberVO mVO) {
+		boolean flag=false;
+		DbConnection dc=DbConnection.getInstance();
+		String sql="select password"
+				+"from member where userid=? ";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con=dc.getConn();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mVO.getAddress1());
+			
+			int i = pstmt.executeUpdate();
+			if(i == 1) {
+				flag = true;
+			} else {
+				flag = false;
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		
+		}
+		
+		return flag;
+		
+	}//비밀번호확인
 	
 	
 }//class

@@ -96,14 +96,14 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="my-account.jsp" method="post">
+                        <form action="loginAction.jsp" method="post" id="frm">
                             <div class="form-group">
                                 <label for="email">아이디</label>
-                                <input class="form-control" type="text" id="id-box">
+                                <input class="form-control" type="text" id="id-box" name="userID">
                             </div>
                             <div class="form-group">
                                 <label for="password">비밀번호</label>
-                                <input class="form-control"  type="password" id="pass-box">
+                                <input class="form-control"  type="password" id="pass-box" name="userPassword">
                             </div>
                             <div>
                             	<a href="terms.jsp">회원가입</a> 
@@ -173,7 +173,7 @@
 
 
 <script type="text/javascript">
-$(function(){
+/* $(function(){
 	$("#login-button").click(function(){
 		var id=$("#id-box").val();
 		var pass=$("#pass-box").val();
@@ -186,8 +186,9 @@ $(function(){
 			return;	
 		}
 		location.href="index.jsp";
+		$("#frm").submit();
 	});
-});
+}); */
 </script>
         <script>
             new WOW().init();

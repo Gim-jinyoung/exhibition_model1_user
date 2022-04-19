@@ -13,19 +13,17 @@ public class UserLoginDAO {
 		PreparedStatement pstmt =null; 
 		DbConnection dc=DbConnection.getInstance();
 		StringBuffer query = new StringBuffer();
-		query.append("SELECT password").append(" FROM member").append(" WHERE userid = ?");
+		query.append("select name").append(" from member ").append("where userid = ? and password=?");
+		int flag=0;
 		try {
 			con = dc.getConn();
 			pstmt = con.prepareStatement(query.toString());
 			pstmt.setString(1, mVO.getUserId());
+			pstmt.setString(2, mVO.getPassword());
 			rs = pstmt.executeQuery();
 			
 			if (rs.next()) {
-				if(rs.getString("password").equals(mVO.getPassword())) {
-					return 1;
-				} else {
-					return 0;
-				}
+				flag=1;
 			}
 			
 		} catch (SQLException e) {
@@ -33,7 +31,7 @@ public class UserLoginDAO {
 		} finally {
 			dc.close(rs, pstmt, con);
 		}
-		return -1;
+		return flag;
 	}
 
 }
