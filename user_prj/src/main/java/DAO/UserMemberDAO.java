@@ -114,7 +114,7 @@ public class UserMemberDAO {
 			con=getConnect();
 			sql = "insert into member (userid,tel,password,name,address1,address2,zipcode) ";
 
-			sql+= "values (?,?,?,?,?,?,?)"; //? (바인드변수) 몇개?5개입니다
+			sql+= "values (?,?,?,?,?,?,?)"; 
 			
 			
 
@@ -130,9 +130,9 @@ public class UserMemberDAO {
 
 			pstmt.setString(5, mVO.getAddress2());
 
-			pstmt.setString(6, mVO.getTel()); //값을 몇개넣었어요?6개입니다.
+			pstmt.setString(6, mVO.getTel()); 
 			
-			pstmt.setString(7, mVO.getZipcode()); //값을 몇개넣었어요?6개입니다.
+			pstmt.setString(7, mVO.getZipcode()); 
 
 			pstmt.executeUpdate();
 
