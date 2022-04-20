@@ -37,6 +37,7 @@
 $(function(){
 	$("#next").click(function(){
 		check();
+		$("#frm").submit();
 	});//click
 	$("#find_addr").click(function(){
 		new daum.Postcode({
@@ -99,7 +100,9 @@ if($("#password1").val() != $("#password2").val()){
 	alert("비밀번호가 다릅니다.");
 	return;
 }//end if
-	location.href="registerSucess.jsp";
+	//location.href="registerSucess.jsp";
+	//폼에 값을 넘길때에는 location아니에요 
+	$("#pFrm").submit();//submit해야 넘어갑니다.
 }//end check
 
 </script>
@@ -167,33 +170,41 @@ if($("#password1").val() != $("#password2").val()){
                     </div>
                     <div class="row register">
 						
-                        <form action="my-account.jsp" method="post" name="pFrm">
+                        <form action="registerSucess.jsp" method="post" name="pFrm"  id="pFrm">
                             <div class="form-group">
                                 <label for="email-login">이메일</label>
-                                <input class="form-control" id="id" type="text"><br/>
+                                <input class="form-control" id="id" type="text" name="userId" value="test@test.com"><br/>
                              <input type="button" id="idCheck" class="btn btn-warning btn-block btn-lg" value="중복확인">
                             </div>
                          
                             <div class="form-group">
                                 <label for="password-login">비밀번호</label>
-                                <input class="form-control" id="password1" type="password">
+                                <input class="form-control" id="password1" type="password" name="password" value="1234">
                             </div>
                             <div class="form-group">
                                 <label for="password-login">비밀번호 확인</label>
-                                <input class="form-control" id="password2" type="password">
+                                <input class="form-control" id="password2" type="password" value="1234">
                                 <div id="output" style="height: 50px; width: 500px"></div>
                             </div>
                             <div class="form-group">
                                 <label for="name-login">이름</label>
-                                <input class="form-control" id="name" type="text">
+                                <input class="form-control" id="name" type="text" name="name" value="테스트">
+                            </div>
+                            <div class="form-group">
+                                <label for="name-login">전화번호</label>
+                                <input class="form-control" id="name" type="text" name="tel" value="01012345678">
                             </div>
                             <div class="form-group">
                                 <label for="addr-login">주소</label>
-                                <input class="form-control" id="addr1" type="text"/>
-                                <input class="form-control" id="addr2" type="text"><br/>
+                                <input class="form-control" id="addr1" type="text" name="address1" value="역삼"/>
+                                <input class="form-control" id="addr2" type="text" name="address2" value="쌍용교육센터"><br/>
                             <a href="#void"><input type="button" id="find_addr" class="btn btn-warning btn-block btn-lg" value="우편번호 찾기"></a> 
                             </div>
                             <div class="text-center">
+                            <div class="form-group">
+                                <label for="name-login">우편번호</label>
+                                <input class="form-control" id="name" type="text" name="zipcode" value="12345">
+                            </div>
                                 <input type="button" id="next" class="btn btn-warning btn-block btn-lg" value="다음">
                             </div>
                         </form>

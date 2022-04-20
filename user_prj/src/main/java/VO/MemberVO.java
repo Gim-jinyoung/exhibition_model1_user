@@ -8,7 +8,6 @@ public class MemberVO {
 	}
 	public MemberVO(String userId, String tel, String zipcode, String address1, String address2, String password,
 			String isSubscribeDate, String name, char isDeleted) {
-		super();
 		this.userId = userId;
 		this.tel = tel;
 		this.zipcode = zipcode;
