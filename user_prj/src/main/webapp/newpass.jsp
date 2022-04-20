@@ -88,7 +88,8 @@ function vaild(x){
 		    return;
 		    }
 		if(x.pass1.value==x.pass2.value){
-			location.href="http://localhost/user_prj/passclear.jsp"
+			window.opener.top.location.href="passclear.jsp";
+		    window.close();
 		}
 		
 }//vaild
