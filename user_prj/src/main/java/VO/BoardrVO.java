@@ -1,15 +1,15 @@
 package VO;
 
 public class BoardrVO {
-private String title, userid, input_date, cat_name, cm_input_date;
+private String title, userid, input_date, cat_name, cm_input_date,imgfile,cm_userid;
 private int bd_id, cat_num, recommend, views, cm_id;
-private StringBuilder description, cm_description;
+private String description, cm_description;
 private char isdeleted;
 public BoardrVO() {
 	
 }
 public BoardrVO(String title, String userid, String input_date, int cat_num, String cat_name, int bd_id,
-		StringBuilder description, char isdeleted , int recommend, int views ,StringBuilder cm_description, int cm_id, String cm_input_date) {
+		String description, char isdeleted , int recommend, int views ,String cm_description, int cm_id, String cm_input_date, String imgfile,String cm_userid) {
 	super();
 	this.title = title;
 	this.userid = userid;
@@ -24,6 +24,21 @@ public BoardrVO(String title, String userid, String input_date, int cat_num, Str
 	this.cm_description = cm_description;
 	this.cm_id = cm_id;
 	this.cm_input_date = cm_input_date;
+	this.imgfile = imgfile;
+	this.cm_userid = cm_userid;
+}
+
+/**
+ * @return the cm_userid
+ */
+public String getCm_userid() {
+	return cm_userid;
+}
+/**
+ * @param cm_userid the cm_userid to set
+ */
+public void setCm_userid(String cm_userid) {
+	this.cm_userid = cm_userid;
 }
 public String getTitle() {
 	return title;
@@ -61,10 +76,10 @@ public int getBd_id() {
 public void setBd_id(int bd_id) {
 	this.bd_id = bd_id;
 }
-public StringBuilder getDescription() {
+public String getDescription() {
 	return description;
 }
-public void setDescription(StringBuilder description) {
+public void setDescription(String description) {
 	this.description = description;
 }
 public char getIsdeleted() {
@@ -100,13 +115,13 @@ public void setViews(int views) {
 /**
  * @return the cm_description
  */
-public StringBuilder getCm_description() {
+public String getCm_description() {
 	return cm_description;
 }
 /**
  * @param cm_description the cm_description to set
  */
-public void setCm_description(StringBuilder cm_description) {
+public void setCm_description(String cm_description) {
 	this.cm_description = cm_description;
 }
 /**
@@ -132,6 +147,18 @@ public String getCm_input_date() {
  */
 public void setCm_input_date(String cm_input_date) {
 	this.cm_input_date = cm_input_date;
+}
+/**
+ * @return the imgfile
+ */
+public String getImgfile() {
+	return imgfile;
+}
+/**
+ * @param imgfile the imgfile to set
+ */
+public void setImgfile(String imgfile) {
+	this.imgfile = imgfile;
 }
 
 

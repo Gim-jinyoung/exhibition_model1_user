@@ -23,7 +23,7 @@ private static MyReservationDAO mrDAO;
 	
 	
 	/**
-	 * ¿¹¾à »óÈ² º¸¿©ÁÖ±â
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È² ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	 * @param userId
 	 * @return
 	 */
@@ -40,9 +40,9 @@ private static MyReservationDAO mrDAO;
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select e.ex_name rr, r.visit_date, r.rez_count, r.rez_date, r.rez_status")
-			.append("from reservation r, exhibition e")
-			.append("where (e.ex_num=r.ex_num) and userid=?");
+			.append("select e.ex_name , r.visit_date, r.rez_count, r.rez_date, r.rez_status,r.rez_num ")
+			.append("from reservation r, exhibition e ")
+			.append("where (e.ex_num(+)=r.ex_num) and userid=?");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, userid);
 			rs=pstmt.executeQuery();
@@ -50,7 +50,8 @@ private static MyReservationDAO mrDAO;
 			MyReservationVO mVO=null;
 			while(rs.next()) {
 				mVO=new MyReservationVO();
-				mVO.setEx_name(rs.getString("rr"));
+				mVO.setEx_name(rs.getString("ex_name"));
+				mVO.setRez_num(rs.getInt("rez_num"));
 				mVO.setVisit_date(rs.getString("visit_date"));
 				mVO.setRez_count(rs.getInt("rez_count"));
 				mVO.setRez_date(rs.getString("rez_date"));
@@ -67,11 +68,11 @@ private static MyReservationDAO mrDAO;
 	}//selectAllReservation
 
 	/**
-	 * ¿¹¾à »ó¼¼ »óÈ² º¸¿©ÁÖ±â
-	 * @param rez_num : ¿¹¾à ¹øÈ£
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È² ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
+	 * @param rez_num : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 	 * @return
 	 */
-	public MyReservationVO selectReservationDetail(int rez_num) throws SQLException {
+	public MyReservationVO selectReservationDetail(MyReservationVO mrVO) throws SQLException {
 		DbcpConnection dc=new DbcpConnection();
 		
 		MyReservationVO mVO=null;
@@ -83,15 +84,16 @@ private static MyReservationDAO mrDAO;
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select r.userid, r.rez_num, e.ex_name, eh.ex_name ehx, r.visit_date, r.rez_count")
-			.append("from exhibition e, reservation r, exhibition_hall eh")
-			.append("where (e.ex_num=r.ex_num and e.ex_hall_num=eh.ex_hall_num) and rez_num=?");
+			.append("select r.userid, r.rez_num, e.ex_name, eh.ex_hall_name ehx, r.visit_date, r.rez_count ")
+			.append("from exhibition e, reservation r, exhibition_hall eh ")
+			.append("where (e.ex_num=r.ex_num and e.ex_hall_num=eh.ex_hall_num) and r.rez_num=? and r.userid=?");
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setInt(1,rez_num);
+			pstmt.setInt(1,mrVO.getRez_num());
+			pstmt.setString(2,mrVO.getUserid());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
-				mVO=new MyReservationVO(); //°áÇÕ ½Ã Áú¹®
+				mVO=new MyReservationVO(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				mVO.setUserid(rs.getString("userid"));
 				mVO.setRez_num(rs.getInt("rez_num"));
 				mVO.setEx_name(rs.getString("ex_name"));
@@ -109,13 +111,15 @@ private static MyReservationDAO mrDAO;
 	}//selectReservationDetail
 	
 	/**
-	 * ¿¹¾à Ãë¼Ò
-	 * @param mVO : ¾ÆÀÌµð, ¿¹¾à ¹øÈ£
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+	 * @param mVO : ï¿½ï¿½ï¿½Ìµï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 	 */
-	public void deleteReservation(MyReservationVO mVO) throws SQLException {
+	public boolean deleteReservation(MyReservationVO mVO) throws SQLException {
 		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
+		int n=0;
+		boolean result=false;
 		
 		try {
 			con=dc.getConnection();
@@ -123,11 +127,14 @@ private static MyReservationDAO mrDAO;
 			pstmt.setString(1,mVO.getUserid());			
 			pstmt.setInt(2,mVO.getRez_num());			
 					
-			pstmt.executeQuery();
-				
+			n=pstmt.executeUpdate();
+			if(n>0) {
+				result=true;
+			}
 		}finally {
 			dc.dbClose(null, pstmt, con);
 		}//end finally
+		return result;
 	}//deleteReservation
 	
 

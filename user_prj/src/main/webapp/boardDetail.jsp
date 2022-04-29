@@ -1,10 +1,17 @@
+<%@page import="VO.LocalVO"%>
+<%@page import="VO.BoardrVO"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+     errorPage="/error.jsp"
+     %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <!-- /.website title -->
-<title>VTC Theme | My account</title>
+<title>게시판 | 상세보기</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -59,16 +66,7 @@ a{
     transition: all .8s ease;
 } 
 </style>
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('#summernote1').summernote({
-			height : 400
-		});
-		$("#btn").click(function() {
-			$("#frm").submit();
-		});
-	});
-</script>
+
 
 </head>
 
@@ -142,35 +140,76 @@ a{
 					class="panel panel-default sidebar-menu wow  fadeInLeft animated">
 				</div>
 				<div class="panel-heading">
+				  <%
+								BoardDAO bDAO=BoardDAO.getInstance();
+				  				BoardrVO bVO=new BoardrVO();
+				  				String bd_id=request.getParameter("value");
+				  				if (bd_id ==null){
+				  					%> 잘못된 접근입니다.  <%
+				  				}
+				  			
+								BoardrVO boardDetail=bDAO.selectBoardDetail(Integer.parseInt(bd_id));
+								List<BoardrVO> boardComment=bDAO.selectcomment(Integer.parseInt(bd_id));
+								
+								pageContext.setAttribute("boardComment", boardComment);
+								pageContext.setAttribute("boardDetail", boardDetail);
+				  				bDAO.updateView(Integer.parseInt(bd_id));
+								%>
 					<h3 class="panel-title">제목</h3>
 					<input class="form-control" type="text" readonly="readonly"
-						style="background: #ffffff">
-					<textarea name="ta" readonly="readonly"
-						style="background: #ffffff; border-style: none; resize: none; width: 100%; height: 50%">가나다라</textarea>
+						style="background: #ffffff" value="${boardDetail.title}" disabled="disabled"/>
+					<textarea name="ta" readonly="readonly"  id="textDesc"
+						style="background: #ffffff; border-style: none; resize: none; width: 100%; height50%;margin-top: 10px; border:1px solid #333" disabled="disabled">${boardDetail.description}</textarea> <!-- 이미지 넣기 -->
 				</div>
 				</div>
-					<i class="fa fa-comment fa" ></i> REPLY
+				<%
+				String userid=bVO.getUserid();
+				String sessionId=(String)session.getAttribute("id");
+				pageContext.setAttribute("bd_id",bd_id);%>
+					<i class="fa fa-comment fa" ></i> 댓글
 				<div class="card-body">
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
+					<form action="comment.jsp" method="get" id="commentFrm" name="commentFrm">
 							<div class="form-inline mb-2">
 								<label for="replyId"><i
 									class="fa fa-user-circle-o fa-2x"></i></label>
-							</div> <textarea class="form-control" id="exampleFormControlTextarea1" style="width: 100%;resize: none;"
+							</div> <textarea class="form-control" id="ta" name="ta" style="width: 100%;resize: none;"
 								rows="3"></textarea>
-							<button type="button" class="btn btn-dark mt-3" style="margin-top:10px;">댓글 작성</button>
+								<input type="hidden" value="${bd_id }" name="bd_id"/>
+							<button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commentBtn">댓글 작성</button>
+					</form>
 						</li>
+						<c:forEach var="boardComment" items="${pageScope.boardComment }">
+						<li><div>
+						<input type="text" value="${boardComment.cm_id }" style="border:none; text-align: center; width: 40px" readonly="readonly" disabled="disabled"/>
+						<input type="text" value="${boardComment.cm_userid }" style="border:none; text-align: center" readonly="readonly" disabled="disabled" />
+						<input type="text" style="width: 50%; margin-top: 10px ; border:none" readonly="readonly" disabled="disabled" value="${boardComment.cm_description }"/>
+						<input type="text" value="${boardComment.cm_input_date }"  style="border:none; text-align: center" readonly="readonly" disabled="disabled"/>
+							<%
+							String commentId=bVO.getCm_userid();
+							if( sessionId== commentId){%>
+							<a href="commentDelete.jsp?cm_id=${boardComment.cm_id  }&bd_id=${bd_id}"><button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commenDeltBtn">댓글 삭제</button></a>
+							<%} %>
+							</div>
+						</li>
+						</c:forEach>
 					</ul>
 				</div>
-				<br /> <a href="board.jsp"><input type="button" value="확인" id="btn"
-					class="btn btn-warning btn-block btn-lg" /></a>
+				<br />
+				<a href="board.jsp">
+				<input type="button" value="확인" id="btn" class="btn btn-warning " style="width: 30%; margin-left: 30% "/>
+				</a>
+				<%
+				if( sessionId== userid){
+				%>
+				<a href="boardDelete.jsp?bd_id=${bd_id }"><input type="button" value="글 삭제"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right; "/></a>
+				<a href="boardUpdate.jsp?bd_id=${bd_id }"><input type="button" value="글 수정"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right;"/></a>
+				<%} %>
 			</div>
 			
-			</form>
 
 		</div>
-	</div>
-	</div>
 
 
 
@@ -228,7 +267,22 @@ a{
 	<script>
 		new WOW().init();
 	</script>
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+		
+		$('#summernote1').summernote({
+			height : 400
+		});
+		$("#btn").click(function() {
+			$("#frm").submit();
+		});
+		$("#commentBtn").click(function(){
+			$("#commentFrm").submit();
+		});
+		
+	});
+</script>
 
 </body>
 </html>

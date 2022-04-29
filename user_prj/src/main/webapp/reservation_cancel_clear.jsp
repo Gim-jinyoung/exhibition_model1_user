@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+     errorPage="/error.jsp"%>
 <!DOCTYPE html>
 <html>
-    <head> 
+    <head>
+
         <!-- /.website title -->
-        <title>게시판-Q&A</title>
+        <title>예약 성공</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -12,6 +14,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+        <link href="fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
         <link href="css/animate.css" rel="stylesheet" media="screen">
         <link href="css/owl.theme.css" rel="stylesheet">
         <link href="css/owl.carousel.css" rel="stylesheet">
@@ -23,7 +26,6 @@
         <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
-        <link href="css/stacktable.css" rel="stylesheet" media="screen">
         <link href="css/css-index-yellow.css" rel="stylesheet" media="screen"> 
 
         <!-- Google Fonts -->
@@ -32,10 +34,10 @@
     </head>
 
     <body data-spy="scroll" data-target="#navbar-scroll">
+
         <!-- /.preloader -->
         <div id="preloader"></div>
         <div id="top"></div>
-
 
         <!-- /.parallax full screen background image -->
         <div class="fullscreen landing parallax blog-page" style="background-image:url('images/bg-baner.jpg');" data-img-width="2000" data-img-height="1333" data-diff="100">
@@ -49,7 +51,10 @@
                             <a href="index.jsp">Exhibition</a>
                         </div>
 
-                       
+                        <!-- /.main title -->
+                        <h2 class="wow fadeInUp" style="margin-bottom: 50px">
+                           예약완료
+                        </h2>
 
                     </div>
                 </div> 
@@ -57,9 +62,9 @@
         </div>
         
         
-              <!-- NAVIGATION -->
+            <!-- NAVIGATION -->
         <div id="menu">
-               <div class="container"> 
+               <div class="container""> 
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
                             <span class="sr-only">Toggle navigation</span>
@@ -67,14 +72,14 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
+                        <a class="navbar-brand site-name" href="#top">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                               <li><a href="list.jsp">전체 전시 보기</a></li>
+                            <li><a href="list.jsp">전체 전시 보기</a></li>
                             <li><a href="list.jsp">지역별 전시 보기</a></li>
-                            <li><a href="reservation.jsp">예약하기</a></li>
+                            <li><a href="taxi.jsp">예약하기</a></li>
                                     <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>
@@ -82,107 +87,32 @@
                  </div>  
         </div>
 
-
-        <!-- /.pricing section -->
-        <div id="myaccount">
+        <!-- /.Cars section -->
+        <div id="sign-in" style="margin-left: 30%">
             <div class="container">
-                <div class="text-center ">
-                    <!-- /.pricing title -->
-                    <h2 class="wow fadeInLeft">게시판</h2>
-                    <div class="title-line wow fadeInRight"></div>
-                </div>
-                   
-      <div >
-      <form class="d-flex">
-        <button class="btn btn-outline-success" type="submit" style="float: right; height: 50px">Search</button>
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="float: right; width: 200px">
-      </form>
-</div>
-                <div class="row account-details">
-
-                    <!-- /.account-control -->
-                    <div class="col-sm-3 account-control padding-b-50 padding-t-50">
-                        <div class="panel panel-default sidebar-menu wow  fadeInLeft animated">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Menu</h3>
-                            </div>
-                            <div class="panel-body">
-                                <ul class="nav nav-pills nav-stacked">
-                                    <li class="active">  <select class="form-control input-lg" name="Exhibition">
-                                            <option value="00전시">00전시</option>
-                                            <option value="00전시">00전시</option>
-                                            </select></li>
-                                    
-                                    
-                                    <li class="active"><a href="#void">Q&A</a> </li>
-                                </ul>
-                            </div>
-                        </div>
+                <div class="col-sm-6">
+                    <div class="text-center">
+                        <h2 class="wow fadeInLeft">취소되었습니다.</h2>
+                        <div class="title-line wow fadeInRight"></div>
                     </div>
+                    <div class="row sign-in">
 
-                    <div class="col-sm-9 account-data padding-b-50 padding-t-50">
-                        <div id="tab2" class="box-old-booking box-section animated fadeInUp">
-                            <h2 style="padding-bottom: 17px;">Q&A</h2>
-                            <a href="boardWrite.html"><input type="button"  class="btn btn-warning btn-block btn-lg" value="글 작성" style="width: 100px; float: right;"></a> <br/><br/>
-
-                            <table  class="table booking-list stacktable large-only">
-                                <tbody>
-                                    <tr>
-                                        <th><input type="checkbox" /></th>
-                                        <th>번호</th>
-                                        <th style="width:400px; text-align: center;">제목</th> 
-                                        <th>작성자</th> 
-                                        <th>작성일</th> 
-                                        <th>댓글 수</th> 
-                                        
-                                        
-                                    </tr>
-                                    <tr title="Booking id : 1448465068">
-                                    <th><input type="checkbox" /></th>
-                                        <td>1</td>
-								
-                                      <td style="text-align: center;">	<a href="boardDetail.jsp" style="color: #000000 ; font-weight: normal;">질문 </a></td>
-                                        <td>3조</td>
-                                        <td>
-                                            12/22/2015
-                                            11:11
-                                        </td>
-                                        <td>1</td>
-                                    </tr> 
-                                </tbody>
-                            </table>
-
+                        <form action="my-account.jsp" method="post">
                             
+                            <div class="text-center">
+                              <a href="index.jsp"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>  
+                            </div>
+                        </form>
 
-                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            
+</div>
+</div>
 
-<div class="text-center">
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
- </div>
-
-      
         
-     <!-- /.footer -->
+        
+        <!-- /.footer -->
         <footer id="footer">
             <div class="footer-top">
                 <div class="container">
@@ -220,8 +150,6 @@
                     </footer>
 
 
-        
-
         <!-- /.javascript files -->
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -229,13 +157,15 @@
         <script src="js/custom.js"></script>
         <script src="js/jquery.sticky.js"></script>
         <script src="js/wow.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script> 
+        <script src="js/owl.carousel.min.js"></script>
             <script src="js/jquery.validate.min.js"></script> 
+
+
 
         <script>
             new WOW().init();
+
         </script>
 
-
     </body>
-    </html>
+</html>

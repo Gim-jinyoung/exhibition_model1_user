@@ -22,9 +22,9 @@ private static BoardDAO bDAO;
 	}//getInstance
 	
 	/**
-	 * °Ô½ÃÆÇ ÆäÀÌÁö º¸¿©ÁÖ´Â ¸Þ¼Òµå
-	 * @param bVO : °Ë»ö(ÀÛ¼ºÀÚ, Á¦¸ñ)
-	 * @return : ÆäÀÌÁö º¸¿©ÁÖ±â
+	 * ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Þ¼Òµï¿½
+	 * @param bVO : ï¿½Ë»ï¿½(ï¿½Û¼ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½)
+	 * @return : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
 	 */
 	public List<BoardrVO> selectBoard(BoardrVO bVO) throws SQLException{
 		List<BoardrVO> list=new ArrayList<BoardrVO>();
@@ -39,13 +39,23 @@ private static BoardDAO bDAO;
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select bd_id,title,recommend,views,input_date,userid")
-			.append("from board")
-			.append("where cat_num=? and userId=? or title=?");
+			.append("select bd_id,title,recommend,views,input_date,userid ")
+			.append("from board ")
+			.append("where cat_num=? ")
+			.append("order by bd_id desc ");
+			if(bVO.getUserid() != null) {
+				sql
+				.append("and userid=? or title=?");
+			}
+			
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1, bVO.getCat_num());
-			pstmt.setString(2, bVO.getUserid());
-			pstmt.setString(3, bVO.getTitle());
+			if(bVO.getUserid() != null ) {
+					pstmt.setString(2, bVO.getUserid());
+					pstmt.setString(3, bVO.getTitle());
+				
+			}
+		
 			rs=pstmt.executeQuery();
 			
 			BoardrVO eVO=null;
@@ -53,6 +63,7 @@ private static BoardDAO bDAO;
 				eVO=new BoardrVO();
 				eVO.setBd_id(rs.getInt("bd_id"));
 				eVO.setTitle(rs.getString("title"));
+				eVO.setUserid(rs.getString("userid"));
 				eVO.setInput_date(rs.getString("input_date"));
 				eVO.setRecommend(rs.getInt("recommend"));
 				eVO.setViews(rs.getInt("views"));
@@ -67,10 +78,43 @@ private static BoardDAO bDAO;
 		return list;
 	}//selectBoard
 	
+	public List<BoardrVO> selectCategory() throws SQLException{
+		List<BoardrVO> list=new ArrayList<BoardrVO>();
+		
+		DbcpConnection dc=new DbcpConnection();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			con=dc.getConnection();
+			String sql="select cat_name,cat_num from category";
+			pstmt=con.prepareStatement(sql);
+			
+			rs=pstmt.executeQuery();
+			
+			BoardrVO eVO=null;
+			while(rs.next()) {
+				eVO=new BoardrVO();
+				eVO.setCat_name(rs.getString("cat_name"));
+				eVO.setCat_num(rs.getInt("cat_num"));
+				
+				
+				list.add(eVO);
+				
+			}//end while
+		}finally {
+			dc.dbClose(rs, pstmt, con);
+		}//end finally
+		
+		return list;
+	}//selectBoard
+	
 	/**
-	 * °Ô½Ã±Û Áö¿ì±â
-	 * @param bd_id : °Ô½Ã±Û ¹øÈ£
-	 * @return »èÁ¦ ¿Ï·á/½ÇÆÐ
+	 * ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param bd_id : ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È£
+	 * @return ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½/ï¿½ï¿½ï¿½ï¿½
 	 */
 	public boolean deleteBoard(int bd_id) throws SQLException {
 		DbcpConnection dc=new DbcpConnection();
@@ -82,7 +126,7 @@ private static BoardDAO bDAO;
 		
 		try {
 			con=dc.getConnection();
-			pstmt=con.prepareStatement("delete from board where=bd_id=?");
+			pstmt=con.prepareStatement("delete from board where bd_id=?");
 			pstmt.setInt(1, bd_id);			
 			n=pstmt.executeUpdate();
 			if(n>0) {
@@ -95,9 +139,32 @@ private static BoardDAO bDAO;
 		return result;
 	}//deleteBoard
 	
+	public boolean deleteComment(int cm_id) throws SQLException {
+		DbcpConnection dc=new DbcpConnection();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		boolean result=false;
+		int n=0;
+		
+		try {
+			con=dc.getConnection();
+			pstmt=con.prepareStatement("delete from comment_table where cm_id=?");
+			pstmt.setInt(1, cm_id);			
+			n=pstmt.executeUpdate();
+			if(n>0) {
+				result=true;
+			}
+				
+		}finally {
+			dc.dbClose(null, pstmt, con);
+		}//end finally
+		return result;
+	}//deleteBoard
+	
 	/**
-	 * °Ô½Ã±Û ÀÛ¼º
-	 * @param bVO (ÀÛ¼ºÀÚ, ÀÏÀÚ µî )
+	 * ï¿½Ô½Ã±ï¿½ ï¿½Û¼ï¿½
+	 * @param bVO (ï¿½Û¼ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ )
 	 */
 	public void insertBoard(BoardrVO bVO) throws SQLException{
 		DbcpConnection dc=new DbcpConnection();
@@ -106,9 +173,9 @@ private static BoardDAO bDAO;
 		
 		try {
 			con=dc.getConnection();
-			pstmt=con.prepareStatement("insert into board(title,description,cat_num,userid) values(?,?,?,?)");
+			pstmt=con.prepareStatement("insert into board(bd_id,title,description,cat_num,userid) values(bd_seq.nextval,?,?,?,?)");
 			pstmt.setString(1,bVO.getTitle());			
-			pstmt.setString(2,bVO.getDescription().toString());			
+			pstmt.setString(2,bVO.getDescription().toString().replaceAll("<", "").replaceAll(">", "").replaceAll("/", "").replace("p", ""));			
 			pstmt.setInt(3,bVO.getCat_num());			
 			pstmt.setString(4,bVO.getUserid());			
 			pstmt.executeQuery();
@@ -117,9 +184,28 @@ private static BoardDAO bDAO;
 			dc.dbClose(null, pstmt, con);
 		}//end finally
 	}//insertBoard
+	
+	
 
+	public void insertComment(BoardrVO bVO) throws SQLException{
+		DbcpConnection dc=new DbcpConnection();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		
+		try {
+			con=dc.getConnection();
+			pstmt=con.prepareStatement("insert into comment_table(cm_id,cm_description,bd_id,userid) values(cm_seq.nextval,?,?,?)");
+			pstmt.setString(1,bVO.getCm_description());			
+			pstmt.setInt(2,bVO.getBd_id());			
+			pstmt.setString(3,bVO.getUserid());			
+			pstmt.executeQuery();
+				
+		}finally {
+			dc.dbClose(null, pstmt, con);
+		}//end finally
+	}//insertBoard
 	/**
-	 * °Ô½Ã±Û ¼öÁ¤
+	 * ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 * @param bVO
 	 * @return
 	 */
@@ -150,8 +236,29 @@ private static BoardDAO bDAO;
 		return result;
 	}//updateBoard
 	
+	public void updateView(int bd_id)  throws SQLException{
+		DbcpConnection dc=new DbcpConnection();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		boolean result=false;
+		int n=0;
+		
+		try {
+			con=dc.getConnection();
+			pstmt=con.prepareStatement("update board set views =views+1 where bd_id=? ");
+			pstmt.setInt(1, bd_id);			
+			n=pstmt.executeUpdate();
+			
+				
+		}finally {
+			dc.dbClose(null, pstmt, con);
+		}//end finally
+	}//updateBoard
+	
+	
 	/**
-	 * °Ô½Ã±Û ³»¿ë º¸±â
+	 * ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	 * @param bd_id
 	 * @return
 	 */
@@ -168,9 +275,9 @@ private static BoardDAO bDAO;
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select c.cat_name,b.title,b.userid,b.input_date,b.description,c.cm_description,c.input_date ci,c.cm_id,c.user_id")
-			.append("from board b, comment_table  c,CATEGORY ct")
-			.append("where (b.bd_id=c.bd_id and b.cat_num=ct.cat_num) and bd_id=?");
+			.append("select ct.cat_name,b.title,b.userid,b.input_date,b.description,b.bd_id ")
+			.append("from board b, comment_table c,CATEGORY ct ")
+			.append("where (b.bd_id=c.bd_id(+) and b.cat_num(+)=ct.cat_num) and b.bd_id=?");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1,bd_id);
 			rs=pstmt.executeQuery();
@@ -178,14 +285,12 @@ private static BoardDAO bDAO;
 			while(rs.next()) {
 				bVO=new BoardrVO();
 				bVO.setCat_name(rs.getString("cat_name"));
+				bVO.setBd_id(rs.getInt("bd_id"));
 				bVO.setTitle(rs.getString("title"));
 				bVO.setUserid(rs.getString("userid"));
 				bVO.setInput_date(rs.getString("input_date"));
-				bVO.setDescription(new StringBuilder(rs.getString("description")));
-				bVO.setCm_description(new StringBuilder(rs.getString("cm_description")));
-				bVO.setCm_id(rs.getInt("cm_id"));
-				bVO.setUserid(rs.getString("userid"));
-				bVO.setCm_input_date(rs.getString("ci"));
+				bVO.setDescription(rs.getString("description"));
+				
 				
 				
 			}//end while
@@ -195,6 +300,37 @@ private static BoardDAO bDAO;
 		return bVO; 
 		
 	}//selectBoardDetail
-
+	public List<BoardrVO> selectcomment(int bd_id) throws SQLException{
+		List<BoardrVO> list=new ArrayList<BoardrVO>();
+		
+		DbcpConnection dc=new DbcpConnection();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			con=dc.getConnection();
+			String sql="select cm_description,input_date ,cm_id,userid from comment_table where bd_id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,bd_id);
+			rs=pstmt.executeQuery();
+			
+			BoardrVO bVO=null;
+			while(rs.next()) {
+				bVO=new BoardrVO();
+				bVO.setCm_description(rs.getString("cm_description"));
+				bVO.setCm_id(rs.getInt("cm_id"));
+				bVO.setCm_userid(rs.getString("userid"));
+				bVO.setCm_input_date(rs.getString("input_date"));
+				list.add(bVO);
+				
+			}//end while
+		}finally {
+			dc.dbClose(rs, pstmt, con);
+		}//end finally
+		
+		return list;
+	}//selectBoard
 
 }//class

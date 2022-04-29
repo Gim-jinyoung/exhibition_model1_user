@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+     errorPage="/error.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
 
         <!-- /.website title -->
-        <title>VTC Theme | reservation clear</title>
+        <title>예약 취소 성공</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -91,7 +92,6 @@
             <div class="container">
                 <div class="col-sm-6">
                     <div class="text-center">
-                        <h2 class="wow fadeInLeft">X시 N명 yyyy-mm-dd일 XXXXX원</h2>
                         <h2 class="wow fadeInLeft">예약해주셔서 감사합니다.</h2>
                         <div class="title-line wow fadeInRight"></div>
                     </div>

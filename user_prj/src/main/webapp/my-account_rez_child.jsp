@@ -1,63 +1,86 @@
+<%@page import="DAO.MyReservationDAO"%>
+<%@page import="VO.MyReservationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="http://211.63.89.140:8080/html_prj/common/main_20220321.css"/>
+<!--공통 CSS-->
+<link rel="stylesheet" type="text/css" href="http://211.63.89.140:80/jsp_prj/common/main_20220321.css"/>
 <title>Insert title here</title>
-<style type="text/css">
-#header{background-color: #F0AD4E; width: 500px; height: 50px;text-align: center;padding-top: 20px ; }
-#content{width: 500px; height: 400px; vertical-align: middle;}
-span{ color: #ffffff; font-weight: bold; }
-table{margin-left: 100px; text-align: left;}
-input{width:200px;height: 50px; background-color: #F0AD4E;color:#ffffff; border:0px; }
-input:hover {
-	background-color: #A29879
+         <style type="text/css">
+.modal{
+	position:absolute;
+	width:30%; height:40%; background:#FFFFFF;   margin-top: 20%; margin-left: 40%; background-color: #F0AD4E ;
+	color: #ffffff; text-align: center;
 }
+.content{background-color: #ffffff; color: #000000;}
+table{margin-left: 100px}
 </style>
-<!--  jQuery CDN-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
+<!--  bootstrap CDN-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 <script type="text/javascript">
-function reservationCancel() {
-	window.opener.location.href="reservation_cancel.jsp";
-	self.close();
-}
+$(function(){
+
+});//ready
 </script>
 </head>
 <body>
 
-<div id="content">
+<div class="modal" >
+<h2><strong>예약 상세 페이지</strong></h2>
+<div class="content">
 <div id="header">
-<span >예약 상세 페이지</span>
 </div>
 <br/>
+<%
+String userid=(String)session.getAttribute("id");
+if(userid==null){
+	userid="test@test.com";
+}
+MyReservationVO mrVO=new MyReservationVO();
+MyReservationDAO mrDAO=MyReservationDAO.getInstance();
+int rezNum= 9;
+mrVO.setRez_num(rezNum);
+mrVO.setUserid(userid);
+MyReservationVO rezDetail=mrDAO.selectReservationDetail(mrVO);
+
+pageContext.setAttribute("rezDetail", rezDetail);
+%> 
 <table>
 <tr>
-	<th>사용자: </th><td>userid</td>
+	<th>사용자: </th><td>${rezDetail.userid }</td>
 </tr>
 <tr>
-	<th>예약 번호: </th><td>1234</td>
+	<th>예약 번호: </th><td>${rezDetail.rez_num }</td>
 </tr>
 <tr>
-	<th>전시 명: </th><td>전시1</td>
+	<th>전시 명: </th><td>${rezDetail.ex_name }</td>
 </tr>
 <tr>
-	<th>전시 장: </th><td>전시장1</td>
+	<th>전시 장: </th><td>${rezDetail.ex_hall_name }</td>
 </tr>
 <tr>
-	<th>방문 날짜: </th><td>2021-04-07</td>
+	<th>방문 날짜: </th><td>${rezDetail.visit_date }</td>
 </tr>
 <tr>
-	<th>관람 인원: </th><td>3명</td>
+	<th>관람 인원: </th><td>${rezDetail.rez_count }</td>
 </tr>
 
 
 </table>
-<br/><br/>
-	<input type="button"  value="예약 취소" style="margin-left: 50px;" onclick="reservationCancel()">
-    <input type="button"   value="닫기" onclick="self.close();" >
+<br/>
+	<a href="reservation_cancel.jsp?rez_num=${rezDetail.rez_num }"><input type="button"  value="예약 취소" style="margin-left: 50px;"  class="btn btn-light"></a>
+    <input type="button"   value="닫기" onclick="modalBtn()" class="btn btn-outline-danger">
+    <br/><br/>
 </div>
-
+</div>
 </body>
 </html>

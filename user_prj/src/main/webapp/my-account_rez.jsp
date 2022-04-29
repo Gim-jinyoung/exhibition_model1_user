@@ -1,10 +1,15 @@
+<%@page import="VO.MyReservationVO"%>
+<%@page import="DAO.MyReservationDAO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+     errorPage="/error.jsp"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head> 
         <!-- /.website title -->
-        <title>VTC Theme | My account</title>
+        <title>예약정보</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -30,12 +35,10 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
     </head>
+
     <script type="text/javascript">
     $(function(){
     });//onload
-    function detail(){
-    		window.open("my-account_rez_child.jsp","detail","width=600px, height=500px");
-    }
     </script>
 
     <body data-spy="scroll" data-target="#navbar-scroll">
@@ -66,7 +69,7 @@
         
               <!-- NAVIGATION -->
         <div id="menu">
-               <div class="container""> 
+               <div class="container"> 
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
                             <span class="sr-only">Toggle navigation</span>
@@ -93,10 +96,7 @@
         <!-- /.pricing section -->
         <div id="myaccount">
           <div class="container">
-             <form class="d-flex">
-        <button class="btn btn-outline-success" type="submit" style="float: right; height: 50px">Search</button>
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="float: right; width: 200px">
-      </form>
+            
 </div>
             <div class="container">
                 <div class="text-center ">
@@ -128,11 +128,11 @@
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
                             <h2 style="padding-bottom: 17px;">예약 상황</h2>
 
-                                    
                             <table id="mybooking-list" class="table booking-list stacktable large-only">
                                 <tbody>
                                     <tr>
                                         
+                                        <th>예약 번호</th>
                                         <th>전시이름</th>
                                         <th>방문 날짜</th> 
                                         <th>방문 인원</th> 
@@ -140,18 +140,35 @@
                                         <th>예약 상황</th> 
                                         
                                     </tr>
-
-                                    <tr title="Booking id : 1448465068">
-                                        <td><a href="#void" onclick="detail()">전시1</a></td>
-                                        <td>2021-04-03 </td>
-                                        <td>1</td>
+                                     <%
+                             
+                                     MyReservationDAO mrDAO=MyReservationDAO.getInstance();
+                                     String userid=(String)session.getAttribute("id");
+                                     if(userid == null){
+                                    	 userid="kang@naver.com";
+                                     }
+                                     
+     								List<MyReservationVO> rezList=mrDAO.selectAllReservation(userid);
+                             	
+								pageContext.setAttribute("rezList", rezList);
+								int num=0;
+								
+								%>
+								<c:forEach var="rezList" items="${pageScope.rezList }">
+								<input type="hidden" value="${rezList.rez_num }" id="hid"/>
+                                    <tr >
+                                        <td><%=num+=1 %></td>
+                                        <td><a href="#void" onclick="modal()" > ${rezList.ex_name}</a></td>
+                                        <td>${rezList.visit_date } </td>
+                                        <td>${rezList.rez_count }</td>
                                         <td>
-                                            12/22/2015<br>
-                                            11:11
+                                            ${rezList.rez_date }
                                         </td>
-                                        <td>완료 </td>
+                                        <td>${rezList.rez_status } </td>
                                         
                                     </tr> 
+
+</c:forEach>
                                     
                                 </tbody>
                             </table>
@@ -164,6 +181,7 @@
                 </div>
             </div>
         </div>
+
 
 
 
@@ -221,8 +239,19 @@
 
         <script>
             new WOW().init();
+           
         </script>
-	
+	<script type="text/javascript">
+	function modal() {
+             $(".modal").fadeIn();
+	}
+	function modalBtn() {
+		$(".modal").fadeOut();
+	}
+	function reservationCancel() {
+		$("#numFrm").submit();
+	}
+	</script>
 
     </body>
 </html>

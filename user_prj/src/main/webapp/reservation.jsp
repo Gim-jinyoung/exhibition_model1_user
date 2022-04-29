@@ -1,11 +1,19 @@
+<%@page import="javax.naming.Context"%>
+<%@page import="VO.ExhibitionVO"%>
+<%@page import="VO.LocalVO"%>
+<%@page import="VO.ReservationManagerVO"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.UserReservationDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+     errorPage="/error.jsp"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
 
         <!-- /.website title -->
-        <title>VTC Theme | Booking TAXI</title>
+        <title>전시 예약</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta charset="UTF-8" />
         <!-- CSS Files -->
@@ -30,6 +38,8 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
     </head>
+    
+
 
     <body data-spy="scroll" data-target="#navbar-scroll">
 
@@ -53,12 +63,36 @@
 
                             <!-- /.main title -->
                             <h1 class="wow fadeInLeft">
-                                 <span class="color">전시 관련 안내 사항</span> 
+                                 <span class="color">전시</span> 
                             </h1>
 
+                                    <%
+                                    	String exLoc=request.getParameter("loc");
+                                    	if(exLoc == null){
+                                    		exLoc="서울";
+                                    	}
+                                    	String exNum=request.getParameter("exhibition");
+                                    	if(exNum == null){
+                                    		switch(exLoc){
+                                    		case "서울" : exNum="1"; break;
+                                    		case "경기" : exNum="2"; break;
+                                    		case "강원도" : exNum="5"; break;
+                                    		}
+                                    	}
+                                    	UserReservationDAO urDAO=UserReservationDAO.getInstance();
+                                    	ExhibitionVO inform=urDAO.selectInform(Integer.parseInt(exNum));
+                                    	List<LocalVO> locList=urDAO.selectLocal();
+                                    	
+                                    	pageContext.setAttribute("locList", locList);
+                                    	pageContext.setAttribute("inform", inform);
+                                    	
+                                    %>
                             <!-- /.header paragraph -->
                             <div class="landing-text wow fadeInUp">
-                                <p>안내 내용</p>
+                            <ul style="color:#FFFFFF">
+                                <li>${inform.ex_intro }</li>
+                                <li>가격 : ${inform.adult }원</li>
+                            </ul>
                             </div>				  
 
                  
@@ -70,45 +104,70 @@
 
                             <div class="signup-header wow fadeInUp">
                                 <h3 class="form-title text-center">예약</h3>
-                                <form class="form-header" action="booking-step-two.html" role="form" method="POST" id="bookingForm"> 
                                     <div id="booking_control" class="booking_control">
-                                    
+                                    		<form id="locFrm" name="locFrm" action="reservation.jsp" method="get">
                                            <div class="form-group">
-                                            <select class="form-control input-lg" name="picking_up" id="picking_up">
-                                            <option value="서울">서울</option>
+                                            <select class="form-control input-lg" name="loc" id="loc">
+                                           <c:forEach var="locList" items="${pageScope.locList }">
+                                            <option value="${locList.ex_loc }" ${locList.ex_loc eq param.loc?" selected='selected'":""}>${locList.ex_loc}</option>
+                                            </c:forEach>
                                             </select>
                                         </div> 
-                                        
+                                        </form>
+                                    		<%
+                                    		List<ExhibitionVO> exList=urDAO.selectExhibition(exLoc);
+                                    		pageContext.setAttribute("exList", exList);
+                                    		%>
+                                    		<form action="reservation.jsp" id="exFrm" name="exFrm" method="get">
                                         <div class="form-group">
-                                           <select class="form-control input-lg" name="Exhibition" id="Exhibition">
-                                            <option value="00전시">00전시</option>
+                                             <select class="form-control input-lg" name="exhibition" id="exhibition">
+                                           <c:forEach var="exList" items="${pageScope.exList }">
+                                            <option value="${exList.ex_num }">${exList.ex_name}</option>
+                                            </c:forEach>
                                             </select>
                                         </div>
-
+                                        </form>
+                                         <%
+      										String deadline=urDAO.selectDate(Integer.parseInt(exNum));
+       										 pageContext.setAttribute("deadline", deadline); 
+      									  %> 
+      									  <input type="hidden" value="${deadline }" id="deadline"/>
+      									  
+      									  <form action="reservationProcess.jsp" method="get" id="rezFrm" name="rezFrm">
+      									  <input type="hidden" value="<%=exNum%>" name="exNum"/>
+                                           <div id="date_time" class="form-group">
+                                           <input class="form-control input-lg" name="pick_up_date" class="pick_up_date" id="pick_up_date" type="text" placeholder="날짜선택" required>
+                                            <a class="add-on btn-geolocation btn-calendar" href="#"><i class="pe-7s-date" style="margin-top: 58px"></i></a>
+                                        </div>
+                                        <div class="form-group">
+                                         <select class="form-control input-lg" name="people" id="people">
+                                            <option value="1">1명</option>
+                                            <option value="2">2명</option>
+                                            <option value="3">3명</option>
+                                            <option value="4">4명</option>
+                                            <option value="5">5명</option>
+                                            </select>
+                                            
+                                        </div>
+      									  </form>
                                         <div class="form-group last">
-                                           <a href="reservation2.jsp"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="다음"></a> 
-                                           
+                                         <input type="button" id="rezBtn" class="btn btn-warning btn-block btn-lg" value="예약하기"/>
                                         </div>
                                     </div>
-
-                                  
-                                            
-                                        
-                                                         
-                                </form>
+                                    </div>
+             
                             </div>				
 
                         </div>
                     </div>
                 </div> 
             </div> 
-        </div>
 
 
       
         <!-- NAVIGATION -->
         <div id="menu">
-               <div class="container""> 
+               <div class="container"> 
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
                             <span class="sr-only">Toggle navigation</span>
@@ -190,31 +249,36 @@
         <!-- /.javascript files -->
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/bootstrap-datetimepicker.min.js"></script>
+        <script src="js/bootstrap-datetimepicker.min.js" ></script>
+        <script src="js/bootstrap-datetimepicker.kr.js" charset="UTF-8"></script>
         <script src="js/custom.js"></script>
         <script src="js/jquery.sticky.js"></script>
         <script src="js/wow.min.js"></script>
         <script src="js/owl.carousel.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
         <script src="js/google.js"></script> 
         <script src="js/booking.js"></script> 
         <script src="js/bootstrap-hover-dropdown.js"></script> 
         <script src="js/jquery.validate.min.js"></script> 
-
-        <script src="js/hovers.js"></script> 
+        <script type="text/javascript" src="js/ko.js"></script>
         <script src="js/snap.svg-min.js"></script> 
 
-
         <script>
+      
+        
                                                 new WOW().init();
                                                 $('#date_time').datetimepicker({
-                                                    format: 'dd/MM/yyyy hh:mm:ss',
-                                                    language: 'en-US',
-                                                    pickDate: true, // disables the date picker
-                                                    pickTime: true
+                                                	
+                                                    format: 'yyyy-MM-dd ',
+                                                    language:'kr',
+                                                    todayHighlight : true,
+                                                    startDate: new Date(),
+                                                    endDate :(new Date($("#deadline").val()))
                                                 });
+                                               
+                                                
+                                               
+                                                   
         </script>
 
         <script>
@@ -241,6 +305,29 @@
                 init();
             })();
         </script>
+
+<script type="text/javascript">
+
+	$("#loc").on('change',function(){
+		$("#locFrm").submit();
+	});
+	$("#exhibition").on('change',function(){
+		$("#exFrm").submit();
+	});
+
+	
+
+	$("#rezBtn").click(function(){
+	var reser=document.getElementById("pick_up_date").value;
+	if(reser==""){
+		alert("날짜를 선택해주세요.");
+		return;
+	} 
+   $("#rezFrm").submit();
+	});//click
+	
+</script>
+
 
     </body>
 </html>

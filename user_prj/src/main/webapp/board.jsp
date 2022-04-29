@@ -1,10 +1,15 @@
+<%@page import="VO.BoardrVO"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+     errorPage="/error.jsp"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head> 
         <!-- /.website title -->
-        <title>VTC Theme | My account</title>
+        <title>게시판</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -30,7 +35,19 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
     </head>
+           <script src="js/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	$("#Exhibition").change(function(){
+		$("#boardcat").submit();
+	});
+	$("#searchBtn").click(function(){
+		$("#search").submit();
+	})
+});//ready
 
+</script>
     <body data-spy="scroll" data-target="#navbar-scroll">
         <!-- /.preloader -->
         <div id="preloader"></div>
@@ -90,11 +107,13 @@
                     <h2 class="wow fadeInLeft">게시판</h2>
                     <div class="title-line wow fadeInRight"></div>
                 </div>
-   
+   <%
+   String search=request.getParameter("searchDescription");
+   %>
       <div >
-      <form class="d-flex">
-        <button class="btn btn-outline-success" type="submit" style="float: right; height: 50px">Search</button>
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="float: right; width: 200px">
+      <form class="d-flex" id="search" name="search" action="board.jsp" method="post">
+        <input class="btn btn-outline-success" type="button" style="float: right; height: 50px" value="검색" id="searchBtn"/>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="float: right; width: 200px" name="searchDescription">
       </form>
 </div>
                 <div class="row account-details">
@@ -105,29 +124,40 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">Menu</h3>
                             </div>
+                            <form action="board.jsp" method="post" id="boardcat" name="boardcat">
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
-                                    <li class="active">  <select class="form-control input-lg" name="Exhibition">
-                                            <option value="00전시">00전시</option>
-                                            <option value="00전시">00전시</option>
+                                            <%
+                                            
+                                            String catNum=request.getParameter("Exhibition");
+                                            if(catNum == null){
+                                            	catNum="1";
+                                            }
+								BoardDAO bDAO=BoardDAO.getInstance();
+								List<BoardrVO> catList=bDAO.selectCategory();
+								
+								pageContext.setAttribute("catList", catList);
+								%>
+                                    <li class="active" >  <select class="form-control input-lg" name="Exhibition" id="Exhibition">
+								<c:forEach var="catList" items="${pageScope.catList }">
+								<option value="${ catList.cat_num}" ${catList.cat_num eq param.Exhibition?" selected='selected'":""}><c:out value="${catList.cat_name }"/></option>
+								</c:forEach>
                                             </select></li>
                                     
                                     
-                                    <li><a href="board_QA.jsp">Q&A</a> </li>
                                 </ul>
                             </div>
+                            </form>
                         </div>
                     </div>
 
                     <div class="col-sm-9 account-data padding-b-50 padding-t-50">
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
-                            <h2 style="padding-bottom: 17px;">전시1</h2>
                             <a href="boardWrite.jsp"><input type="button"  class="btn btn-warning btn-block btn-lg" value="글 작성" style="width: 100px; float: right;"></a> <br/><br/>
 
                             <table  class="table booking-list stacktable large-only">
                                 <tbody>
                                     <tr>
-                                        <th><input type="checkbox" /></th>
                                         <th>번호</th>
                                         <th style="width:350px; text-align: center;">제목</th> 
                                         <th>작성자</th> 
@@ -138,25 +168,55 @@
                                         
                                         
                                     </tr>
-                                    <tr title="Booking id : 1448465068">
-                                    <th><input type="checkbox" /></th>
-                                        <td>1</td>
+                             <%
+                             
+                             
+                             BoardrVO bVO=new BoardrVO();
+                             bVO.setCat_num(Integer.parseInt(catNum));
+                             bVO.setUserid(search);
+                             bVO.setTitle(search);
+								List<BoardrVO> boardList=bDAO.selectBoard(bVO);
 								
-                                      <td style="text-align: center;">	<a href="boardDetail.jsp" style="color: #000000 ; font-weight: normal;">후기 </a></td>
-                                        <td>3조</td>
+								pageContext.setAttribute("boardList", boardList);
+								int num=0;
+								%>
+							
+								<c:forEach var="boardList" items="${pageScope.boardList }">
+								
+                                    <tr>
+                                        <td><%=num +=1 %></td>
+								
+                                     <td style="text-align: center;">	<a href="boardDetail.jsp?value=${boardList.bd_id }" > <c:out value="${boardList.title }"/></a></td>
+                                        <td><c:out value="${boardList.userid }"/></td>
                                         <td>
-                                            12/22/2015
-                                            11:11
+                                            <c:out value="${boardList.input_date }"/>
                                         </td>
-                                        <td>0</td>
-                                        <td>0</td>
+                                        <td><c:out value="${boardList.recommend }"/></td>
+                                        <td><c:out value="${boardList.views }"/></td> 
                                     </tr> 
-                                    
-                                    
+                                </c:forEach>
                                 </tbody>
                             </table>
-
                             
+<div class="text-center">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous" style="color: #000000">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#" style="color: #000000">1</a></li>
+    <li class="page-item"><a class="page-link" href="#" style="color: #000000">2</a></li>
+    <li class="page-item"><a class="page-link" href="#" style="color: #000000">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next" style="color: #000000">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
 
                         </div>
                     </div>
@@ -164,24 +224,6 @@
             </div>
         </div>
 
-<div class="text-center">
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>
  </div>     
         
      <!-- /.footer -->
@@ -225,7 +267,7 @@
         
 
         <!-- /.javascript files -->
-        <script src="js/jquery.js"></script>
+ 
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootstrap-datetimepicker.min.js"></script>
         <script src="js/custom.js"></script>
@@ -237,7 +279,7 @@
         <script>
             new WOW().init();
         </script>
-
+      
 
     </body>
 </html>

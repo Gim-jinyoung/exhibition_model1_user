@@ -1,11 +1,14 @@
+<%@page import="VO.MyReservationVO"%>
+<%@page import="DAO.MyReservationDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+     errorPage="/error.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
 
         <!-- /.website title -->
-        <title>VTC Theme | reservation clear</title>
+        <title>예약 취소</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -63,7 +66,7 @@
         
             <!-- NAVIGATION -->
         <div id="menu">
-               <div class="container""> 
+               <div class="container"> 
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
                             <span class="sr-only">Toggle navigation</span>
@@ -96,12 +99,14 @@
                         <h2 class="wow fadeInLeft">예약을 취소하시겠습니까?</h2>
                         <div class="title-line wow fadeInRight"></div>
                     </div>
+					
                     <div class="row sign-in">
-
                         <form action="my-account.jsp" method="post">
-                            
+                            <%String rez_num=request.getParameter("rez_num");
+                            	pageContext.setAttribute("rez_num",rez_num);
+                            %>
                             <div class="text-center">
-                              <a href="reservation_cancel2.jsp"><input type="button"  class="btn btn-warning "  style="width:80px " value="예"></a> 
+                              <a href="reservation_cancel_process.jsp?rez_num=${rez_num }" ><input type="button"  class="btn btn-warning "  style="width:80px " value="예"></a> 
                               &nbsp;&nbsp;&nbsp;&nbsp; 
                               <a href="index.jsp"><input type="button"  class="btn btn-warning" value="아니요" style="width:80px "></a>  
                             </div>
@@ -168,6 +173,7 @@
         <script>
             new WOW().init();
 
+           
         </script>
 
     </body>

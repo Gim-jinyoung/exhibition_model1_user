@@ -1,10 +1,15 @@
+<%@page import="VO.BoardrVO"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    %>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <!-- /.website title -->
-<title>VTC Theme | My account</title>
+<title>게시판 글 수정</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -50,14 +55,7 @@ a{
     transition: all .8s ease;
 } 
 </style>
-<script type="text/javascript">
-$(document).ready(function() {
-	  $('#summernote1').summernote({height: 400});
-	  $("#btn").click(function(){
-		  $("#frm").submit();
-	  });
-	});
-</script>
+
 
 </head>
 
@@ -91,7 +89,7 @@ $(document).ready(function() {
 
 	<!-- NAVIGATION -->
 	<div id="menu">
-		<div class="container"">
+		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-backyard">
@@ -127,27 +125,43 @@ $(document).ready(function() {
 			<div class="row account-details">
 
 				<!-- /.account-control -->
-				<form action="boardWrite_process.jsp" method="post"   >
+				<form action="boardUpdateProcess.jsp" method="get"  id="frm" name="frm" >
 				<div
 					class="panel panel-default sidebar-menu wow  fadeInLeft animated">
 				</div>
 					<div class="panel-heading">
+                                            <%
+                                            
+                                String bdId=request.getParameter("bd_id");
+                                            if(bdId == null){
+                                            	%>잘못된 접근입니다. <%
+                                            }
+								BoardDAO bDAO=BoardDAO.getInstance();
+								List<BoardrVO> catList=bDAO.selectCategory();
+								BoardrVO detail=bDAO.selectBoardDetail(Integer.parseInt(bdId));
+								
+								pageContext.setAttribute("detail", detail);
+								pageContext.setAttribute("catList", catList);
+								%>
 						<h3 class="panel-title">제목</h3>
-						<input class="form-control" type="text">
+						<input class="form-control" type="text" id="title" name="title" value="${detail.title }">
+						<input class="form-control" type="hidden" name="hid" value="${detail.bd_id }">
 					</div>
 					<div class="panel-body">
 						<ul class="nav nav-pills nav-stacked">
 						<li>카테고리</li>
-							<li class="active"><select class="form-control input-lg"
-								name="Exhibition" id="Exhibition">
-									<option value="00전시">00전시</option>
-									<option value="00전시">00전시</option>
-							</select></li>
-						</ul>
+                                    <li>  <select class="form-control input-lg" name="Exhibition" id="Exhibition">
+								<c:forEach var="catList" items="${pageScope.catList }">
+								<option value="${ catList.cat_num}" ${catList.cat_num eq param.Exhibition?" selected='selected'":""}><c:out value="${catList.cat_name }"/></option>
+								</c:forEach>
+                                            </select></li>
+                                    
+                                    
+                                </ul>
 					</div>
-					<textarea id="summernote1" name="ta"></textarea>
-					<br /> <a href="board.jsp"><input type="button" value="전송" id="btn"
-						class="btn btn-warning btn-block btn-lg" /></a>
+					<textarea id="summernote1" name="ta" >${detail.description }</textarea>
+					<br /> <input type="button" value="전송" id="btn"
+						class="btn btn-warning btn-block btn-lg" />
 						</form>
 						
 			</div>
@@ -169,7 +183,7 @@ $(document).ready(function() {
 							<strong>3조</strong> <br>전화 번호 :081) 123-1234 <br>상담 가능
 							시간: AM 10:00~PM 05:00 <br>관련 이메일: exhibition@naver.com
 						</p>
-						<hr class="hidden-md hidden-lg">
+						<hr class="hidden-md hidden-lg"/>
 					</div>
 
 
@@ -212,7 +226,41 @@ $(document).ready(function() {
 		
 		
 	</script>
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#summernote1').summernote({
+		  height: 400,                 // 에디터 높이
+		  lang: "ko-KR",					// 한글 설정
+		  placeholder: '내용을 작성해주세요',	//placeholder 설정
+		  toolbar: [
+			    // 글꼴 설정
+			    ['fontname', ['fontname']],
+			    // 글자 크기 설정
+			    ['fontsize', ['fontsize']],
+			    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
+			    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+			    // 글자색
+			    ['color', ['forecolor','color']],
+			    // 표만들기
+			    ['table', ['table']],
+			    // 글머리 기호, 번호매기기, 문단정렬
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    // 줄간격
+			    ['height', ['height']],
+			    // 그림첨부, 링크만들기, 동영상첨부
+			    ['insert',['picture']],
+			  ],
+        
+	});
+	
+	$("#btn").click(function(){
+		$("#frm").submit();
+		
+	});//click
+	
+		  
+	}); 
+</script>
 
 </body>
 </html>

@@ -27,11 +27,11 @@ public class UserReservationDAO {
 	
 	
 	/**
-	 * ³¯Â¥ Ãâ·Â
-	 * @param ex_num : Àü½Ã ¹øÈ£
-	 * @return Àü½Ã ½ÃÀÛÀÏ/ ¸¶Áö¸·ÀÏ Ãâ·Â
+	 * ï¿½ï¿½Â¥ ï¿½ï¿½ï¿½
+	 * @param ex_num : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+	 * @return ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½/ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	 */
-	public ExhibitionVO selectDate(int ex_num) throws SQLException{
+	public String selectDate(int ex_num) throws SQLException{
 		
 		DbcpConnection dc=new DbcpConnection();
 		ExhibitionVO eVO=null;
@@ -41,29 +41,28 @@ public class UserReservationDAO {
 		
 		try {
 			con=dc.getConnection();
-			String sql="select exhibit_date,deadline from exhibition where ex_num=?";
+			String sql="select deadline from exhibition where ex_num=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1,ex_num);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
 				eVO=new ExhibitionVO();
-				eVO.setExhibit_date(rs.getString("exhibit_date"));
-				eVO.setDead_line(rs.getString("deadlind"));
+				eVO.setDead_line(rs.getString("deadline"));
 				
 				
 			}//end while
 		}finally {
 			dc.dbClose(rs, pstmt, con);
 		}//end finally
-		return eVO; //¸®ÅÏÀº ¾î¶»°Ô..?
+		return eVO.getDead_line(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½î¶»ï¿½ï¿½..?
 	}//selectDate
 	
 
 	/**
-	 * Àü½Ã ¸®½ºÆ® º¸¿©ÁÖ±â
-	 * @param ex_loc Áö¿ª ÀÌ¸§
-	 * @return Àü½Ã ÀÌ¸§, Àü½Ã ¹øÈ£
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
+	 * @param ex_loc ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+	 * @return ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
 	 */
 	public List<ExhibitionVO> selectExhibition(String ex_loc) throws SQLException{
 		List<ExhibitionVO> list=new ArrayList<ExhibitionVO>();
@@ -98,7 +97,7 @@ public class UserReservationDAO {
 	}//selectExhibition
 	
 	/**
-	 * Áö¿ª ¸®½ºÆ® Ãâ·Â
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
 	 * @return
 	 */
 	public List<LocalVO> selectLocal() throws SQLException{
@@ -112,14 +111,13 @@ public class UserReservationDAO {
 		
 		try {
 			con=dc.getConnection();
-			String sql="select ex_loc from exhibition_loc";
-			pstmt=con.prepareStatement(sql.toString());
-			rs=pstmt.executeQuery(sql);
+			pstmt=con.prepareStatement("select ex_loc from exhibition_loc");
+			rs=pstmt.executeQuery();
 			
 			LocalVO lVO=null;
 			while(rs.next()) {
 				lVO=new LocalVO();
-				lVO.setEx_loc("ex_loc");
+				lVO.setEx_loc(rs.getString("ex_loc"));
 				
 				list.add(lVO);
 				
@@ -132,7 +130,7 @@ public class UserReservationDAO {
 	}//selectLocal
 	
 	/**
-	 * Àü½Ã ¾È³» Ãâ·Â
+	 * ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½ ï¿½ï¿½ï¿½
 	 * @param ex_num
 	 * @return
 	 */
@@ -167,7 +165,7 @@ public class UserReservationDAO {
 	}//selectInform
 	
 	/**
-	 * ¿¹¾àÇÏ±â
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½
 	 * @return
 	 */
 	public void insertReservation(ReservationManagerVO rVO) throws SQLException {
@@ -180,15 +178,14 @@ public class UserReservationDAO {
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("insert into reservation(rez_date, rez_count, visit_date, ex_num, userid,rez_status)")
-			.append("values(?,?,?,?,?) ");
+			.append("insert into reservation(rez_num, rez_count, visit_date, ex_num, userid,rez_status) ")
+			.append("values(res_seq.nextval,?,?,?,?,?) ");
 			pstmt=con.prepareStatement(sql.toString());
-			pstmt.setString(1, rVO.getRez_date());			
-			pstmt.setInt(2, rVO.getRez_count());			
-			pstmt.setString(3, rVO.getVisit_date());			
-			pstmt.setInt(4, rVO.getEx_num());			
-			pstmt.setString(5, rVO.getUserid());			
-			pstmt.setString(6, String.valueOf(rVO.getRez_status()));			
+			pstmt.setInt(1, rVO.getRez_count());			
+			pstmt.setString(2, rVO.getVisit_date());			
+			pstmt.setInt(3, rVO.getEx_num());			
+			pstmt.setString(4, rVO.getUserid());			
+			pstmt.setString(5, String.valueOf(rVO.getRez_status()));			
 			
 			pstmt.executeUpdate();
 			
