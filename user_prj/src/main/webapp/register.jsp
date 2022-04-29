@@ -173,8 +173,9 @@ if($("#password1").val() != $("#password2").val()){
                         <form action="registerSucess.jsp" method="post" name="pFrm"  id="pFrm">
                             <div class="form-group">
                                 <label for="email-login">이메일</label>
-                                <input class="form-control" id="id" type="text" name="userId" value="test@test.com"><br/>
-                             <input type="button" id="idCheck" class="btn btn-warning btn-block btn-lg" value="중복확인">
+                                <input class="form-control" id="id" type="text" name="userId"   value="test@test.com">
+                                <input type="button" id="checkmail" class="btn btn-warning btn-block btn-lg" value="중복확인">
+                             	<font id="checkId" size="2"></font>
                             </div>
                          
                             <div class="form-group">
@@ -264,7 +265,32 @@ if($("#password1").val() != $("#password2").val()){
         <script src="js/owl.carousel.min.js"></script>
             <script src="js/jquery.validate.min.js"></script> 
 
-
+		<script type="text/javascript">
+		$("#checkmail").click(function(){
+			let userId =$("#id").val();
+			
+			$.ajax({
+				url : "emailCheck.jsp",
+				type : "post",
+				data: {userId:userId},
+				dataType : 'json',
+				success : function( data ){
+			
+					if(data.resultFlag==0){
+						$("#checkId").html("사용할수없습니다.");
+						$("#checkId").attr('color','red');
+					}else{
+						$("#checkId").html("사용할 수 있는 아이디입니다.");
+						$("#checkId").attr('color','green');
+					}
+				},
+				error :function( xhr ){
+					alert("서버요청실패. 다시시도해주세요");
+				}
+			})
+			
+		})//focusout
+		</script>
 
         <script>
             new WOW().init();

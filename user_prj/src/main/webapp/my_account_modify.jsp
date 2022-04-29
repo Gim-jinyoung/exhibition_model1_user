@@ -1,8 +1,48 @@
+<%@page import="DAO.UserLoginDAO"%>
+<%@page import="DAO.MyinfoDAO"%>
+<%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    /* request.setCharacterEncoding("UTF-8");
+    
+    String mVO=(String)session.getAttribute("mVO");
+    
+    /* String name=(String)session.getAttribute("name");
+    String tel=(String)session.getAttribute("tel");
+    String password=(String)session.getAttribute("password");
+    String address1=(String)session.getAttribute("address1");
+    String address2=(String)session.getAttribute("address2");
+    MemberVO mVO=new MemberVO(userId,tel,"",address1,address2,password,"",name,' ');
+    MyinfoDAO miDAO=MyinfoDAO.getInstance();
+    session.setAttribute("mVO",mVO); */
+    
+   // System.out.print("내정보 수정"+mVO); 
+    
+  //String userId, String tel, String zipcode, String address1, String ad dress2, String password,
+	//String isSubscribeDate, String name, char isDeleted
+ session.getAttribute("mVO");
+request.setCharacterEncoding("UTF-8");
+String userId=request.getParameter("userId");
+String password=request.getParameter("password");
+
+//String userId, String tel, String zipcode, String address1, String ad dress2, String password,
+	//String isSubscribeDate, String name, char isDeleted
+MemberVO mVO=new MemberVO(userId,"","","","",password,"","",' ');
+UserLoginDAO ulDAO=UserLoginDAO.getInstance();
+int result = ulDAO.login( mVO );
+if( result == 1 ){
+	
+ 
+
+}
+System.out.println("내정보수정"+session.getAttribute("mVO"));
+
+    %>
 <html>
     <head>
+
 
         <!-- /.website title -->
         <title>내정보 수정</title>
@@ -31,6 +71,7 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
     </head>
+    
        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -64,23 +105,23 @@ $(function(){
 	                        extraAddr = ' (' + extraAddr + ')';
 	                    }
 	                    // 조합된 참고항목을 해당 필드에 넣는다.
-	                    document.getElementById("addr1").value = extraAddr;
+	                    document.getElementById("address1").value = extraAddr;
 	                
 	                } else {
-	                    document.getElementById("addr1").value = '';
+	                    document.getElementById("address1").value = '';
 	                }
 
 	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-	                document.getElementById('addr1').value = data.zonecode;
-	                document.getElementById("addr1").value = addr;
+	                document.getElementById('address1').value = data.zonecode;
+	                document.getElementById("address1").value = addr;
 	                // 커서를 상세주소 필드로 이동한다.
-	                document.getElementById("addr2").focus();
+	                document.getElementById("address2").focus();
 		    }
 		}).open();
 	});
 	
 	$("#next").click(function(){
-		var check=["password",'name','addr1','addr2'];
+		var check=["password",'name','address1','address2'];
 		var name=["비밀번호","이름","주소","주소"];
 	for(var i=0; i<check.length;i++){
 		if($("#"+check[i]).val() ==""){
@@ -88,7 +129,8 @@ $(function(){
 			return;
 		}//end if 
 	}//end for
-	location.href="my_account_modify_success.jsp";
+	
+	$("#frm").submit();
 	});//click
 });
 
@@ -181,31 +223,28 @@ $(function(){
                     
                     <div class="row register">
 
-                        <form action="my-account.jsp" method="post">
                             <div class="form-group">
                                 <label for="email-login">이메일</label>
-                                <input class="form-control"  type="text" value="내 아이디" id="id"><br/>
+                                <input class="form-control"  type="text" value="${mVO.userId }" id="userid"><br/>
                             </div>
-                            <div class="form-group">
-                                <label for="password-login">비밀번호</label>
-                                <input class="form-control"  type="password" id="password">
-                            </div>
+                            
                               <a href="http://localhost/user_prj/newpass.jsp"><input type="button" class="btn btn-warning btn-block btn-lg" value="비밀번호 수정"></a> 
+                        <form action="http://localhost/user_prj/my_account_modify_process.jsp" method="post" id="frm">
                            <br/>
                             <div class="form-group">
                                 <label for="name-login">이름</label>
-                                <input class="form-control"  type="text" id="name">
+                                <input class="form-control"  type="text" id="name" name="name" value="${mVO.name }">
                             </div>
                             <div class="form-group">
                                 <label for="addr-login">주소</label>
-                                <input class="form-control"  type="text" id="addr1"/>
-                                <input class="form-control"  type="text" id="addr2"><br/>
+                                <input class="form-control"  type="text" id="address1" name="address1" value="${mVO.address1 }"/>
+                                <input class="form-control"  type="text" id="address2" name="address2" value="${mVO.address2 }"><br/>
                         <input type="button"  class="btn btn-warning btn-block btn-lg" value="우편번호 찾기" id="find_addr">
                             </div>
                                 <input type="button"  value="수정" id="next" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px">
+                        </form>
                                 <a href="my_account_modify.jsp"><input type="button"   value="취소" style="width:260px; margin-left: 15px ;background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
                             
-                        </form>
                     </div>
                 </div>
           </div>

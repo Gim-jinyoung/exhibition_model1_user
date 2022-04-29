@@ -72,6 +72,12 @@ public class MemberVO {
 	public void setIsDeleted(char isDeleted) {
 		this.isDeleted = isDeleted;
 	}
+	@Override
+	public String toString() {
+		return "MemberVO [userId=" + userId + ", tel=" + tel + ", zipcode=" + zipcode + ", address1=" + address1
+				+ ", address2=" + address2 + ", password=" + password + ", isSubscribeDate=" + isSubscribeDate
+				+ ", name=" + name + ", isDeleted=" + isDeleted + "]";
+	}
 	
 }
 	

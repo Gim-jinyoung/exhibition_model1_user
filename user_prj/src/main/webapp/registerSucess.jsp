@@ -5,15 +5,15 @@
     <%
     //한글
     request.setCharacterEncoding("UTF-8");
-    //아이디  폼어디에?'
+    
     String userId=request.getParameter("userId");
-    String tel=request.getParameter("tel");
     String password=request.getParameter("password");
     String name=request.getParameter("name");
+    String tel=request.getParameter("tel");
+    String zipcode=request.getParameter("zipcode"); 
     String address1=request.getParameter("address1");
     String address2=request.getParameter("address2"); 
-    String zipcode=request.getParameter("zipcode"); 
-    //"."TEL") 안에 삽입할 수 없습니다 DB테이블에는 TEL을 반드시 넣어야합니다. 그런데 이전 페이지에서 전화번호 자체가 안넘어와요
+    
     MemberVO mVO=new MemberVO(userId,tel,zipcode,address1,address2,password,"",name,' ');
     //String userId, String tel, String zipcode, String address1, String ad dress2, String password,
 			//String isSubscribeDate, String name, char isDeleted

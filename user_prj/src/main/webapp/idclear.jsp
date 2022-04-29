@@ -1,5 +1,25 @@
+<%@page import="DAO.IdPassFindDAO"%>
+<%@page import="DAO.UserMemberDAO"%>
+<%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    request.setCharacterEncoding("UTF-8");
+    String name=request.getParameter("name");
+    String tel=request.getParameter("tel");
+    String userId=request.getParameter("userId");
+    MemberVO mVO=new MemberVO(userId,tel,"","","","","",name,' ');
+    
+    //String userId, String tel, String zipcode, String address1, String address2, String password,
+			//String isSubscribeDate, String name, char isDeleted
+   	IdPassFindDAO ipfDAO=IdPassFindDAO.getInstance();
+   	String idfind=ipfDAO.selectFindId(mVO);		
+   
+    
+    
+    
+    
+    %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -69,7 +89,14 @@
             <div class="container">
                 <div class="col-sm-6">
                     <div class="text-center" style="height: 200px; ">
-                        <h2 class="wow fadeInLeft" style="margin-top: 20px">아이디보여주기:~님의 아이디는~</h2>
+                        <h2 class="wow fadeInLeft" style="margin-top: 20px">
+                        <%if(idfind!=null){ %>
+                        <%=name%>님의 아이디는<%=idfind %>입니다.
+                        <%}else{ %>
+                        아이디가존재하지않습니다.
+                        <%}%>
+                        
+                        </h2>
                     </div>
                         <div class="title-line wow fadeInRight"></div>
                     <div class="row sign-in">

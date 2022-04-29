@@ -68,30 +68,17 @@
         <div id="sign-in" style="margin-left: 30%">
             <div class="container">
                 <div class="col-sm-6">
-                    <div class="text-center">
-                        <h2 class="wow fadeInLeft">비밀번호 찾기</h2>
-                        <div class="title-line wow fadeInRight"></div>
+                    <div class="text-center" style="height: 200px;">
+                        <h2 class="wow fadeInLeft" style="margin-top: 20px">비밀번호 변경이 완료되었습니다.</h2>
                     </div>
+                        <div class="title-line wow fadeInRight"></div>
                     <div class="row sign-in">
 
-                        <form action="http://localhost/user_prj/passfind_process.jsp" method="post" id="frm" >
-                            <div class="form-group">
-                                <label for="name">이름</label>
-                                <input class="form-control" id="name" type="text" name="name" value="역삼">
-                            </div>
-                             <div class="form-group">
-                                <label for="id">아이디</label>
-                                <input class="form-control" id="userId" name="userId" type="text" value="asdasd">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone_num">휴대번호</label>
-                                <input class="form-control" id="tel" name="tel" type="text" value="1234">
-                            </div>
-                            
+                        <form action="my-account.jsp" method="post">
                             <div class="text-center">
-                              <input type="button" class="btn btn-warning btn-block btn-lg"  id="pass_find" value="next>">
+                              <a href="index.jsp"><input type="button" id="find_main" class="btn btn-warning" value="메인으로 돌아가기"></a> 
+                            <a href="login.jsp"><input type="button" id="find_login" class="btn btn-warning" value="로그인하기"></a>   
                             </div>
-              
                         </form>
 
                     </div>
@@ -152,30 +139,8 @@
 
 
 
-<script type="text/javascript">
-
-
-$(function(){
-	$("#pass_find").click(function(){
-		var name=$("#name").val();
-		var id=$("#userId").val();
-		var phone=$("#tel").val();
-		
-		if(name==""){
-			alert("이름을 입력하세요.");
-			return;
-		}else if(id==""){
-			alert("아이디를 입력하세요.");
-			return;
-		}else if(phone==""){
-			alert("휴대폰번호를 입력하세요.");
-			return;
-		}
-		$("#frm").submit();
-	});
-});
-</script>
         <script>
+
             new WOW().init();
 
         </script>

@@ -116,14 +116,16 @@
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
                             <h2 style="padding-bottom: 17px;">비밀번호 확인</h2>
 								<br/>
+							<form action="http://localhost/user_prj/my_account_pass_process.jsp" id="frm">	
                            	<div class="form-group" style="width:500px; margin-left: 150px">
-                                <input class="form-control" id="password" type="password">
+                                <input class="form-control" id="password" type="password" name="password">
                             </div>
 								<br/>
 								<br/>
                             <div class="text-center">
 							<input type="button" id="find_direction"  value="확인" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px"> 
-							</div>	                        
+							</div>
+							</form>	                        
                         </div>
                     </div>
                 </div>
@@ -198,7 +200,7 @@ $(function(){
 		return;
 	}
 	
-	location.href="my-account_rez.jsp";
+	$("#frm").submit();
 	});
 });
 </script>

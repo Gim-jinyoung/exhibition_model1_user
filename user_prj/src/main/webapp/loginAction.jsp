@@ -1,10 +1,28 @@
+<%@page import="VO.MemberVO"%>
 <%@page import="DAO.UserLoginDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.io.PrintWriter" %> 
+
 <% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="mVO" class="VO.MemberVO" scope="page"/> 
-<jsp:setProperty name="mVO" property="*" />
+<%
+request.setCharacterEncoding("UTF-8");
+String userId=request.getParameter("userId");
+String password=request.getParameter("password");
+
+//String userId, String tel, String zipcode, String address1, String ad dress2, String password,
+	//String isSubscribeDate, String name, char isDeleted
+MemberVO mVO=new MemberVO(userId,"","","","",password,"","",' ');
+UserLoginDAO ulDAO=UserLoginDAO.getInstance();
+
+int result = ulDAO.login( mVO );
+if( result == 1 ){
+	
+ session.setAttribute("mVO",mVO);
+ 
+}
+System.out.println("로그인"+mVO);
+
+%>
 
 <!DOCTYPE html>
 <html>
@@ -14,12 +32,15 @@
 <script type="text/javascript">
 
 	<%  
-		UserLoginDAO userDAO=new UserLoginDAO();
-		int result = userDAO.login( mVO );
+		
+		
 		
 		if (result == 1){ // 
 			%>
 			location.href ='index.jsp'; // main 페이지로 사용자를 보냄
+			<%
+			session.setAttribute("mVO",mVO);
+			%>
 			<%
 		}else{
 			%>

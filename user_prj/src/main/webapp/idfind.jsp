@@ -74,18 +74,18 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="my-account.jsp" method="post">
+                        <form action="http://localhost/user_prj/idclear.jsp" method="post" name="frm" id="frm">
                             <div class="form-group">
                                 <label for="email">이름</label>
-                                <input class="form-control" id="name" type="text">
+                                <input class="form-control" id="name" type="text" name="name" value="역삼">
                             </div>
                             <div class="form-group">
                                 <label for="password">휴대번호</label>
-                                <input class="form-control" id="phone_num" type="text">
+                                <input class="form-control" id="tel" type="text" name="tel" value="1234">
                             </div>
                             
                             <div class="text-center">
-                              <input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="next>">
+                              <input type="button" id="findid" class="btn btn-warning btn-block btn-lg" value="next>">
                             </div>
                         </form>
 
@@ -153,9 +153,9 @@
         </script>
         <script type="text/javascript">
         $(function(){
-        	$("#find_direction").click(function() {
+        	$("#findid").click(function() {
         		var name=$("#name").val();
-        		var phone=$("#phone_num").val();
+        		var phone=$("#tel").val();
 				if(name==""){
 					alert("이름을 입력해주세요.");
 					return;
@@ -164,8 +164,9 @@
 					alert("휴대폰번호를 입력해주세요.");
 					return;
 				}
-				location.href="http://localhost/user_prj/idclear.jsp";
+			$("#frm").submit();	
 			});
+        	
         });
         </script>
 

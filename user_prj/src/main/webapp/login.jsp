@@ -1,6 +1,19 @@
+<%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+request.setCharacterEncoding("UTF-8");
+
+String userId=request.getParameter("userId");
+String password=request.getParameter("userId");
+
+String name=request.getParameter("name");
+String tel=request.getParameter("tel");
+String address1=request.getParameter("address1");
+String address2=request.getParameter("address2");
+MemberVO mVO=new MemberVO(userId,tel,"",address1,address2,password,"",name,' ');
+%>
 <html>
     <head>
 
@@ -99,14 +112,21 @@
                         <form action="http://localhost/user_prj/loginAction.jsp" method="post" id="frmlog">
                             <div class="form-group">
                                 <label for="email">아이디</label>
-                                <input class="form-control" type="text" id="id-box" name="userID" value="gggg">
+                                <input class="form-control" type="text" id="id-box" name="userId" value="">
                             </div>
                             <div class="form-group">
                                 <label for="password">비밀번호</label>
-                                <input class="form-control"  type="password" id="pass-box" name="userPassword" value="ggggg">
+                                <input class="form-control"  type="password" id="pass-box" name="password" value="">
                             </div>
                             <div class="text-center">
                               <input type="button"  id="login-button" class="btn btn-warning btn-block btn-lg" value="로그인">  
+                            </div>
+                            <div class="form-group">
+                                
+                                <input class="form-control" type="hidden" id="id-box" name="name" value="<%=name%>">
+                                <input class="form-control" type="hidden" id="id-box" name="tel" value="<%=tel%>">
+                                <input class="form-control" type="hidden" id="id-box" name="address1" value="<%=address1 %>>">
+                                <input class="form-control" type="hidden" id="id-box" name="address2" value="<%=address2 %>">
                             </div>
                         </form>
                             <div>

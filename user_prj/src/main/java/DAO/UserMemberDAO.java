@@ -1,6 +1,6 @@
 package DAO;
 
-import java.awt.dnd.DnDConstants;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,13 +11,14 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import DbConnection.DbConnection;
+
 import VO.MemberVO;
 
 public class UserMemberDAO {
 	private static UserMemberDAO umDAO;
 	private UserMemberDAO() {}
 	public static UserMemberDAO getInstance() {
+		
 		if(umDAO==null) {
 			umDAO=new UserMemberDAO();
 		}
@@ -35,72 +36,62 @@ public class UserMemberDAO {
 		return con;
 	}//getConnection
 
-	public int selectCheckID(String userId) throws SQLException {
-			Connection con =null;
-	        PreparedStatement pstmt = null;
-	        ResultSet rs = null;
-	        StringBuffer sql = null;
-	        int retVal = 0;
+	public int selectCheckID(MemberVO mVO) throws SQLException {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql="select * from member where userid=?";
+	    int retVal = 0;
 	        
-	        DbConnection dc=DbConnection.getInstance();
+	        
 	        try{
-	            sql = new StringBuffer();
-	            sql.append(" SELECT COUNT(userid) as cnt");
-	            sql.append(" FROM " + "member");
-	            sql.append(" WHERE userid = ?");
+	           con=getConnect();
 	           
-	            pstmt = con.prepareStatement(sql.toString());
+	            pstmt = con.prepareStatement(sql);
 	           
-	            pstmt.setString(1, userId); 
+	            pstmt.setString(1, mVO.getUserId()); 
 	           
 	            rs = pstmt.executeQuery(); 
 	           
-	            if ( rs.next() == true ) { 
-	                retVal = rs.getInt("cnt");
-	            }           
+	            if ( rs.next() ==mVO.getUserId().equals("")) { 
+	               retVal=1;
+	            }else {
+	            	retVal=0;
+	            }
 	        }catch(Exception e){
 	            System.out.println(e.toString());
 	        }finally{
-	          dc.close(rs, pstmt, con);
+	         dbClose(rs, pstmt, con);
 	        }
 	       
 	        return retVal;
 	    }//아이디 중복확인
 	
 	
-	public MemberVO selectCheckPass(String password)  throws SQLException {
-		String sql = "select * from member where password=? ";
-		Connection con = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        MemberVO mVo=null;
-        DbConnection dc=DbConnection.getInstance();
-        
-        
-        try{
-        	con=dc.getConn();
-            pstmt = con.prepareStatement(sql);
-           
-            pstmt.setString(1, password);
-           
-           
-            rs = pstmt.executeQuery();
-           
-            if(rs.next()){
-                mVo = new MemberVO();
-               
-                mVo.setPassword(rs.getString("password"));
-                
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }finally{
-         dc.close(rs, pstmt, con);
-        }
-        return mVo;//
-
-	}//비밀번호찾기
-	public void insertMember(MemberVO mVO)throws SQLException, NamingException {
+		/*
+		 * public MemberVO selectCheckPass(String password) throws SQLException { String
+		 * sql = "select * from member where password=? "; Connection con = null;
+		 * PreparedStatement pstmt = null; ResultSet rs = null; MemberVO mVo=null;
+		 * 
+		 * 
+		 * 
+		 * try{ con=dc.getConn(); pstmt = con.prepareStatement(sql);
+		 * 
+		 * pstmt.setString(1, password);
+		 * 
+		 * 
+		 * rs = pstmt.executeQuery();
+		 * 
+		 * if(rs.next()){ mVo = new MemberVO();
+		 * 
+		 * mVo.setPassword(rs.getString("password"));
+		 * 
+		 * } }catch(Exception e){ e.printStackTrace(); }finally{ dc.close(rs, pstmt,
+		 * con); } return mVo;//
+		 * 
+		 * }//비밀번호찾기
+		 */	
+		public void insertMember(MemberVO mVO)throws SQLException, NamingException {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -122,15 +113,15 @@ public class UserMemberDAO {
 
 			pstmt.setString(1,mVO.getUserId());
 
-			pstmt.setString(2, mVO.getPassword());
+			pstmt.setString(2, mVO.getTel());
 
-			pstmt.setString(3, mVO.getName());
+			pstmt.setString(3, mVO.getPassword());
 
-			pstmt.setString(4, mVO.getAddress1());
+			pstmt.setString(4, mVO.getName());
 
-			pstmt.setString(5, mVO.getAddress2());
+			pstmt.setString(5, mVO.getAddress1());
 
-			pstmt.setString(6, mVO.getTel()); 
+			pstmt.setString(6, mVO.getAddress2()); 
 			
 			pstmt.setString(7, mVO.getZipcode()); 
 
