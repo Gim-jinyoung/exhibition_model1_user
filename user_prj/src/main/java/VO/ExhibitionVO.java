@@ -1,16 +1,16 @@
 package VO;
 
 public class ExhibitionVO {
- private String ex_name, ex_poster, ex_info, ex_intro , add_Img,exhibit_date, dead_line, input_date ;
- private char ex_status;
- private int ex_num, total_count,adult,teen,child;
+ private String ex_name, ex_poster, ex_info, ex_intro , add_Img,exhibit_date, dead_line, input_date, ex_status ;
+ private int ex_hall_num, ex_num, total_count,adult,teen,child;
  
  public ExhibitionVO() {
 	 
  }
 public ExhibitionVO(String ex_name, String ex_poster, String ex_info, String ex_intro, String add_Img,
-		String exhibit_date, String dead_line, String input_date, char ex_status, int ex_num, int total_count, int adult, int teen, int child) {
+		String exhibit_date, String dead_line, String input_date, String ex_status,int ex_hall_num, int ex_num, int total_count, int adult, int teen, int child) {
 	super();
+	this.ex_hall_num = ex_hall_num;
 	this.ex_name = ex_name;
 	this.ex_poster = ex_poster;
 	this.ex_info = ex_info;
@@ -28,6 +28,13 @@ public ExhibitionVO(String ex_name, String ex_poster, String ex_info, String ex_
 }
 public String getEx_name() {
 	return ex_name;
+}
+
+public int getEx_hall_num() {
+	return ex_hall_num;
+}
+public void setEx_hall_num(int ex_hall_num) {
+	this.ex_hall_num = ex_hall_num;
 }
 public void setEx_name(String ex_name) {
 	this.ex_name = ex_name;
@@ -74,10 +81,10 @@ public String getInput_date() {
 public void setInput_date(String input_date) {
 	this.input_date = input_date;
 }
-public char getEx_status() {
+public String getEx_status() {
 	return ex_status;
 }
-public void setEx_status(char ex_status) {
+public void setEx_status(String ex_status) {
 	this.ex_status = ex_status;
 }
 public int getEx_num() {

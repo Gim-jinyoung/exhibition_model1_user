@@ -1,15 +1,33 @@
-<%@page import="VO.MyReservationVO"%>
-<%@page import="DAO.MyReservationDAO"%>
+<%@page import="DAO.UserExhibitionDetailDAO"%>
+<%@page import="VO.BoardrVO"%>
 <%@page import="java.util.List"%>
+<%@page import="DAO.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-     errorPage="/error.jsp"%>
+    errorPage="/error.jsp"%>
+    <%--  errorPage="/error.jsp" --%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%
+                                            int cat_num=Integer.parseInt(request.getParameter("cat_num"));
+                                            String catNum=request.getParameter("Exhibition");
+                                            if(catNum == null){
+                                            	catNum="1";
+                                            }
+								BoardDAO bDAO=BoardDAO.getInstance();
+								UserExhibitionDetailDAO exhDAO=UserExhibitionDetailDAO.getInstance();
+								
+								List<BoardrVO> catList=bDAO.selectCategory();
+								List<BoardrVO> catSelect=exhDAO.selectRelBoard(cat_num);
+								
+								pageContext.setAttribute("catList", catList);
+								pageContext.setAttribute("catSelect", catSelect);
+								
+								%>
 <!DOCTYPE html>
 <html>
     <head> 
         <!-- /.website title -->
-        <title>예약정보</title>
+        <title>게시판</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -35,12 +53,25 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
     </head>
+           <script src="js/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	
+	$("#Exhibition").change(function(){
+		$("#boardcat").submit();
+	});
+	$("#searchBtn").click(function(){
+		$("#search").submit();
+	});
+	$("#Exhibition").val("<%=cat_num%>").attr("selected","selected");
 
-    <script type="text/javascript">
-    $(function(){
-    });//onload
-    </script>
+});//ready
 
+		
+	
+
+
+</script>
     <body data-spy="scroll" data-target="#navbar-scroll">
         <!-- /.preloader -->
         <div id="preloader"></div>
@@ -82,7 +113,7 @@
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                     <li><a href="list.jsp">전체 전시 보기</a></li>
+                               <li><a href="list.jsp">전체 전시 보기</a></li>
                             <li><a href="loc.jsp">지역별 전시 보기</a></li>
                             <li><a href="reservation.jsp">예약하기</a></li>
                                     <li><a href="board.jsp">게시판</a></li>
@@ -92,18 +123,23 @@
                  </div>  
         </div>
 
-
         <!-- /.pricing section -->
         <div id="myaccount">
-          <div class="container">
-            
-</div>
             <div class="container">
                 <div class="text-center ">
                     <!-- /.pricing title -->
-                    <h2 class="wow fadeInLeft">내 정보</h2>
+                    <h2 class="wow fadeInLeft">게시판</h2>
                     <div class="title-line wow fadeInRight"></div>
                 </div>
+   <%
+   String search=request.getParameter("searchDescription");
+   %>
+      <div >
+      <form class="d-flex" id="search" name="search" action="board.jsp" method="post">
+        <input class="btn btn-outline-success" type="button" style="float: right; height: 50px" value="검색" id="searchBtn"/>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="float: right; width: 200px" name="searchDescription">
+      </form>
+</div>
                 <div class="row account-details">
 
                     <!-- /.account-control -->
@@ -112,80 +148,97 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">Menu</h3>
                             </div>
+                            <form action="board.jsp" method="post" id="boardcat" name="boardcat">
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
-                              		 <li> <a href="#void">비밀번호 입력</a></li>
-                                    <li class="active"><a href="#void">예약상황</a></li>
-                                    <li><a href="my_account_modify.jsp">내 정보 수정</a></li>
+                                            
+                                      <li class="active" >  <select class="form-control input-lg" name="Exhibition" id="Exhibition">
+								<c:forEach var="catList" items="${pageScope.catList }">
+								<option value="${ catList.cat_num}" ${catList.cat_num eq param.Exhibition?" selected='selected'":""}><c:out value="${catList.cat_name }"/></option>
+								</c:forEach>
+                                            </select></li>
                                     
                                     
                                 </ul>
                             </div>
+                            </form>
                         </div>
                     </div>
 
                     <div class="col-sm-9 account-data padding-b-50 padding-t-50">
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
-                            <h2 style="padding-bottom: 17px;">예약 상황</h2>
+                            <a href="boardWrite.jsp"><input type="button"  class="btn btn-warning btn-block btn-lg" value="글 작성" style="width: 100px; float: right;"></a> <br/><br/>
 
-                            <table id="mybooking-list" class="table booking-list stacktable large-only">
+                            <table  class="table booking-list stacktable large-only">
                                 <tbody>
                                     <tr>
+                                        <th>번호</th>
+                                        <th style="width:350px; text-align: center;">제목</th> 
+                                        <th>작성자</th> 
+                                        <th>작성일</th> 
+                                        <th>댓글 수</th> 
+                                        <th>조회
+                                        </th> 
                                         
-                                        <th>예약 번호</th>
-                                        <th>전시이름</th>
-                                        <th>방문 날짜</th> 
-                                        <th>방문 인원</th> 
-                                        <th>예약 날짜</th> 
-                                        <th>예약 상황</th> 
                                         
                                     </tr>
-                                     <%
+                             <%
                              
-                                     MyReservationDAO mrDAO=MyReservationDAO.getInstance();
-                                     String userid=(String)session.getAttribute("id");
-                                     if(userid == null){
-                                    	 userid="kang@naver.com";
-                                     }
-                                     
-     								List<MyReservationVO> rezList=mrDAO.selectAllReservation(userid);
-                             	
-								pageContext.setAttribute("rezList", rezList);
-								int num=0;
+                             
+                             BoardrVO bVO=new BoardrVO();
+                             bVO.setCat_num(Integer.parseInt(catNum));
+                             bVO.setUserid(search);
+                             bVO.setTitle(search);
+								List<BoardrVO> boardList=bDAO.selectBoard(bVO);
 								
+								pageContext.setAttribute("boardList", boardList);
+								int num=0;
 								%>
-								<c:forEach var="rezList" items="${pageScope.rezList }">
-								<input type="hidden" value="${rezList.rez_num }" id="hid"/>
-                                    <tr >
-                                        <td><%=num+=1 %></td>
-                                        <td><a href="#void" onclick="modal()" > ${rezList.ex_name}</a></td>
-                                        <td>${rezList.visit_date } </td>
-                                        <td>${rezList.rez_count }</td>
+							
+								<c:forEach var="boardList" items="${pageScope.catSelect}">
+								
+                                    <tr>
+                                        <td><%=num +=1 %></td>
+								
+                                     <td style="text-align: center;">	<a href="boardDetail.jsp?value=${boardList.bd_id }" > <c:out value="${boardList.title }"/></a></td>
+                                        <td><c:out value="${boardList.userid }"/></td>
                                         <td>
-                                            ${rezList.rez_date }
+                                            <c:out value="${boardList.input_date }"/>
                                         </td>
-                                        <td>${rezList.rez_status } </td>
-                                        
+                                        <td><c:out value="${boardList.recommend }"/></td>
+                                        <td><c:out value="${boardList.views }"/></td> 
                                     </tr> 
-
-</c:forEach>
-                                    
+                                </c:forEach>
                                 </tbody>
                             </table>
-                         
-                            <div class="text-center">
-							<a href="my-account_rez.jsp"><input type="button" id="find_direction"  value="확인" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
-							</div>	                        
+                            
+<div class="text-center">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous" style="color: #000000">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#" style="color: #000000">1</a></li>
+    <li class="page-item"><a class="page-link" href="#" style="color: #000000">2</a></li>
+    <li class="page-item"><a class="page-link" href="#" style="color: #000000">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next" style="color: #000000">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-
-
-      
+ </div>     
         
      <!-- /.footer -->
         <footer id="footer">
@@ -228,7 +281,7 @@
         
 
         <!-- /.javascript files -->
-        <script src="js/jquery.js"></script>
+ 
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bootstrap-datetimepicker.min.js"></script>
         <script src="js/custom.js"></script>
@@ -236,22 +289,14 @@
         <script src="js/wow.min.js"></script>
         <script src="js/owl.carousel.min.js"></script> 
             <script src="js/jquery.validate.min.js"></script> 
+<script type="text/javascript">
 
+
+</script>
         <script>
             new WOW().init();
-           
         </script>
-	<script type="text/javascript">
-	function modal() {
-             $(".modal").fadeIn();
-	}
-	function modalBtn() {
-		$(".modal").fadeOut();
-	}
-	function reservationCancel() {
-		$("#numFrm").submit();
-	}
-	</script>
+      
 
     </body>
 </html>

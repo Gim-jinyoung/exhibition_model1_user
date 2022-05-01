@@ -1,12 +1,55 @@
+<%@page import="java.io.Console"%>
+<%@page import="VO.ExhibitionHallVO"%>
+<%@page import="DAO.UserExhibitionDAO"%>
+<%@page import="DAO.UserExhibitionDetailDAO"%>
+<%@page import="java.util.List"%>
+<%@page import="VO.ExhibitionVO"%>
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.parser.JSONParser"%>
+<%@page import="org.json.simple.JSONArray"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-     errorPage="/error.jsp"%>
+    trimDirectiveWhitespaces="true"
+    errorPage="/error.jsp"%>
+
+<%
+String ex_name= request.getParameter("ex_name");
+int ex_hall_num = Integer.parseInt(request.getParameter("ex_hall_num"));
+
+UserExhibitionDAO uhDAO=UserExhibitionDAO.getInstance();
+UserExhibitionDetailDAO uehDAO=UserExhibitionDetailDAO.getInstance();
+
+List<ExhibitionVO> list=uhDAO.selectAllExList(ex_name);
+List<ExhibitionHallVO> list_map=uehDAO.mapSelect(ex_hall_num);
+
+int num=0,hall_num=0;
+String name="",poster="",intro="",hall_name="",add_img="",info="";
+double longitude=0.0,latitude=0.0;
+
+for(ExhibitionVO ehVO:list){
+	num=ehVO.getEx_num();
+	name=ehVO.getEx_name();
+	poster=ehVO.getEx_poster();
+	intro=ehVO.getEx_intro();
+	add_img=ehVO.getAdd_Img();
+	info=ehVO.getEx_info();
+}
+
+for(ExhibitionHallVO exhVO:list_map){
+	hall_num=exhVO.getEx_hall_num();
+	hall_name=exhVO.getEx_name();
+	longitude=exhVO.getLongitude();
+	latitude=exhVO.getLatitude();
+}
+
+
+%>  
 <!DOCTYPE html>
 <html>
     <head>
 
         <!-- /.website title -->
-        <title>예약 성공</title>
+        <title>전시 상세</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -33,7 +76,11 @@
 
     </head>
 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d03047aec60053ce5bf32ac7416d3021"></script>
+
+
     <body data-spy="scroll" data-target="#navbar-scroll">
+
 
         <!-- /.preloader -->
         <div id="preloader"></div>
@@ -52,9 +99,7 @@
                         </div>
 
                         <!-- /.main title -->
-                        <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                           예약완료
-                        </h2>
+                      
 
                     </div>
                 </div> 
@@ -62,7 +107,7 @@
         </div>
         
         
-            <!-- NAVIGATION -->
+             <!-- NAVIGATION -->
         <div id="menu">
                <div class="container""> 
                     <div class="navbar-header">
@@ -72,48 +117,48 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="#top">Exhibition</a>
+                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="list.jsp">전체 전시 보기</a></li>
+                               <li><a href="list.jsp">전체 전시 보기</a></li>
                             <li><a href="loc.jsp">지역별 전시 보기</a></li>
-                            <li><a href="taxi.jsp">예약하기</a></li>
+                            <li><a href="reservation.jsp">예약하기</a></li>
                                     <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>
                     </div>
                  </div>  
         </div>
-
-        <!-- /.Cars section -->
-        <div id="sign-in" style="margin-left: 30%">
+         <div id="carssection">
             <div class="container">
-                <div class="col-sm-6">
-                    <div class="text-center">
-                        <h2 class="wow fadeInLeft">취소되었습니다.</h2>
-                        <div class="title-line wow fadeInRight"></div>
-                    </div>
-                    <div class="row sign-in">
+              
+          <div class="row carssections">
 
-                        <form action="my-account.jsp" method="post">
+                        <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
+                            <figure >
+                                <div class="screen wow fadeInUp" style="position:absolute; left:350px; width: 900px; height: 400px"><strong><%=num %>. <%=name %></strong><br/><%=intro %></div>
+                                <img src="<%=poster %>" style="width:300px"/>
+                             <a href="reservation.jsp"><input type="button"  value="예약" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px ;margin-left: 500px"></a> 
+                                <a href="review.jsp?cat_num=<%=num%>"><input type="button"   value="후기" style="width:260px; margin-left: 15px ;background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
                             
-                            <div class="text-center">
-                              <a href="index.jsp"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>  
-                            </div>
-                        </form>
+                            </figure>
+                        </div>   
+                        </div>
+                        </div>
+                        </div>
+                        <!-- 전시 상세 -->
+             	<div class="container" style="width: 1200px; height: 1500px; background-color: #ffffff ;border:1px solid #E5E5E5">
+             	
+             	<img src="<%=add_img %>" style="width:100%; height:500px; "/><br/><br/>
+             	<div id="output"></div><%=info %>
 
-                    </div>
-                </div>
-            
-</div>
-</div>
-
-        
-        
-        <!-- /.footer -->
-        <footer id="footer">
+             	<div id="map" style="width:70%;height:350px; margin-left: 150px; margin-top: 100px"></div>
+             	</div>
+             	
+           <!-- /.footer -->
+        <footer id="footer" >
             <div class="footer-top">
                 <div class="container">
                     <div class="">
@@ -148,6 +193,7 @@
                     </div>
                     </div>
                     </footer>
+       
 
 
         <!-- /.javascript files -->
@@ -166,6 +212,29 @@
             new WOW().init();
 
         </script>
+        <script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(<%=longitude%>, <%=latitude%>), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+// 마커가 표시될 위치입니다 
+var markerPosition  = new kakao.maps.LatLng(<%=longitude%>, <%=latitude%>); 
+
+// 마커를 생성합니다
+var marker = new kakao.maps.Marker({
+    position: markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+
+// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+// marker.setMap(null);    
+</script>
 
     </body>
 </html>

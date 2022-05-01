@@ -4,14 +4,14 @@
 <%@page import="DAO.UserMainDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	errorPage="/error.jsp"%>
+	errorPage="/error.jsp" 
+	%>
 
 <!DOCTYPE html>
 <html>
 <head>
 
 <!-- /.website title -->
-
 <title>VTC Theme | Home page</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -101,7 +101,6 @@
 	</div>
 
 
-
 	<!-- NAVIGATION -->
 	<div id="menu">
 		<div class="container">
@@ -119,7 +118,7 @@
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
 					<li><a href="list.jsp">전체 전시 보기</a></li>
-					<li><a href="loc.jsp">지역별 전시 보기</a></li>
+					<li><a href="list.jsp">지역별 전시 보기</a></li>
 					<li><a href="reservation.jsp">예약하기</a></li>
 					<li><a href="board.jsp">게시판</a></li>
 
@@ -142,37 +141,13 @@
 		<div class="container">
 			<div class="text-center">
 
-				<h2 class="wow fadeInLeft">전시 리스트</h2>
+				<h2 class="wow fadeInLeft">전시 지역 선택</h2>
 				<div class="title-line wow fadeInRight"></div>
 			</div>
 			<div class="row carssections">
+			<div id="map" style="width:100%;height:350px;"></div><br/><br/>				
 
-
-
-				<div id="carssections" class="owl-carousel">
-					<%
-					List<ExhibitionVO> list2 = umDAO.viewExList();
-					
-					for (int i = 0; i < list2.size(); i++) {
-							
-						
-					%>
-					<div class="screen wow fadeInUp"
-						data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
-						<figure>
-							<%-- <img src="<%=list.get(i).getEx_poster()%>" style="cursor: pointer;"
-							onclick="poster('<%=list.get(i).getEx_name()%>')"/> --%>
-							<a href="exhibition_detail_index.jsp?ex_name=<%=list2.get(i).getEx_name()%>&ex_hall_num=<%=list2.get(i).getEx_hall_num()%>">
-							<img src="<%=list2.get(i).getEx_poster()%>"/></a>
-
-						</figure>
-					</div>
-					<%
-						}
-					%>
-
-					
-				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -181,22 +156,7 @@
 
 	<!-- /.contact section -->
 	<div id="contact">
-		<div class="action fullscreen parallax"
-			style="background-image: url('images/bg.jpg');" data-img-width="2000"
-			data-img-height="1333" data-diff="100">
-			<div class="overlay">
-				<div class="container">
-					<div class="col-md-8 col-md-offset-2 col-sm-12 text-center">
-
-						<!-- /.download title -->
-						<h2 class="wow fadeInRight">전체 전시 보기</h2>
-						<div id="map" style="width:100%;height:350px;"></div><br/><br/>
-						<br />
-						<br />
-					</div>
-				</div>
-			</div>
-		</div>
+		
 	</div>
 
 
@@ -266,7 +226,6 @@
 	<script src="js/hovers.js"></script>
 
 
-</script> -->
 	<script>
 		new WOW().init();
 		$('#date_time').datetimepicker({
@@ -306,48 +265,63 @@
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
         center: new kakao.maps.LatLng(36.54362, 126.12345), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 5 // 지도의 확대 레벨
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
  
 // 마커를 표시할 위치와 내용을 가지고 있는 객체 배열입니다 
 var positions = [];
-
+var hallNum = [];
 	<%
-	List<ExhibitionHallVO> list3 = umDAO.selectExLocAll();
-	for(ExhibitionHallVO temp : list3){	
+
+	List<ExhibitionHallVO> list2 = umDAO.selectExLocAll();
+	for(ExhibitionHallVO temp : list2){	
+		num	=	temp.getEx_hall_num();
 		name = temp.getEx_name();
 		Double longitude = temp.getLongitude();
 		Double latitude = temp.getLatitude();
+
 	%>
-	var tempData = 
-	{
-	        content: '<div style="color: black;"><%=name%></div>', 
-	        latlng: new kakao.maps.LatLng(<%=longitude%>, <%=latitude%>)
-	}
-	positions.push(tempData)
+		
+	
+		var tempData = 
+		{
+		        content: '<div style="color: black;"><a href="list_loc.jsp?ex_hall_num=<%=num%>"><%=name%><br/>전시 리스트</div></a>', 
+		        latlng: new kakao.maps.LatLng(<%=longitude%>, <%=latitude%>)
+		}
+		
+		
+		positions.push(tempData);
+		
+		
 	<%
 	}
 	%>
 
-	for (var i = 0; i < positions.length; i ++) {
+	for (var i = 0; i < positions.length; i ++)  {
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: positions[i].latlng // 마커의 위치
+        
+       
     });
 
     // 마커에 표시할 인포윈도우를 생성합니다 
     var infowindow = new kakao.maps.InfoWindow({
         content: positions[i].content // 인포윈도우에 표시할 내용
+    
+   
     });
 
+   	 
     // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
     // 이벤트 리스너로는 클로저를 만들어 등록합니다 
     // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
     kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+   	 
+
 }
 
 // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
@@ -363,6 +337,7 @@ function makeOutListener(infowindow) {
         infowindow.close();
     };
 }
+
 </script>
 
 </body>

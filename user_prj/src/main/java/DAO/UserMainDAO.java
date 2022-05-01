@@ -32,37 +32,42 @@ public class UserMainDAO {
 	}
 	
 
-	public ExhibitionVO selectExRepresent() throws SQLException{//대표전시
+	public List<ExhibitionVO> selectExRepresent() throws SQLException{//대표전시
 		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ExhibitionVO exVO=null;
+		List<ExhibitionVO> exVOList=null;
 		
 		try {
 			con=dc.getConnection();
 			
 			StringBuilder selectExRepresent=new StringBuilder();
 			selectExRepresent
-			.append("	select   ex_num, ex_name, exhibition_poster,ex_intro	")
-			.append("	from     exhibition	")
-			.append("	order by watch_count 	");
+			.append("	select *	")
+			.append("	from(select row_number() over( order by watch_count desc)as rank,ex_num, ex_name, exhibition_poster, ex_intro, watch_count from exhibition)")
+			.append("	where rank like 1	");
 			
 			pstmt=con.prepareStatement(selectExRepresent.toString());
 			rs=pstmt.executeQuery();
 		
+			exVOList=new ArrayList<ExhibitionVO>();
 		while(rs.next()) {
 			exVO=new ExhibitionVO();
 			exVO.setEx_num(rs.getInt("ex_num"));
 			exVO.setEx_name(rs.getString("ex_name"));
+			exVO.setEx_intro(rs.getString("ex_intro"));
+			exVO.setEx_poster(rs.getString("exhibition_poster"));
+			exVOList.add(exVO);
 		}
 		}finally {
 			dc.dbClose(rs, pstmt, con);
 		}
-		return exVO;
+		return exVOList;
 	}
-	public List<ExhibitionVO> selectExLocAll()throws SQLException{//지역별 지도
-		List<ExhibitionVO> list=new ArrayList<ExhibitionVO>();
+	public List<ExhibitionHallVO> selectExLocAll()throws SQLException{//지역별 지도
+		List<ExhibitionHallVO> list=new ArrayList<ExhibitionHallVO>();
 		DbcpConnection dc=new DbcpConnection();
 		Connection con=null;
 		PreparedStatement pstmt=null;
@@ -73,24 +78,25 @@ public class UserMainDAO {
 			con=dc.getConnection();
 			StringBuilder selectExLocAll=new StringBuilder();
 			selectExLocAll
-			.append("	select  ex.ex_num, ex.ex_name, exh.ex_hall_num, exh.ex_loc, exh.adress1, exh.adress2	")
-			.append("	from    exhibition ex inner join exhibition_hall exh	")
-			.append("	on   ex.ex_hall_num = exh.ex_hall_num	");
+			.append("	select  ex_hall_name, ex_hall_num, longitude, latitude	")
+			.append("	from  exhibition_hall	");
 			
 			pstmt=con.prepareStatement(selectExLocAll.toString());
 			rs=pstmt.executeQuery();
 			
-		ExhibitionVO exVO=null;
+		ExhibitionHallVO exhVO=null;
 		while(rs.next()) {
-			exVO.setEx_num(rs.getInt("ex_num"));
-			exVO.setEx_name(rs.getString("ex_name"));
-			exVO.setEx_poster(rs.getString("exhibition_poster"));
-			exVO.setEx_intro(rs.getString("ex_intro"));
-			list.add(exVO);
+			exhVO=new ExhibitionHallVO();
+			exhVO.setEx_name(rs.getString("ex_hall_name"));
+			exhVO.setEx_hall_num(rs.getInt("ex_hall_num"));
+			exhVO.setLongitude(rs.getDouble("longitude"));
+			exhVO.setLatitude(rs.getDouble("latitude"));
+			list.add(exhVO);
 		}
 	}finally {
 		dc.dbClose(rs, pstmt, con);
 	}
+		
 		return list;
 	}
 	
@@ -107,8 +113,10 @@ public class UserMainDAO {
 			StringBuilder viewExList=new StringBuilder();
 			
 			viewExList
-			.append("	select ex_num,ex_name,exhibition_poster,ex_intro	")
-			.append("	from exhibition	");
+			.append("	select ex_num,ex_name,exhibition_poster,ex_intro,ex_hall_num, ex_status	")
+			.append("	from exhibition	")
+			.append("	where ex_status like 't' ")
+			.append("	order by watch_count ");
 			
 			pstmt=con.prepareStatement(viewExList.toString());
 			rs=pstmt.executeQuery();
@@ -117,9 +125,11 @@ public class UserMainDAO {
 			while(rs.next()) {
 				exVO=new ExhibitionVO();
 				exVO.setEx_num(rs.getInt("ex_num"));
+				exVO.setEx_hall_num(rs.getInt("ex_hall_num"));
 				exVO.setEx_name(rs.getString("ex_name"));
 				exVO.setEx_poster(rs.getString("exhibition_poster"));
 				exVO.setEx_intro(rs.getString("ex_intro"));				
+				exVO.setEx_status(rs.getString("ex_status"));				
 				list.add(exVO);
 			}
 
@@ -128,6 +138,5 @@ public class UserMainDAO {
 		}
 		return list;	
 		}
-
 
 }

@@ -22,9 +22,9 @@ private static BoardDAO bDAO;
 	}//getInstance
 	
 	/**
-	 * �Խ��� ������ �����ִ� �޼ҵ�
-	 * @param bVO : �˻�(�ۼ���, ����)
-	 * @return : ������ �����ֱ�
+	 * 占쌉쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌍댐옙 占쌨소듸옙
+	 * @param bVO : 占싯삼옙(占쌜쇽옙占쏙옙, 占쏙옙占쏙옙)
+	 * @return : 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌍깍옙
 	 */
 	public List<BoardrVO> selectBoard(BoardrVO bVO) throws SQLException{
 		List<BoardrVO> list=new ArrayList<BoardrVO>();
@@ -89,7 +89,7 @@ private static BoardDAO bDAO;
 		
 		try {
 			con=dc.getConnection();
-			String sql="select cat_name,cat_num from category";
+			String sql="select cat_name,cat_num,ex_num from category";
 			pstmt=con.prepareStatement(sql);
 			
 			rs=pstmt.executeQuery();
@@ -99,6 +99,7 @@ private static BoardDAO bDAO;
 				eVO=new BoardrVO();
 				eVO.setCat_name(rs.getString("cat_name"));
 				eVO.setCat_num(rs.getInt("cat_num"));
+				eVO.setCat_num(rs.getInt("ex_num"));
 				
 				
 				list.add(eVO);
@@ -112,9 +113,9 @@ private static BoardDAO bDAO;
 	}//selectBoard
 	
 	/**
-	 * �Խñ� �����
-	 * @param bd_id : �Խñ� ��ȣ
-	 * @return ���� �Ϸ�/����
+	 * 占쌉시깍옙 占쏙옙占쏙옙占�
+	 * @param bd_id : 占쌉시깍옙 占쏙옙호
+	 * @return 占쏙옙占쏙옙 占싹뤄옙/占쏙옙占쏙옙
 	 */
 	public boolean deleteBoard(int bd_id) throws SQLException {
 		DbcpConnection dc=new DbcpConnection();
@@ -163,8 +164,8 @@ private static BoardDAO bDAO;
 	}//deleteBoard
 	
 	/**
-	 * �Խñ� �ۼ�
-	 * @param bVO (�ۼ���, ���� �� )
+	 * 占쌉시깍옙 占쌜쇽옙
+	 * @param bVO (占쌜쇽옙占쏙옙, 占쏙옙占쏙옙 占쏙옙 )
 	 */
 	public void insertBoard(BoardrVO bVO) throws SQLException{
 		DbcpConnection dc=new DbcpConnection();
@@ -205,7 +206,7 @@ private static BoardDAO bDAO;
 		}//end finally
 	}//insertBoard
 	/**
-	 * �Խñ� ����
+	 * 占쌉시깍옙 占쏙옙占쏙옙
 	 * @param bVO
 	 * @return
 	 */
@@ -258,7 +259,7 @@ private static BoardDAO bDAO;
 	
 	
 	/**
-	 * �Խñ� ���� ����
+	 * 占쌉시깍옙 占쏙옙占쏙옙 占쏙옙占쏙옙
 	 * @param bd_id
 	 * @return
 	 */

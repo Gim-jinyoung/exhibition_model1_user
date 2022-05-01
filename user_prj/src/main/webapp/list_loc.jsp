@@ -1,4 +1,5 @@
 <%@page import="java.util.List"%>
+<%@page import="DAO.UserExhibitionDAO"%>
 <%@page import="VO.ExhibitionVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.UserMainDAO"%>
@@ -85,7 +86,7 @@
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
 					<li><a href="list.jsp">전체 전시 보기</a></li>
-					<li><a href="loc.jsp">지역별 전시 보기</a></li>
+					<li><a href="list.jsp">지역별 전시 보기</a></li>
 					<li><a href="reservation.jsp">예약하기</a></li>
 					<li><a href="board.jsp">게시판</a></li>
 
@@ -122,10 +123,11 @@
 					<div id="carssection">
 						<div class="container">
 
-							<div class="row carssections">
+						<div class="row carssections">
 							<%
-							UserMainDAO umDAO=new UserMainDAO();
-							List<ExhibitionVO> list=umDAO.viewExList();
+							int ex_hall_num=Integer.parseInt(request.getParameter("ex_hall_num"));
+							UserExhibitionDAO uehDAO=UserExhibitionDAO.getInstance();
+							List<ExhibitionVO> list=uehDAO.selectLocalExList(ex_hall_num);
 							for(int i=0; i<list.size();i++){	
 
 							%>
@@ -146,7 +148,7 @@
 							}
 							%>
 
-
+				
 							</div>
 						</div>
 					</div>
@@ -224,8 +226,6 @@
 
 	<script>
 		new WOW().init();
-		
-		
 	</script>
 
 
