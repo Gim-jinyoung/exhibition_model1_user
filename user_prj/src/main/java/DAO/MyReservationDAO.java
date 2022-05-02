@@ -40,9 +40,9 @@ private static MyReservationDAO mrDAO;
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select e.ex_name , r.visit_date, r.rez_count, r.rez_date, r.rez_status,r.rez_num ")
+			.append("select e.ex_name , to_char(r.visit_date,'yyyy-MM-dd') visit_date, r.rez_count, TO_CHAR(r.rez_date,'yyyy-MM-dd') rez_date, r.rez_status,r.rez_num ")
 			.append("from reservation r, exhibition e ")
-			.append("where (e.ex_num(+)=r.ex_num) and userid=?");
+			.append("where (e.ex_num(+)=r.ex_num) and userid=? order by rez_status desc");
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, userid);
 			rs=pstmt.executeQuery();
@@ -84,7 +84,7 @@ private static MyReservationDAO mrDAO;
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select r.userid, r.rez_num, e.ex_name, eh.ex_hall_name ehx, r.visit_date, r.rez_count ")
+			.append("select r.userid, r.rez_num, e.ex_name, eh.ex_hall_name ehx, to_char(r.visit_date,'yyyy-MM-dd') visit_date, r.rez_count ")
 			.append("from exhibition e, reservation r, exhibition_hall eh ")
 			.append("where (e.ex_num=r.ex_num and e.ex_hall_num=eh.ex_hall_num) and r.rez_num=? and r.userid=?");
 			pstmt=con.prepareStatement(sql.toString());
@@ -123,7 +123,7 @@ private static MyReservationDAO mrDAO;
 		
 		try {
 			con=dc.getConnection();
-			pstmt=con.prepareStatement("delete from reservation where userid=? and rez_num=?");
+			pstmt=con.prepareStatement("update reservation set rez_status='f'  where userid=? and rez_num=? ");
 			pstmt.setString(1,mVO.getUserid());			
 			pstmt.setInt(2,mVO.getRez_num());			
 					
