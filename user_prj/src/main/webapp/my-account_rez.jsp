@@ -36,11 +36,6 @@
 
     </head>
 
-    <script type="text/javascript">
-    $(function(){
-    });//onload
-    </script>
-
     <body data-spy="scroll" data-target="#navbar-scroll">
         <!-- /.preloader -->
         <div id="preloader"></div>
@@ -83,7 +78,7 @@
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
                      <li><a href="list.jsp">전체 전시 보기</a></li>
-                            <li><a href="loc.jsp">지역별 전시 보기</a></li>
+                            <li><a href="list.jsp">지역별 전시 보기</a></li>
                             <li><a href="reservation.jsp">예약하기</a></li>
                                     <li><a href="board.jsp">게시판</a></li>
                         
@@ -116,7 +111,7 @@
                                 <ul class="nav nav-pills nav-stacked">
                               		 <li> <a href="#void">비밀번호 입력</a></li>
                                     <li class="active"><a href="#void">예약상황</a></li>
-                                    <li><a href="my_account_modify.jsp">내 정보 수정</a></li>
+                                    <li><a href="my_accoWQAWnt_modify.jsp">내 정보 수정</a></li>
                                     
                                     
                                 </ul>
@@ -128,15 +123,16 @@
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
                             <h2 style="padding-bottom: 17px;">예약 상황</h2>
 
+								<form action="my-account_rez_child.jsp" name="frm" id="frm">
                             <table id="mybooking-list" class="table booking-list stacktable large-only">
                                 <tbody>
                                     <tr>
                                         
-                                        <th>예약 번호</th>
-                                        <th>전시이름</th>
-                                        <th>방문 날짜</th> 
-                                        <th>방문 인원</th> 
-                                        <th>예약 날짜</th> 
+                                        <th style="width:130px">예약 번호</th>
+                                        <th style="width:200px">전시이름</th>
+                                        <th style="width:150px">방문 날짜</th> 
+                                        <th style="width:130px">방문 인원</th> 
+                                        <th style="width:150px">예약 날짜</th> 
                                         <th>예약 상황</th> 
                                         
                                     </tr>
@@ -155,16 +151,16 @@
 								
 								%>
 								<c:forEach var="rezList" items="${pageScope.rezList }">
-								<input type="hidden" value="${rezList.rez_num }" id="hid"/>
+								<input type="hidden" value="${rezList.rez_num }" name="hid" id="hid" />
                                     <tr >
                                         <td><%=num+=1 %></td>
-                                        <td><a href="#void" onclick="modal()" > ${rezList.ex_name}</a></td>
+                                        <td ><a href="#void" onclick="${rezList.rez_status eq 'f'?'':'detail()'}" > <input type="text" value="${rezList.ex_name}" style="color:${rezList.rez_status eq 'f'?'#A5A5A5':''}; border:0px" readonly="readonly" disabled="disabled"/></a></td>
                                         <td>${rezList.visit_date } </td>
                                         <td>${rezList.rez_count }</td>
                                         <td>
                                             ${rezList.rez_date }
                                         </td>
-                                        <td>${rezList.rez_status } </td>
+                                        <td style="width:100px"><input type="text" value="${rezList.rez_status eq 'f'?'예약 취소':'예약 완료'}" style="border:0px"/> </td>
                                         
                                     </tr> 
 
@@ -172,6 +168,7 @@
                                     
                                 </tbody>
                             </table>
+                            </form>
                          
                             <div class="text-center">
 							<a href="my-account_rez.jsp"><input type="button" id="find_direction"  value="확인" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
@@ -242,16 +239,15 @@
            
         </script>
 	<script type="text/javascript">
-	function modal() {
-             $(".modal").fadeIn();
-	}
-	function modalBtn() {
-		$(".modal").fadeOut();
-	}
-	function reservationCancel() {
-		$("#numFrm").submit();
-	}
-	</script>
+
+   
+    function detail(){
+    		var rezNum=
+    		"my-account_rez_child.jsp?hid="+$("#hid").val();
+    		window.open(rezNum,"detail","width=600px, height=500px");
+    }
+    </script>
+
 
     </body>
 </html>

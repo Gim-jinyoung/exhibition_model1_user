@@ -22,9 +22,9 @@ private static BoardDAO bDAO;
 	}//getInstance
 	
 	/**
-	 * 占쌉쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌍댐옙 占쌨소듸옙
-	 * @param bVO : 占싯삼옙(占쌜쇽옙占쏙옙, 占쏙옙占쏙옙)
-	 * @return : 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쌍깍옙
+	 * �Խ��� ������ �����ִ� �޼ҵ�
+	 * @param bVO : �˻�(�ۼ���, ����)
+	 * @return : ������ �����ֱ�
 	 */
 	public List<BoardrVO> selectBoard(BoardrVO bVO) throws SQLException{
 		List<BoardrVO> list=new ArrayList<BoardrVO>();
@@ -39,9 +39,10 @@ private static BoardDAO bDAO;
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select bd_id,title,recommend,views,input_date,userid ")
-			.append("from board ")
-			.append("where cat_num=? ")
+			.append("select b.bd_id,b.title,b.views,b.input_date,b.userid,count(c.cm_id) recommend  ")
+			.append("from board b, comment_table c ")
+			.append("where (b.bd_id=c.bd_id(+)) and cat_num=? ")
+			.append("group by b.bd_id,b.title,b.recommend,b.views,b.input_date,b.userid ")
 			.append("order by bd_id desc ");
 			if(bVO.getUserid() != null) {
 				sql
@@ -65,8 +66,8 @@ private static BoardDAO bDAO;
 				eVO.setTitle(rs.getString("title"));
 				eVO.setUserid(rs.getString("userid"));
 				eVO.setInput_date(rs.getString("input_date"));
-				eVO.setRecommend(rs.getInt("recommend"));
 				eVO.setViews(rs.getInt("views"));
+				eVO.setRecommend(rs.getInt("recommend"));
 				
 				list.add(eVO);
 				
@@ -89,7 +90,7 @@ private static BoardDAO bDAO;
 		
 		try {
 			con=dc.getConnection();
-			String sql="select cat_name,cat_num,ex_num from category";
+			String sql="select cat_name,cat_num from category";
 			pstmt=con.prepareStatement(sql);
 			
 			rs=pstmt.executeQuery();
@@ -99,7 +100,6 @@ private static BoardDAO bDAO;
 				eVO=new BoardrVO();
 				eVO.setCat_name(rs.getString("cat_name"));
 				eVO.setCat_num(rs.getInt("cat_num"));
-				eVO.setCat_num(rs.getInt("ex_num"));
 				
 				
 				list.add(eVO);
@@ -113,9 +113,9 @@ private static BoardDAO bDAO;
 	}//selectBoard
 	
 	/**
-	 * 占쌉시깍옙 占쏙옙占쏙옙占�
-	 * @param bd_id : 占쌉시깍옙 占쏙옙호
-	 * @return 占쏙옙占쏙옙 占싹뤄옙/占쏙옙占쏙옙
+	 * �Խñ� �����
+	 * @param bd_id : �Խñ� ��ȣ
+	 * @return ���� �Ϸ�/����
 	 */
 	public boolean deleteBoard(int bd_id) throws SQLException {
 		DbcpConnection dc=new DbcpConnection();
@@ -164,8 +164,8 @@ private static BoardDAO bDAO;
 	}//deleteBoard
 	
 	/**
-	 * 占쌉시깍옙 占쌜쇽옙
-	 * @param bVO (占쌜쇽옙占쏙옙, 占쏙옙占쏙옙 占쏙옙 )
+	 * �Խñ� �ۼ�
+	 * @param bVO (�ۼ���, ���� �� )
 	 */
 	public void insertBoard(BoardrVO bVO) throws SQLException{
 		DbcpConnection dc=new DbcpConnection();
@@ -174,11 +174,12 @@ private static BoardDAO bDAO;
 		
 		try {
 			con=dc.getConnection();
-			pstmt=con.prepareStatement("insert into board(bd_id,title,description,cat_num,userid) values(bd_seq.nextval,?,?,?,?)");
+			pstmt=con.prepareStatement("insert into board(bd_id,title,description,cat_num,userid,imgfile) values(bd_seq.nextval,?,?,?,?,?)");
 			pstmt.setString(1,bVO.getTitle());			
 			pstmt.setString(2,bVO.getDescription().toString().replaceAll("<", "").replaceAll(">", "").replaceAll("/", "").replace("p", ""));			
 			pstmt.setInt(3,bVO.getCat_num());			
 			pstmt.setString(4,bVO.getUserid());			
+			pstmt.setString(5,bVO.getImgfile());			
 			pstmt.executeQuery();
 				
 		}finally {
@@ -206,7 +207,7 @@ private static BoardDAO bDAO;
 		}//end finally
 	}//insertBoard
 	/**
-	 * 占쌉시깍옙 占쏙옙占쏙옙
+	 * �Խñ� ����
 	 * @param bVO
 	 * @return
 	 */
@@ -220,12 +221,26 @@ private static BoardDAO bDAO;
 		
 		try {
 			con=dc.getConnection();
-			pstmt=con.prepareStatement("update board set title=?, description=?, cat_num=? where bd_id=? and userid=?");
+			StringBuilder sql=new StringBuilder();
+			sql.append("update board set title=?, description=?, cat_num=?  ");
+			if (bVO.getImgfile() != null) {
+				sql.append(", imgfile= ?");
+			}
+			sql.append("where bd_id=? and userid=?");
+			
+			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setString(1, bVO.getTitle());			
 			pstmt.setString(2, bVO.getDescription().toString());			
-			pstmt.setInt(3, bVO.getCat_num());			
-			pstmt.setInt(4, bVO.getBd_id());			
-			pstmt.setString(5, bVO.getUserid());			
+			pstmt.setInt(3, bVO.getCat_num());		
+			if (bVO.getImgfile() != null) {
+				pstmt.setString(4, bVO.getImgfile());		
+				pstmt.setInt(5, bVO.getBd_id());			
+				pstmt.setString(6, bVO.getUserid());		
+			}else {
+				pstmt.setInt(4, bVO.getBd_id());			
+				pstmt.setString(5, bVO.getUserid());	
+			}
+			
 			n=pstmt.executeUpdate();
 			if(n>0) {
 				result=true;
@@ -259,7 +274,7 @@ private static BoardDAO bDAO;
 	
 	
 	/**
-	 * 占쌉시깍옙 占쏙옙占쏙옙 占쏙옙占쏙옙
+	 * �Խñ� ���� ����
 	 * @param bd_id
 	 * @return
 	 */
@@ -276,7 +291,7 @@ private static BoardDAO bDAO;
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select ct.cat_name,b.title,b.userid,b.input_date,b.description,b.bd_id ")
+			.append("select ct.cat_name,b.title,b.userid,b.input_date,b.description,b.bd_id,b.imgfile ")
 			.append("from board b, comment_table c,CATEGORY ct ")
 			.append("where (b.bd_id=c.bd_id(+) and b.cat_num(+)=ct.cat_num) and b.bd_id=?");
 			pstmt=con.prepareStatement(sql.toString());
@@ -291,6 +306,7 @@ private static BoardDAO bDAO;
 				bVO.setUserid(rs.getString("userid"));
 				bVO.setInput_date(rs.getString("input_date"));
 				bVO.setDescription(rs.getString("description"));
+				bVO.setImgfile(rs.getString("imgfile"));
 				
 				
 				
@@ -333,5 +349,9 @@ private static BoardDAO bDAO;
 		
 		return list;
 	}//selectBoard
+	
+
+	
+
 
 }//class

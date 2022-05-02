@@ -2,7 +2,7 @@
 <%@page import="VO.MyReservationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    errorPage="/error.jsp"%>
+       errorPage="/error.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +11,13 @@
 <link rel="stylesheet" type="text/css" href="http://211.63.89.140:80/jsp_prj/common/main_20220321.css"/>
 <title>Insert title here</title>
          <style type="text/css">
-.modal{
+#total{
 	position:absolute;
-	width:30%; height:40%; background:#FFFFFF;   margin-top: 20%; margin-left: 40%; background-color: #F0AD4E ;
+	width:500px; height:400px; background:#FFFFFF;   background-color: #F0AD4E ;
 	color: #ffffff; text-align: center;
 }
 .content{background-color: #ffffff; color: #000000;}
-table{margin-left: 100px}
+table{margin-left: 80px}
 </style>
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
@@ -28,14 +28,14 @@ table{margin-left: 100px}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-$(function(){
 
 });//ready
+
 </script>
 </head>
 <body>
 
-<div class="modal" >
+<div id="total" >
 <h2><strong>예약 상세 페이지</strong></h2>
 <div class="content">
 <div id="header">
@@ -44,12 +44,13 @@ $(function(){
 <%
 String userid=(String)session.getAttribute("id");
 if(userid==null){
-	userid="test@test.com";
+	userid="kang@naver.com";
 }
 MyReservationVO mrVO=new MyReservationVO();
 MyReservationDAO mrDAO=MyReservationDAO.getInstance();
-int rezNum= 9;
-mrVO.setRez_num(rezNum);
+String rezNum=request.getParameter("hid");
+
+mrVO.setRez_num(Integer.parseInt(rezNum));
 mrVO.setUserid(userid);
 MyReservationVO rezDetail=mrDAO.selectReservationDetail(mrVO);
 
@@ -79,7 +80,7 @@ pageContext.setAttribute("rezDetail", rezDetail);
 </table>
 <br/>
 	<a href="reservation_cancel.jsp?rez_num=${rezDetail.rez_num }"><input type="button"  value="예약 취소" style="margin-left: 50px;"  class="btn btn-light"></a>
-    <input type="button"   value="닫기" onclick="modalBtn()" class="btn btn-outline-danger">
+    <input type="button"   value="닫기" onclick="self.close()" class="btn btn-outline-danger">
     <br/><br/>
 </div>
 </div>

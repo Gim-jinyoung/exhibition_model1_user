@@ -3,7 +3,6 @@
 <%@page import="DAO.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    errorPage="/error.jsp"
     %>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -105,7 +104,7 @@ a{
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
 					<li><a href="list.jsp">전체 전시 보기</a></li>
-					<li><a href="loc.jsp">지역별 전시 보기</a></li>
+					<li><a href="list.jsp">지역별 전시 보기</a></li>
 					<li><a href="reservation.jsp">예약하기</a></li>
 					<li><a href="board.jsp">게시판</a></li>
 
@@ -126,7 +125,7 @@ a{
 			<div class="row account-details">
 
 				<!-- /.account-control -->
-				<form action="boardUpdateProcess.jsp" method="get"  id="frm" name="frm" >
+				<form action="boardUpdateProcess.jsp" method="post"  id="frm" name="frm" enctype="multipart/form-data">
 				<div
 					class="panel panel-default sidebar-menu wow  fadeInLeft animated">
 				</div>
@@ -161,6 +160,7 @@ a{
                                 </ul>
 					</div>
 					<textarea id="summernote1" name="ta" >${detail.description }</textarea>
+					<input type="file" name="img" id="img" />
 					<br /> <input type="button" value="전송" id="btn"
 						class="btn btn-warning btn-block btn-lg" />
 						</form>
@@ -255,6 +255,30 @@ $(document).ready(function() {
 	});
 	
 	$("#btn").click(function(){
+		 if($("#title").val()==""){
+			  alert("제목 입력은 필수입니다.");
+			  return;
+		  }
+		  if($("#summernote1").val()==""){
+			  alert("내용을 입력해 주세요.");
+			  return;
+		  }
+		  if($("#img").val() != ""){
+		  var fileName=$("#img").val();
+			let ext=fileName.toLowerCase().substring(fileName.lastIndexOf(".")+1);
+			var compareExt="png,jpg,gif,bmp".split(",");
+			var flag=false;
+			for(var i=0; i<compareExt.length; i++){
+				if(compareExt[i] == ext){
+					flag=true;
+					break;
+				}//end if
+			}//end for
+				if(!flag){
+					alert(fileName+"은 업로드 불가능 합니다.\n이미지만 업로드 가능합니다. \n 가능 확장자 png,jpg,gif,bmp");
+					return;
+				}//end if
+		  }
 		$("#frm").submit();
 		
 	});//click

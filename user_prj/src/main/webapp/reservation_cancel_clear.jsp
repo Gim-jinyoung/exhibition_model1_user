@@ -35,60 +35,9 @@
 
     <body data-spy="scroll" data-target="#navbar-scroll">
 
-        <!-- /.preloader -->
-        <div id="preloader"></div>
-        <div id="top"></div>
-
-        <!-- /.parallax full screen background image -->
-        <div class="fullscreen landing parallax blog-page" style="background-image:url('images/bg-baner.jpg');" data-img-width="2000" data-img-height="1333" data-diff="100">
-
-            <div class="overlay">
-                <div class="container">
-                    <div class="col-md-10 col-md-offset-1 text-center">
-
-                        <!-- /.logo -->
-                        <div class="logo wow fadeInDown" style="margin-top: 50px"> 
-                            <a href="index.jsp">Exhibition</a>
-                        </div>
-
-                        <!-- /.main title -->
-                        <h2 class="wow fadeInUp" style="margin-bottom: 50px">
-                           예약완료
-                        </h2>
-
-                    </div>
-                </div> 
-            </div> 
-        </div>
-        
-        
-            <!-- NAVIGATION -->
-        <div id="menu">
-               <div class="container""> 
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand site-name" href="#top">Exhibition</a>
-                    </div>
-
-                    <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
-                        <ul class="nav navbar-nav">
-                            <li><a href="list.jsp">전체 전시 보기</a></li>
-                            <li><a href="loc.jsp">지역별 전시 보기</a></li>
-                            <li><a href="taxi.jsp">예약하기</a></li>
-                                    <li><a href="board.jsp">게시판</a></li>
-                        
-                        </ul>
-                    </div>
-                 </div>  
-        </div>
-
+       
         <!-- /.Cars section -->
-        <div id="sign-in" style="margin-left: 30%">
+        <div id="sign-in" style="float:left;">
             <div class="container">
                 <div class="col-sm-6">
                     <div class="text-center">
@@ -100,7 +49,7 @@
                         <form action="my-account.jsp" method="post">
                             
                             <div class="text-center">
-                              <a href="index.jsp"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>  
+                              <a href="#void" onclick="self.close()"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="닫기"></a>  
                             </div>
                         </form>
 
@@ -112,44 +61,7 @@
 
         
         
-        <!-- /.footer -->
-        <footer id="footer">
-            <div class="footer-top">
-                <div class="container">
-                    <div class="">
-                        <div class="col-md-4 col-sm-6">
-                            <h4>고객 센터</h4>
-                            <p><strong>3조</strong>
-                                <br>전화 번호 :081) 123-1234  
-                                <br>상담 가능 시간: AM 10:00~PM 05:00
-                                <br>관련 이메일: exhibition@naver.com
-                            </p>
-                            <hr class="hidden-md hidden-lg">
-                        </div> 
-
-                        
-                        <!-- /.col-md-4 -->
-                        
-                        <div class="col-md-4 col-sm-6">
-                            <h4>사업자 등록번호</h4>
-                            <div class="newsletter-box">
-                                <div class="newsletter">  
-                                    <div class="newsletter-content"> 
-                                        <p>123-1234-1234</p>
-                                    </div> 
-                                    
-                                    <div class="clear"> </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.col-md-4 -->
-
-                    </div>
-                    </div>
-                    </div>
-                    </footer>
-
-
+     
         <!-- /.javascript files -->
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>

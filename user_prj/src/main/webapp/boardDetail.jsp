@@ -115,7 +115,7 @@ a{
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
 					<li><a href="list.jsp">전체 전시 보기</a></li>
-					<li><a href="loc.jsp">지역별 전시 보기</a></li>
+					<li><a href="list.jsp">지역별 전시 보기</a></li>
 					<li><a href="reservation.jsp">예약하기</a></li>
 					<li><a href="board.jsp">게시판</a></li>
 
@@ -158,8 +158,9 @@ a{
 					<h3 class="panel-title">제목</h3>
 					<input class="form-control" type="text" readonly="readonly"
 						style="background: #ffffff" value="${boardDetail.title}" disabled="disabled"/>
+						<img src="http://211.63.89.140:80/user_prj/ImageFile/${boardDetail.imgfile }"/>
 					<textarea name="ta" readonly="readonly"  id="textDesc"
-						style="background: #ffffff; border-style: none; resize: none; width: 100%; height50%;margin-top: 10px; border:1px solid #333" disabled="disabled">${boardDetail.description}</textarea> <!-- 이미지 넣기 -->
+						style="background: #ffffff; border: none; resize: none; width: 100%; height1000px;margin-top: 10px; border:1px solid #333" disabled="disabled">${boardDetail.description}</textarea> 
 				</div>
 				</div>
 				<%
