@@ -138,7 +138,7 @@
 										</div>
 										<%-- <a href="exhibition_detail.jsp?ex_num=<%=list.get(i).getEx_num()%>"> --%>
 										<a href="exhibition_detail.jsp?ex_num=<%=list.get(i).getEx_num()%>&ex_hall_num=<%=list.get(i).getEx_hall_num()%>">
-										<img src="<%=list.get(i).getEx_poster() %>" style="width: 300px"/></a>
+										<img src="./img/<%=list.get(i).getEx_poster() %>" style="width: 300px"/></a>
 											 
 									</figure>
 								</div>

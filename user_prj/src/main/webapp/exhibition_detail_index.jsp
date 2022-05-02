@@ -139,7 +139,7 @@ for(ExhibitionHallVO exhVO:list_map){
                         <div class="screen wow fadeInUp" data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
                             <figure >
                                 <div class="screen wow fadeInUp" style="position:absolute; left:350px; width: 900px; height: 400px"><strong><%=num %>. <%=name %></strong><br/><%=intro %></div>
-                                <img src="<%=poster %>" style="width:300px"/>
+                                <img src="./img/<%=poster %>" style="width:300px"/>
                              <a href="reservation.jsp"><input type="button"  value="예약" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px ;margin-left: 500px"></a> 
                                 <a href="review.jsp?cat_num=<%=num%>"><input type="button"   value="후기" style="width:260px; margin-left: 15px ;background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
                             
@@ -151,7 +151,7 @@ for(ExhibitionHallVO exhVO:list_map){
                         <!-- 전시 상세 -->
              	<div class="container" style="width: 1200px; height: 1500px; background-color: #ffffff ;border:1px solid #E5E5E5">
              	
-             	<img src="<%=add_img %>" style="width:100%; height:500px; "/><br/><br/>
+             	<img src="./img/<%=add_img %>" style="width:100%; height:500px; "/><br/><br/>
              	<div id="output"></div><%=info %>
 
              	<div id="map" style="width:70%;height:350px; margin-left: 150px; margin-top: 100px"></div>

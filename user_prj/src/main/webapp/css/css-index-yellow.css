@@ -1516,8 +1516,7 @@ Asside widgets CSS
     position: relative;
     top: 0;
     float: right;
-}
-//Assides forms 
+} 
 .form-control {
     box-shadow: none;
     border-radius: 0px;
@@ -1890,7 +1889,7 @@ img.car {
     float: left;
     width: 24px;
     height: 24px;
-    content: "";
+    content: "�겎";
     color: #D1B702;
     font-size: 16px;
     line-height: 24px;
