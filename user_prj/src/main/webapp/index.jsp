@@ -286,7 +286,7 @@
 		<script type="text/javascript">
 $(function({
 	$("#logout").click(function({
-		<%session.invalidate();%>
+		location.href="index_logout.jsp";
 		
 	});
 			
@@ -332,7 +332,7 @@ $(function({
 		<script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
-        center: new kakao.maps.LatLng(36.54362, 126.12345), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(37.525262 , 126.91912), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
