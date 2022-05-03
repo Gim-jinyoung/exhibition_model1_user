@@ -5,7 +5,7 @@
 <%@page import="DAO.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-     errorPage="/error.jsp"
+  
      %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -192,11 +192,10 @@ a{
 						</li>
 						<c:forEach var="boardComment" items="${pageScope.boardComment }">
 						<li><div>
-						<input type="text" value="${boardComment.cm_id }" style="border:none; text-align: center; width: 40px" readonly="readonly" disabled="disabled"/>
 						<input type="text" value="${boardComment.cm_userid }" style="border:none; text-align: center" readonly="readonly" disabled="disabled" />
 						<input type="text" style="width: 50%; margin-top: 10px ; border:none" readonly="readonly" disabled="disabled" value="${boardComment.cm_description }"/>
 						<input type="text" value="${boardComment.cm_input_date }"  style="border:none; text-align: center" readonly="readonly" disabled="disabled"/>
-							<c:if test="${boardComment.cm_id eq sessionId}">
+							<c:if test="${sessinId eq boardComment.cm_id}">
 							<a href="commentDelete.jsp?cm_id=${boardComment.cm_id  }&bd_id=${bd_id}"><button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commenDeltBtn">댓글 삭제</button></a>
 							</c:if>
 							

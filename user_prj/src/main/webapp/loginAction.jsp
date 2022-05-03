@@ -14,7 +14,7 @@ String password=request.getParameter("password");
 	//String isSubscribeDate, String name, char isDeleted
 MemberVO mVO=new MemberVO(userId,"","","","",password,"","",' ');
 UserLoginDAO ulDAO=UserLoginDAO.getInstance();
-
+try{
 int result = ulDAO.login( mVO );
 if( result == 1 ){
 	
@@ -22,6 +22,7 @@ if( result == 1 ){
 System.out.println("로그인--------"+mVO);
  
 }
+
 
 %>
 
@@ -46,7 +47,9 @@ System.out.println("로그인--------"+mVO);
 			history.back(); // 이전 페이지로 사용자를 돌려 보냄.
 			<%
 		}
-		
+}catch(Exception e){
+	e.printStackTrace();
+}
 	%>
 
 </script>

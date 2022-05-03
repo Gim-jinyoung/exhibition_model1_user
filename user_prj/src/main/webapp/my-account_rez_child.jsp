@@ -1,3 +1,4 @@
+<%@page import="VO.MemberVO"%>
 <%@page import="DAO.MyReservationDAO"%>
 <%@page import="VO.MyReservationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -42,10 +43,9 @@ table{margin-left: 80px}
 </div>
 <br/>
 <%
-String userid=(String)session.getAttribute("id");
-if(userid==null){
-	userid="kang@naver.com";
-}
+MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
+String userid=sessionMember.getUserId();
+
 MyReservationVO mrVO=new MyReservationVO();
 MyReservationDAO mrDAO=MyReservationDAO.getInstance();
 String rezNum=request.getParameter("hid");

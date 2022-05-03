@@ -230,7 +230,7 @@ $(function(){
                                 <input class="form-control"  type="text" value="${mVO.userId }" id="userId" name="userId"><br/>
                             </div>
                             
-                              <a href="http://localhost/user_prj/newpass.jsp"><input type="button" class="btn btn-warning btn-block btn-lg" value="비밀번호 수정"></a> 
+                              <a href="http://localhost/user_prj/newpass2.jsp"><input type="button" class="btn btn-warning btn-block btn-lg" value="비밀번호 수정"></a> 
                            <br/>
                             <div class="form-group">
                                 <label for="name-login">이름</label>

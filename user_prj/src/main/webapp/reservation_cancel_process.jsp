@@ -3,7 +3,7 @@
 <%@page import="VO.MyReservationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-     errorPage="/error.jsp"%>
+    %>
 <%			
 				String rezNum=request.getParameter("rez_num");
 				if(rezNum == null){
