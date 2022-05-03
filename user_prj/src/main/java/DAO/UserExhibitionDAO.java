@@ -48,10 +48,11 @@ private static UserExhibitionDAO umDAO;
 			.append("	select ex_num, ex_name, exhibition_poster, ex_intro,ex_info,add_img,ex_hall_num,ex_status	")
 			.append("	from exhibition	")
 			.append("	where ex_name like ? and ex_status like't' ");
+			
 			String temp = selectAllExList.toString();
 			
 			pstmt=con.prepareStatement(selectAllExList.toString());
-			pstmt.setString(1, ex_name);
+			pstmt.setString(1, "%"+ex_name+"%");
 			rs=pstmt.executeQuery();
 			ExhibitionVO exVO=null; 
 			

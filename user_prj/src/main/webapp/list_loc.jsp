@@ -99,11 +99,11 @@
 	<!-- /.pricing section -->
 	<div id="myaccount">
 		<div class="container">
-			<form class="d-flex">
+			<form class="d-flex" action="list.search.jsp" method="get">
 				<button class="btn btn-outline-success" type="submit"
 					style="float: right; height: 50px">Search</button>
-				<input class="form-control me-2" type="search" placeholder="Search"
-					aria-label="Search" style="float: right; width: 200px">
+				<input class="form-control me-2" type="search" placeholder="전시명을 입력하세요" name="ex_name"
+					aria-label="Search" style="float: right; width: 200px" >
 			</form>
 		</div>
 		<div class="container">

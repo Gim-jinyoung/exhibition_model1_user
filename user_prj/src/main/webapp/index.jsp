@@ -77,7 +77,11 @@
 						</div>
 						<div class="head-btn wow fadeInLeft" style="width: 1300px;">
 							<%
-							Object value=(Object)session.getAttribute("mVO");
+							
+							Object value= null; 
+							if((Object)session.getAttribute("mVO")!=null){
+							value=(Object)session.getAttribute("mVO");
+							}
 							 %>
 							 <%
 							if(value==null){
@@ -85,14 +89,14 @@
 								<a href="login.jsp" class="btn btn-default" id="login_btn"
 								style="float: right;">로그인/회원가입</a>
 								<%
-							}else if(value!=null){
+							}else{
 								%>
 								<a href="my_account_pass.jsp"
 										class="btn btn-primary" id="my_info_btn" style="float: right;">내
 										정보</a>  
-										<a href="index.jsp"
+										
+										<a href="index_logout.jsp"
 										class="btn btn-default" id="logout_btn" style="float: right">로그아웃</a>
-									>
 									<%
 							}
 							 
@@ -110,7 +114,6 @@
 							<div class="landing-text wow fadeInUp">
 								<p><%=intro%></p>
 							</div>
-
 
 						</div>
 					</div>
@@ -148,14 +151,13 @@
 				</div>
 			</div>
 		</div>
-
 		<!-- /.Cars section -->
 		<div class="container">
-			<form class="d-flex">
+			<form class="d-flex" action="list.search.jsp" method="get">
 				<button class="btn btn-outline-success" type="submit"
 					style="float: right; height: 50px">Search</button>
-				<input class="form-control me-2" type="search" placeholder="Search"
-					aria-label="Search" style="float: right; width: 200px">
+				<input class="form-control me-2" type="search" placeholder="전시명을 입력하세요" name="ex_name"
+					aria-label="Search" style="float: right; width: 200px" >
 			</form>
 		</div>
 		<div id="carssection">
@@ -179,7 +181,7 @@
 						<div class="screen wow fadeInUp"
 							data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
 							<figure>
-								<a href="exhibition_detail_index.jsp?ex_name=<%=list2.get(i).getEx_name()%>&ex_hall_num=<%=list2.get(i).getEx_hall_num()%>">
+								<a href="exhibition_detail.jsp?ex_num=<%=list2.get(i).getEx_num()%>&ex_hall_num=<%=list2.get(i).getEx_hall_num()%>">
 							<img src="./img/<%=list2.get(i).getEx_poster()%>" />
 									
 								</a>
@@ -284,13 +286,8 @@
 		<script src="js/hovers.js"></script>
 
 		<script type="text/javascript">
-$(function({
-	$("#logout").click(function({
-		location.href="index_logout.jsp";
-		
-	});
-			
-});
+
+	
 
 </script>
 		<script>

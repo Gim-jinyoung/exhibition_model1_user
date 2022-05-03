@@ -1,10 +1,9 @@
+<%@page import="DAO.UserExhibitionDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="VO.ExhibitionVO"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="DAO.UserMainDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"
-	errorPage="/error.jsp"%>
+	pageEncoding="UTF-8"%>
 	<jsp:useBean id="DAO" class="DAO.UserMainDAO"/>
 <!DOCTYPE html>
 <html>
@@ -124,9 +123,10 @@
 
 							<div class="row carssections">
 							<%
+							String ex_name = request.getParameter("ex_name");
 							
-							UserMainDAO umDAO=new UserMainDAO();
-							List<ExhibitionVO> list=umDAO.viewExList();
+							UserExhibitionDAO exDAO=UserExhibitionDAO.getInstance();
+							List<ExhibitionVO> list=exDAO.selectAllExList(ex_name);
 							for(int i=0; i<list.size();i++){	
 
 							%>
