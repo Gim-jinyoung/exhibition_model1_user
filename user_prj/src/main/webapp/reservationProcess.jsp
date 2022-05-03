@@ -1,3 +1,4 @@
+<%@page import="VO.MemberVO"%>
 <%@page import="DAO.UserReservationDAO"%>
 <%@page import="VO.ReservationManagerVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,12 +8,11 @@
 	   String date=request.getParameter("pick_up_date");
 	  String count=request.getParameter("people");
 	  String exNum=request.getParameter("exNum");
-	  String userid=(String)session.getAttribute("id");
+	  MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
+		String userid=sessionMember.getUserId();
 	  
 	 
-	  if(userid == null){
-		 userid="kang@naver.com";
-	  }
+
 	  UserReservationDAO urDAO=UserReservationDAO.getInstance();
 	  ReservationManagerVO rVO=new ReservationManagerVO();
 	  rVO.setRez_count(Integer.parseInt(count));

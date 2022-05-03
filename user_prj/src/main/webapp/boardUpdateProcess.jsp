@@ -1,3 +1,4 @@
+<%@page import="VO.MemberVO"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="java.io.File"%>
@@ -22,14 +23,13 @@ BoardDAO bDAO=BoardDAO.getInstance();
 String title=mr.getParameter("title");
 String desc=(mr.getParameter("ta"));
 String catNum=mr.getParameter("Exhibition");
-String userId=(String)session.getAttribute("id");
+MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
+String userId=sessionMember.getUserId();
 if(mr.getFilesystemName("img") != ""){
 String fileSystemName=mr.getFilesystemName("img");
 bVO.setImgfile(fileSystemName);
 }
-		 if(userId == null){
-			  userId="kang@naver.com";
-		  }
+		
 		 
 			bVO.setTitle(title);
 			bVO.setDescription(desc);

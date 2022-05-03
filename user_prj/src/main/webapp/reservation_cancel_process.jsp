@@ -1,3 +1,4 @@
+<%@page import="VO.MemberVO"%>
 <%@page import="DAO.MyReservationDAO"%>
 <%@page import="VO.MyReservationVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -8,10 +9,8 @@
 				if(rezNum == null){
 					%>잘못된 접근입니다. <%
 				}//end if
-				String userid=(String)session.getAttribute("id");
-				if(userid == null){
-					userid="kang@naver.com";
-				}//end if
+				MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
+				String userid=sessionMember.getUserId();
 				
 				MyReservationVO mrVO=new MyReservationVO();
 				mrVO.setRez_num(Integer.parseInt(rezNum));

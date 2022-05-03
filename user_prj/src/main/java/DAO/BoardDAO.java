@@ -39,22 +39,29 @@ private static BoardDAO bDAO;
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select b.bd_id,b.title,b.views,b.input_date,b.userid,count(c.cm_id) recommend  ")
+			.append("select rownum ,title,views,input_date,userid,cnt ")
+			.append("from ")
+			.append("(select row_number() over(order by b.input_date desc) rnum, b.bd_id,b.title,b.views,b.input_date,b.userid,count(c.cm_id) cnt ")
 			.append("from board b, comment_table c ")
-			.append("where (b.bd_id=c.bd_id(+)) and cat_num=? ")
-			.append("group by b.bd_id,b.title,b.recommend,b.views,b.input_date,b.userid ")
-			.append("order by bd_id desc ");
+			.append("where (b.bd_id=c.bd_id(+)) and b.cat_num=? ");
 			if(bVO.getUserid() != null) {
 				sql
 				.append("and userid=? or title=?");
 			}
+			sql.append("group by b.bd_id,b.title,b.views,b.input_date,b.userid) ")
+			.append("where rnum between ? and ? ");
 			
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1, bVO.getCat_num());
+		
 			if(bVO.getUserid() != null ) {
 					pstmt.setString(2, bVO.getUserid());
 					pstmt.setString(3, bVO.getTitle());
-				
+					pstmt.setInt(4, bVO.getPageNum());
+					pstmt.setInt(5, bVO.getPageNum()+9);
+			}else {
+				pstmt.setInt(2, bVO.getPageNum());
+				pstmt.setInt(3, bVO.getPageNum()+9);
 			}
 		
 			rs=pstmt.executeQuery();
@@ -62,12 +69,12 @@ private static BoardDAO bDAO;
 			BoardrVO eVO=null;
 			while(rs.next()) {
 				eVO=new BoardrVO();
-				eVO.setBd_id(rs.getInt("bd_id"));
+				eVO.setRownum(rs.getInt("rownum"));
 				eVO.setTitle(rs.getString("title"));
 				eVO.setUserid(rs.getString("userid"));
 				eVO.setInput_date(rs.getString("input_date"));
 				eVO.setViews(rs.getInt("views"));
-				eVO.setRecommend(rs.getInt("recommend"));
+				eVO.setRecommend(rs.getInt("cnt"));
 				
 				list.add(eVO);
 				
@@ -351,7 +358,31 @@ private static BoardDAO bDAO;
 	}//selectBoard
 	
 
-	
-
+	public int selectTotalBoard(int cat_num) throws SQLException{
+		
+		int result = 0;
+		DbcpConnection dc=new DbcpConnection();
+		
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			con=dc.getConnection();
+			String sql="select count(bd_id) cnt from board where cat_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,cat_num);
+			rs=pstmt.executeQuery();
+			
+			BoardrVO bVO=null;
+			while(rs.next()) {
+				result=rs.getInt("cnt");
+			}//end while
+		}finally {
+			dc.dbClose(rs, pstmt, con);
+		}//end finally
+		
+		return result;
+	}//selectBoard
 
 }//class

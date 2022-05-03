@@ -3,7 +3,7 @@
 <%@page import="DAO.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-     errorPage="/error.jsp"%>
+    %>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -124,19 +124,20 @@ $(function(){
                             <div class="panel-heading">
                                 <h3 class="panel-title">Menu</h3>
                             </div>
-                            <form action="board.jsp" method="post" id="boardcat" name="boardcat">
+                            <form action="board.jsp" method="get" id="boardcat" name="boardcat">
                             <div class="panel-body">
                                 <ul class="nav nav-pills nav-stacked">
                                             <%
                                             
                                             String catNum=request.getParameter("Exhibition");
                                             if(catNum == null){
-                                            	catNum="1";
+                                            	catNum="5";
                                             }
 								BoardDAO bDAO=BoardDAO.getInstance();
 								List<BoardrVO> catList=bDAO.selectCategory();
 								
 								pageContext.setAttribute("catList", catList);
+								pageContext.setAttribute("catNum", catNum);
 								%>
                                     <li class="active" >  <select class="form-control input-lg" name="Exhibition" id="Exhibition">
 								<c:forEach var="catList" items="${pageScope.catList }">
@@ -173,18 +174,22 @@ $(function(){
                              
                              BoardrVO bVO=new BoardrVO();
                              bVO.setCat_num(Integer.parseInt(catNum));
+                             String pageNum=request.getParameter("pageNum");
+                             if(pageNum ==null){
+                            	 pageNum="1";
+                             }
                              bVO.setUserid(search);
                              bVO.setTitle(search);
+                             bVO.setPageNum(Integer.parseInt(pageNum));
 								List<BoardrVO> boardList=bDAO.selectBoard(bVO);
 								
 								pageContext.setAttribute("boardList", boardList);
-								int num=0;
 								%>
 							
 								<c:forEach var="boardList" items="${pageScope.boardList }">
 								
                                     <tr>
-                                        <td><%=num +=1 %></td>
+                                        <td>${boardList.rownum }</td>
 								
                                      <td style="text-align: center;">	<a href="boardDetail.jsp?value=${boardList.bd_id }" > <c:out value="${boardList.title }"/></a></td>
                                         <td><c:out value="${boardList.userid }"/></td>
@@ -197,23 +202,19 @@ $(function(){
                                 </c:forEach>
                                 </tbody>
                             </table>
+                            <% 
+                            	int total=bDAO.selectTotalBoard(Integer.parseInt(catNum));
+                            	int end=total/10;
+                            	pageContext.setAttribute("end", end);
+                            %>
                             
 <div class="text-center">
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous" style="color: #000000">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#" style="color: #000000">1</a></li>
-    <li class="page-item"><a class="page-link" href="#" style="color: #000000">2</a></li>
-    <li class="page-item"><a class="page-link" href="#" style="color: #000000">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next" style="color: #000000">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
+    <li class="page-item"><a href="board.jsp?pageNum=${1}&Exhibition=${catNum}"><c:out value="${1 }"/></a></li>
+  <c:forEach var="i" begin="1" end="${end }" step="1">
+    <li class="page-item"><a href="board.jsp?pageNum=${i*10+1}&Exhibition=${catNum}"><c:out value="${i+1 }"/></a></li>
+    </c:forEach>
   </ul>
 </nav>
 

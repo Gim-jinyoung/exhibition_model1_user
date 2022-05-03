@@ -2,9 +2,10 @@ package VO;
 
 public class BoardrVO {
 private String title, userid, input_date, cat_name, cm_input_date,imgfile,cm_userid;
-private int bd_id, cat_num, recommend, views, cm_id;
+private int bd_id, cat_num, recommend, views, cm_id,rownum ;
 private String description, cm_description;
 private char isdeleted;
+private int pageNum;
 public BoardrVO() {
 	
 }
@@ -159,6 +160,30 @@ public String getImgfile() {
  */
 public void setImgfile(String imgfile) {
 	this.imgfile = imgfile;
+}
+/**
+ * @return the pageNum
+ */
+public int getPageNum() {
+	return pageNum;
+}
+/**
+ * @param pageNum the pageNum to set
+ */
+public void setPageNum(int pageNum) {
+	this.pageNum = pageNum;
+}
+/**
+ * @return the rownum
+ */
+public int getRownum() {
+	return rownum;
+}
+/**
+ * @param rownum the rownum to set
+ */
+public void setRownum(int rownum) {
+	this.rownum = rownum;
 }
 
 

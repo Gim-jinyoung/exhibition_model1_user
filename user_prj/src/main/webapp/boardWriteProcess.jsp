@@ -1,3 +1,4 @@
+<%@page import="VO.MemberVO"%>
 <%@page import="kr.co.sist.util.img.ImageResize"%>
 <%@page import="java.io.IOException"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -29,11 +30,10 @@
 		  String title=mr.getParameter("title");
 		  String desc=(mr.getParameter("ta"));
 		  String catNum=mr.getParameter("Exhibition");
-		  String userId=(String)session.getAttribute("id");
+		  MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
+			String userId=sessionMember.getUserId();
 		  String fileSystemName=mr.getFilesystemName("img");
-		  if(userId == null){
-			  userId="kang@naver.com";
-		  }
+		 
 		  if(fileSystemName == null){
 			  fileSystemName="null";
 		  }

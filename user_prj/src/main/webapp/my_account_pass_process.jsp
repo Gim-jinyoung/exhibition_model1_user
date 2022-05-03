@@ -6,14 +6,14 @@
 <% 
 request.setCharacterEncoding("UTF-8");
 
-String userId=request.getParameter("userId");
+String userId=(String)session.getAttribute("userId");
 String name=(String)session.getAttribute("name");
 String tel=(String)session.getAttribute("tel");
 String address1=(String)session.getAttribute("address1");
 String address2=(String)session.getAttribute("address2");
 
 
-String password=request.getParameter("password");
+String password=(String)session.getAttribute("password");
 MemberVO mVO=new MemberVO(userId,tel,"",address1,address2,password,"",name,' ');
 //String userId, String tel, String zipcode, String address1, String ad dress2, String password,
 	//String isSubscribeDate, String name, char isDeleted
@@ -22,7 +22,7 @@ MyinfoDAO miDAO=MyinfoDAO.getInstance();
 
 
 session.getAttribute("mVO");
-
+System.out.println("비밀번호확인"+mVO);
 
 int result =miDAO.checkPass(mVO);
 

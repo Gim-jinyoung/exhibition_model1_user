@@ -6,7 +6,7 @@
 <script>
 <%
 request.setCharacterEncoding("UTF-8");
-String userId=(String)session.getAttribute("userId");
+String userId=request.getParameter("userId");
 String address1=request.getParameter("address1");
 String address2=request.getParameter("address2");
 String name=request.getParameter("name");

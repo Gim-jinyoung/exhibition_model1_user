@@ -224,13 +224,13 @@ $(function(){
                     
                     <div class="row register">
 
+                        <form action="http://localhost/user_prj/my_account_modify_process.jsp" method="post" id="frm">
                             <div class="form-group">
                                 <label for="email-login">이메일</label>
-                                <input class="form-control"  type="text" value="${mVO.userId }" id="userid"><br/>
+                                <input class="form-control"  type="text" value="${mVO.userId }" id="userId" name="userId"><br/>
                             </div>
                             
                               <a href="http://localhost/user_prj/newpass.jsp"><input type="button" class="btn btn-warning btn-block btn-lg" value="비밀번호 수정"></a> 
-                        <form action="http://localhost/user_prj/my_account_modify_process.jsp" method="post" id="frm">
                            <br/>
                             <div class="form-group">
                                 <label for="name-login">이름</label>

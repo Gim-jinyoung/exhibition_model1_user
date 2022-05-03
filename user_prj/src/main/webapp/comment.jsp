@@ -1,3 +1,4 @@
+<%@page import="VO.MemberVO"%>
 <%@page import="DAO.BoardDAO"%>
 <%@page import="VO.BoardrVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,13 +6,14 @@
      errorPage="/error.jsp"%>
 <%
 String desc= request.getParameter("ta");
-String userId=(String)session.getAttribute("id");
+MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
+String userId=sessionMember.getUserId();
 String bd_id=request.getParameter("bd_id");
 if(desc == null){
 	%>잘못된 접근입니다. <%
 }
 if(userId == null){
-	userId ="test@test.com";
+	%>잘못된 접근입니다. <%
 }
 if(bd_id == null){
 	%>잘못된 접근입니다. <%

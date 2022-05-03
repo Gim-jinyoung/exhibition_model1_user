@@ -1,3 +1,4 @@
+<%@page import="VO.MemberVO"%>
 <%@page import="VO.LocalVO"%>
 <%@page import="VO.BoardrVO"%>
 <%@page import="java.util.List"%>
@@ -158,14 +159,17 @@ a{
 					<h3 class="panel-title">제목</h3>
 					<input class="form-control" type="text" readonly="readonly"
 						style="background: #ffffff" value="${boardDetail.title}" disabled="disabled"/>
+						<div style="border: 1px solid #A5A5A5; margin-top: 10px">
 						<img src="http://211.63.89.140:80/user_prj/ImageFile/${boardDetail.imgfile }"/>
 					<textarea name="ta" readonly="readonly"  id="textDesc"
-						style="background: #ffffff; border: none; resize: none; width: 100%; height1000px;margin-top: 10px; border:1px solid #333" disabled="disabled">${boardDetail.description}</textarea> 
+						style="background: #ffffff;border: 0px ;resize: none; width: 100%; height1000px;margin-top: 10px;" disabled="disabled">${boardDetail.description}</textarea> 
+						</div>
 				</div>
 				</div>
 				<%
 				String userid=bVO.getUserid();
-				String sessionId=(String)session.getAttribute("id");
+				MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
+				String sessionId=sessionMember.getUserId();
 				pageContext.setAttribute("bd_id",bd_id);%>
 					<i class="fa fa-comment fa" ></i> 댓글
 				<div class="card-body">

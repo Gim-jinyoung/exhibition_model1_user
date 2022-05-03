@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    errorPage="/error.jsp"%>
+     errorPage="/error.jsp"%>
 <!DOCTYPE html>
 <html>
-    <head> 
+    <head>
+
         <!-- /.website title -->
-        <title>VTC Theme | My account</title>
+        <title>예약 취소 성공</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -13,6 +14,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/font-awesome.min.css" rel="stylesheet">
         <link href="fonts/icon-7-stroke/css/pe-icon-7-stroke.css" rel="stylesheet">
+        <link href="fonts/icon-7-stroke/css/helper.css" rel="stylesheet">
         <link href="css/animate.css" rel="stylesheet" media="screen">
         <link href="css/owl.theme.css" rel="stylesheet">
         <link href="css/owl.carousel.css" rel="stylesheet">
@@ -24,22 +26,18 @@
         <!-- <link href="css/css-index-purple.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-red.css" rel="stylesheet" media="screen"> -->
         <!-- <link href="css/css-index-orange.css" rel="stylesheet" media="screen"> -->
-        <link href="css/stacktable.css" rel="stylesheet" media="screen">
         <link href="css/css-index-yellow.css" rel="stylesheet" media="screen"> 
 
         <!-- Google Fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
 
-
     </head>
-<%
-System.out.println("my_accunt_pass.jsp --- " + session.getAttribute("mVO") );
-%>
+
     <body data-spy="scroll" data-target="#navbar-scroll">
+
         <!-- /.preloader -->
         <div id="preloader"></div>
         <div id="top"></div>
-
 
         <!-- /.parallax full screen background image -->
         <div class="fullscreen landing parallax blog-page" style="background-image:url('images/bg-baner.jpg');" data-img-width="2000" data-img-height="1333" data-diff="100">
@@ -53,7 +51,10 @@ System.out.println("my_accunt_pass.jsp --- " + session.getAttribute("mVO") );
                             <a href="index.jsp">Exhibition</a>
                         </div>
 
-                       
+                        <!-- /.main title -->
+                        <h2 class="wow fadeInUp" style="margin-bottom: 50px">
+                           예약완료
+                        </h2>
 
                     </div>
                 </div> 
@@ -61,9 +62,9 @@ System.out.println("my_accunt_pass.jsp --- " + session.getAttribute("mVO") );
         </div>
         
         
-              <!-- NAVIGATION -->
+            <!-- NAVIGATION -->
         <div id="menu">
-               <div class="container""> 
+               <div class="container"> 
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
                             <span class="sr-only">Toggle navigation</span>
@@ -71,14 +72,14 @@ System.out.println("my_accunt_pass.jsp --- " + session.getAttribute("mVO") );
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand site-name" href="index.jsp">Exhibition</a>
+                        <a class="navbar-brand site-name" href="#top">Exhibition</a>
                     </div>
 
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
-                     <li><a href="list.jsp">전체 전시 보기</a></li>
-                            <li><a href="loc.jsp">지역별 전시 보기</a></li>
-                            <li><a href="reservation.jsp">예약하기</a></li>
+                            <li><a href="list.jsp">전체 전시 보기</a></li>
+                            <li><a href="list.jsp">지역별 전시 보기</a></li>
+                            <li><a href="taxi.jsp">예약하기</a></li>
                                     <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>
@@ -86,60 +87,32 @@ System.out.println("my_accunt_pass.jsp --- " + session.getAttribute("mVO") );
                  </div>  
         </div>
 
-
-        <!-- /.pricing section -->
-        <div id="myaccount">
+        <!-- /.Cars section -->
+        <div id="sign-in" style="margin-left: 30%">
             <div class="container">
-                <div class="text-center ">
-                    <!-- /.pricing title -->
-                    <h2 class="wow fadeInLeft">내 정보</h2>
-                    <div class="title-line wow fadeInRight"></div>
-                </div>
-                <div class="row account-details">
-
-                    <!-- /.account-control -->
-                    <div class="col-sm-3 account-control padding-b-50 padding-t-50">
-                        <div class="panel panel-default sidebar-menu wow  fadeInLeft animated">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Menu</h3>
-                            </div>
-                            <div class="panel-body">
-                                <ul class="nav nav-pills nav-stacked">
-                              		 <li class="active"> <a href="my_account_pass.jsp">비밀번호 입력</a></li>
-                                    <li ><a href="#void">예약상황</a></li>
-                                    <li><a href="#void">내 정보 수정</a></li>
-                                    
-                                    
-                                </ul>
-                            </div>
-                        </div>
+                <div class="col-sm-6">
+                    <div class="text-center">
+                        <h2 class="wow fadeInLeft">예약해주셔서 감사합니다.</h2>
+                        <div class="title-line wow fadeInRight"></div>
                     </div>
+                    <div class="row sign-in">
 
-                    <div class="col-sm-9 account-data padding-b-50 padding-t-50">
-                        <div id="tab2" class="box-old-booking box-section animated fadeInUp">
-                            <h2 style="padding-bottom: 17px;">비밀번호 확인</h2>
-								<br/>
-							<form action="http://localhost/user_prj/my_account_pass_process.jsp" id="frm">	
-                           	<div class="form-group" style="width:500px; margin-left: 150px">
-                                <input class="form-control" id="password" type="password" name="password">
-                            </div>
-								<br/>
-								<br/>
+                        <form action="my-account.jsp" method="post">
+                            
                             <div class="text-center">
-							<input type="button" id="find_direction"  value="확인" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px"> 
-							</div>
-							</form>	                        
-                        </div>
+                              <a href="index.jsp"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="메인으로 돌아가기"></a>  
+                            </div>
+                        </form>
+
                     </div>
                 </div>
-            </div>
-        </div>
+            
+</div>
+</div>
 
-
-
-      
         
-     <!-- /.footer -->
+        
+        <!-- /.footer -->
         <footer id="footer">
             <div class="footer-top">
                 <div class="container">
@@ -177,8 +150,6 @@ System.out.println("my_accunt_pass.jsp --- " + session.getAttribute("mVO") );
                     </footer>
 
 
-        
-
         <!-- /.javascript files -->
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>
@@ -186,26 +157,15 @@ System.out.println("my_accunt_pass.jsp --- " + session.getAttribute("mVO") );
         <script src="js/custom.js"></script>
         <script src="js/jquery.sticky.js"></script>
         <script src="js/wow.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script> 
+        <script src="js/owl.carousel.min.js"></script>
             <script src="js/jquery.validate.min.js"></script> 
+
+
 
         <script>
             new WOW().init();
+
         </script>
 
-<script type="text/javascript">
-$(function(){
-	$("#find_direction").click(function(){
-	var pass=$(".form-control").val();
-	
-	if(pass==""){
-		alert("비밀번호를 입력해주세요");
-		return;
-	}
-	
-	$("#frm").submit();
-	});
-});
-</script>
     </body>
 </html>
