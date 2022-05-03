@@ -1,4 +1,3 @@
-<%@page import="VO.MemberVO"%>
 <%@page import="VO.MyReservationVO"%>
 <%@page import="DAO.MyReservationDAO"%>
 <%@page import="java.util.List"%>
@@ -140,9 +139,10 @@
                                      <%
                              
                                      MyReservationDAO mrDAO=MyReservationDAO.getInstance();
-                                     MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
-                         			String userid=sessionMember.getUserId();
-                                   
+                                     String userid=(String)session.getAttribute("id");
+                                     if(userid == null){
+                                    	 userid="kang@naver.com";
+                                     }
                                      
      								List<MyReservationVO> rezList=mrDAO.selectAllReservation(userid);
                              	

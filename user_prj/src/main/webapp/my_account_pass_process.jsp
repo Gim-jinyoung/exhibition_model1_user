@@ -5,27 +5,18 @@
     errorPage="/error.jsp"%>
 <% 
 request.setCharacterEncoding("UTF-8");
-
-String userId=(String)session.getAttribute("userId");
-String name=(String)session.getAttribute("name");
-String tel=(String)session.getAttribute("tel");
-String address1=(String)session.getAttribute("address1");
-String address2=(String)session.getAttribute("address2");
+String userId=((MemberVO)session.getAttribute("mVO")).getUserId();
 
 
-String password=(String)session.getAttribute("password");
-MemberVO mVO=new MemberVO(userId,tel,"",address1,address2,password,"",name,' ');
+String password=request.getParameter("password"); //입력된 값 비번
+MemberVO mVO=new MemberVO(userId,"","","","",password,"","",' ');
 //String userId, String tel, String zipcode, String address1, String ad dress2, String password,
 	//String isSubscribeDate, String name, char isDeleted
 MyinfoDAO miDAO=MyinfoDAO.getInstance();
 
 
-
-session.getAttribute("mVO");
-System.out.println("비밀번호확인"+mVO);
-
-int result =miDAO.checkPass(mVO);
-
+int result=miDAO.checkPass(mVO);// 세션에있는 아이디와 폼으로 입력된 비밀번호를 사용해서 pass를 체크한다. 
+System.out.println("비밀번호값 : "+mVO.getPassword()+"비밀번호확인값 : "+password);
 %>
 	<!DOCTYPE html>
 <html>
@@ -34,15 +25,7 @@ int result =miDAO.checkPass(mVO);
 <title>JSP Web Site</title>
 <script type="text/javascript">
 
-	<%  
-		
-		
-		
-		if (result==1){ // 
-			%>
-		<%
-			session.setAttribute("mVO",mVO);
-			%>
+	<%if( result == 1){ // %>
 			location.href ="http://localhost/user_prj/my-account_rez.jsp"; // 비밀번호가맞을때 내정보로 보냄
 			<%
 			/* session.setAttribute("userId",userId);
@@ -68,5 +51,14 @@ int result =miDAO.checkPass(mVO);
 </script>
 </head> 
 <body>
+
+
+<script type="text/javascript">
+
+	
+			
+	
+
+</script>
 </body>
 </html>

@@ -135,22 +135,23 @@ public class MyinfoDAO {
 		PreparedStatement pstmt = null;
 		
 		ResultSet rs=null;  
-		String sql="select *"
-				+"from member where password=?";
+		String sql="select password from member where userid=? and password=?";
 		try {
 			con=getConnect();
 			pstmt = con.prepareStatement(sql);
 			/* pstmt.setString(1, mVO.getUserId()); */
-			pstmt.setString(1, mVO.getPassword());
+			pstmt.setString(1, mVO.getUserId());
+			pstmt.setString(2, mVO.getPassword());
 			
 			rs = pstmt.executeQuery();
-			
-			if (rs.next()) {
-				mVO.setUserId(rs.getString("userId"));
-				mVO.setAddress1(rs.getString("address1"));
-				mVO.setAddress2(rs.getString("address2"));
-				mVO.setName(rs.getString("name"));
-				mVO.setTel(rs.getString("tel"));
+			System.out.println("--DAO----"+ mVO);
+			if (rs.next()) {// 세션의 아이디와 입력된 비밀번호로 조회된 값이 있냐?
+				/* mVO.setUserId(rs.getString("userId")); */
+				/*
+				 * mVO.setAddress1(rs.getString("address1"));
+				 * mVO.setAddress2(rs.getString("address2")); mVO.setName(rs.getString("name"));
+				 * mVO.setTel(rs.getString("tel"));
+				 */
 				flag=1;
 			}
 		} catch (Exception e) {
