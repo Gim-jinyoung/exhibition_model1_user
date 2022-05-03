@@ -346,7 +346,7 @@ for (ExhibitionHallVO temp : list3) {
 	var tempData = 
 	{
 	        content: '<div style="color: black;"><%=name%></div>', 
-	        latlng: new kakao.maps.LatLng(<%=longitude%>, <%=latitude%>)
+	        latlng: new kakao.maps.LatLng(<%=latitude%>,<%=longitude%>)
 	}
 	positions.push(tempData)
 	<%}%>

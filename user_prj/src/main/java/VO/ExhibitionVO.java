@@ -25,7 +25,11 @@ public ExhibitionVO(String ex_name, String ex_poster, String ex_info, String ex_
 	this.adult = adult;
 	this.teen = teen;
 	this.child = child;
+
 }
+
+
+
 public String getEx_name() {
 	return ex_name;
 }

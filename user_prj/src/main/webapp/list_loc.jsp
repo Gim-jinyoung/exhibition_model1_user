@@ -125,11 +125,20 @@
 
 						<div class="row carssections">
 							<%
+							int pageSize = 2;
+							String pageNum=request.getParameter("pageNum");
+							if(pageNum==null){
+								pageNum="1";
+							}
+							int currentPage=Integer.parseInt(pageNum);
+							int startRow = (currentPage * 2) - 1; 
+							
 							int ex_hall_num=Integer.parseInt(request.getParameter("ex_hall_num"));
-							UserExhibitionDAO uehDAO=UserExhibitionDAO.getInstance();
-							List<ExhibitionVO> list=uehDAO.selectLocalExList(ex_hall_num);
+							UserExhibitionDAO exDAO=UserExhibitionDAO.getInstance();
+							List<ExhibitionVO> list=exDAO.selectLocalExList(ex_hall_num,startRow,pageSize);
+							int hall_num=0;
 							for(int i=0; i<list.size();i++){	
-
+								hall_num=list.get(i).getEx_hall_num();
 							%>
 								<div class="screen wow fadeInUp"
 									data-path-hover="m 180,34.57627 -180,0 L 0,0 180,0 z">
@@ -157,18 +166,40 @@
 		</div>
 	</div>
 
-	<div class="text-center">
+				<div class="text-center">
 		<nav aria-label="Page navigation example">
 			<ul class="pagination">
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+
+			<%
+			int cnt=exDAO.getTotalCount();
+			System.out.print(cnt);
+			if(cnt!=0){
+				int pageCount=cnt/pageSize+(cnt%pageSize==0?0:1);
+				int pageBlock=2;
+				int startPage=((currentPage-1)/pageBlock)*pageBlock+1;
+				
+				int endPage=startPage+pageBlock-1;
+				if(endPage>pageCount){
+					endPage=pageCount;
+				}
+			
+				
+			%>
+			<% if(startPage>pageBlock){ %>
+			
+				<li class="page-item"><a class="page-link" href="list_loc.jsp?ex_hall_num=<%=hall_num %>&pageNum=<%=startPage-pageBlock%>"
+					aria-label="Previous"><span aria-hidden="true">&laquo;</span>
 				</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#"
+				<%} %>
+				<%for(int i=startPage;i<=endPage;i++){ %>
+				<li class="page-item"><a class="page-link" href="list_loc.jsp?ex_hall_num=<%=hall_num %>&pageNum=<%=i%>"><%=i%></a></li>
+				<%} %>
+				<%if(endPage<pageCount){ %>
+				<li class="page-item"><a class="page-link" href="list_loc.jsp?ex_hall_num=<%=hall_num %>&pageNum=<%=startPage+pageBlock %>"
 					aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 				</a></li>
+					<%} %>
+				<%} %>
 			</ul>
 		</nav>
 	</div>

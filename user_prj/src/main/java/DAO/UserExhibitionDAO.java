@@ -32,7 +32,7 @@ private static UserExhibitionDAO umDAO;
 	}
 
 	
-	public List<ExhibitionVO> selectAllExList(String ex_name)throws SQLException{
+	public List<ExhibitionVO> selectAllExList(String ex_name,int startRow,int pageSize)throws SQLException{
 		List<ExhibitionVO> list=new ArrayList<ExhibitionVO>();
 		
 		DbcpConnection dc=new DbcpConnection();
@@ -45,14 +45,25 @@ private static UserExhibitionDAO umDAO;
 			
 			StringBuilder selectAllExList=new StringBuilder();
 			selectAllExList
-			.append("	select ex_num, ex_name, exhibition_poster, ex_intro,ex_info,add_img,ex_hall_num,ex_status	")
+			.append("	 select * from(	")
+			.append("	 select row_number() over (ORDER BY watch_count) num,ex_num, ex_name, exhibition_poster, ex_intro,ex_info,add_img,ex_hall_num,ex_status	")
 			.append("	from exhibition	")
-			.append("	where ex_name like ? and ex_status like't' ");
+			.append("	where ex_name like ? and ex_status like 't') ")
+			.append("	where num between ? and ? ");
 			
 			String temp = selectAllExList.toString();
 			
 			pstmt=con.prepareStatement(selectAllExList.toString());
-			pstmt.setString(1, "%"+ex_name+"%");
+			if(ex_name==null) {
+				
+				pstmt.setString(1, "%%");
+			}else {
+				
+				pstmt.setString(1, "%"+ex_name+"%");
+			}
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, startRow+pageSize-1);
+			
 			rs=pstmt.executeQuery();
 			ExhibitionVO exVO=null; 
 			
@@ -75,7 +86,7 @@ private static UserExhibitionDAO umDAO;
 		return list;
 	}
 
-	public List<ExhibitionVO> selectLocalExList(int ex_hall_num)throws SQLException{
+	public List<ExhibitionVO> selectLocalExList(int ex_hall_num,int startRow,int pageSize)throws SQLException{
 		List<ExhibitionVO> list=new ArrayList<ExhibitionVO>();
 		
 		DbcpConnection dc=new DbcpConnection();
@@ -88,11 +99,16 @@ private static UserExhibitionDAO umDAO;
 			StringBuilder selectLocalExList=new StringBuilder();
 			
 			selectLocalExList
-			.append("	select  ex_num, ex_name,ex_hall_num,exhibition_poster,ex_intro	")
-			.append("	from    exhibition	")
-			.append("	where  ex_hall_num like ?	");
+			.append("	 select * from(	")
+			.append("	 select row_number() over (ORDER BY watch_count) num,ex_num, ex_name, exhibition_poster, ex_intro,ex_info,add_img,ex_hall_num,ex_status	")
+			.append("	from exhibition	")
+			.append("	where ex_hall_num like ? and ex_status like 't') ")
+			.append("	where num between ? and ? ");
 			pstmt=con.prepareStatement(selectLocalExList.toString());
 			pstmt.setInt(1, ex_hall_num);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, startRow+pageSize-1);
+			
 			rs=pstmt.executeQuery();
 		ExhibitionVO exVO=null;
 		while(rs.next()) {
@@ -109,4 +125,33 @@ private static UserExhibitionDAO umDAO;
 	}
 		return list;
 	}
+	
+	public int getTotalCount() throws SQLException
+	{
+		int n=0;
+		
+		DbcpConnection dc=new DbcpConnection();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select count(*) from exhibition where ex_status like 't'";
+		
+		try {
+			con=dc.getConnection();
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next())
+				n=rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dc.dbClose(rs, pstmt, con);
+		}
+		
+		
+		return n;
+	}
+	
 }

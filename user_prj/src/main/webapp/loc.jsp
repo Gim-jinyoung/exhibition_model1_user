@@ -129,7 +129,7 @@
 
 	<!-- /.Cars section -->
 	<div class="container">
-		<form class="d-flex" action="list.search.jsp" method="get">
+		<form class="d-flex" action="list.search.jsp?pageNum=1" method="get">
 				<button class="btn btn-outline-success" type="submit"
 					style="float: right; height: 50px">Search</button>
 				<input class="form-control me-2" type="search" placeholder="전시명을 입력하세요" name="ex_name"
@@ -287,8 +287,8 @@ var hallNum = [];
 	
 		var tempData = 
 		{
-		        content: '<div style="color: black;"><a href="list_loc.jsp?ex_hall_num=<%=num%>"><%=name%><br/>전시 리스트</div></a>', 
-		        latlng: new kakao.maps.LatLng(<%=longitude%>, <%=latitude%>)
+		        content: '<div style="color: black;"><a href="list_loc.jsp?ex_hall_num=<%=num%>&pageNum=1"><%=name%><br/>전시 리스트</div></a>', 
+		        latlng: new kakao.maps.LatLng(<%=latitude%>,<%=longitude%> )
 		}
 		
 		

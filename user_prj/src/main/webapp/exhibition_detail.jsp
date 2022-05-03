@@ -123,7 +123,7 @@ for(ExhibitionHallVO exhVO:list_map){
                     <div id="navbar-scroll" class="collapse navbar-collapse navbar-backyard navbar-right">
                         <ul class="nav navbar-nav">
                                <li><a href="list.jsp">전체 전시 보기</a></li>
-                            <li><a href="list.jsp">지역별 전시 보기</a></li>
+                            <li><a href="loc.jsp">지역별 전시 보기</a></li>
                             <li><a href="reservation.jsp">예약하기</a></li>
                                     <li><a href="board.jsp">게시판</a></li>
                         
@@ -213,16 +213,17 @@ for(ExhibitionHallVO exhVO:list_map){
 
         </script>
         <script>
+        
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
-        center: new kakao.maps.LatLng(<%=longitude%>, <%=latitude%>), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(<%=latitude%>,<%=longitude%>), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };
 
 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
 // 마커가 표시될 위치입니다 
-var markerPosition  = new kakao.maps.LatLng(<%=longitude%>, <%=latitude%>); 
+var markerPosition  = new kakao.maps.LatLng(<%=latitude%>,<%=longitude%>); 
 
 // 마커를 생성합니다
 var marker = new kakao.maps.Marker({
