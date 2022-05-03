@@ -17,7 +17,6 @@ MemberVO mVO=new MemberVO(userId,"","",address1,address2,"","",name,' ');
 MyinfoDAO miDAO=MyinfoDAO.getInstance();
 System.out.print("주소변경"+mVO);
 boolean newadd=miDAO.updateaddr(mVO);
-
 %>
 
 if(<%=newadd  %>){

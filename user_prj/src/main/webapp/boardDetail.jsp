@@ -167,9 +167,14 @@ a{
 				</div>
 				</div>
 				<%
-				String userid=bVO.getUserid();
+				String userid=boardDetail.getUserid();
+				if((MemberVO)session.getAttribute("mVO") != null){
 				MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
 				String sessionId=sessionMember.getUserId();
+					
+				}
+				String sessionId="test@test.com";
+				pageContext.setAttribute("sessionId", sessionId);
 				pageContext.setAttribute("bd_id",bd_id);%>
 					<i class="fa fa-comment fa" ></i> 댓글
 				<div class="card-body">
@@ -191,11 +196,10 @@ a{
 						<input type="text" value="${boardComment.cm_userid }" style="border:none; text-align: center" readonly="readonly" disabled="disabled" />
 						<input type="text" style="width: 50%; margin-top: 10px ; border:none" readonly="readonly" disabled="disabled" value="${boardComment.cm_description }"/>
 						<input type="text" value="${boardComment.cm_input_date }"  style="border:none; text-align: center" readonly="readonly" disabled="disabled"/>
-							<%
-							String commentId=bVO.getCm_userid();
-							if( sessionId== commentId){%>
+							<c:if test="${boardComment.cm_id eq sessionId}">
 							<a href="commentDelete.jsp?cm_id=${boardComment.cm_id  }&bd_id=${bd_id}"><button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commenDeltBtn">댓글 삭제</button></a>
-							<%} %>
+							</c:if>
+							
 							</div>
 						</li>
 						</c:forEach>
@@ -205,12 +209,11 @@ a{
 				<a href="board.jsp">
 				<input type="button" value="확인" id="btn" class="btn btn-warning " style="width: 30%; margin-left: 30% "/>
 				</a>
-				<%
-				if( sessionId== userid){
-				%>
+				<c:if test="${sessionId eq boardDetail.userid }">
 				<a href="boardDelete.jsp?bd_id=${bd_id }"><input type="button" value="글 삭제"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right; "/></a>
 				<a href="boardUpdate.jsp?bd_id=${bd_id }"><input type="button" value="글 수정"  class="btn btn-warning btn-block btn-lg" style="width: 10%; float:right;"/></a>
-				<%} %>
+				</c:if>
+				
 			</div>
 			
 

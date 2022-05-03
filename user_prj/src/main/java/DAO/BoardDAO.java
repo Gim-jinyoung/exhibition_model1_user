@@ -39,14 +39,14 @@ private static BoardDAO bDAO;
 			con=dc.getConnection();
 			StringBuilder sql=new StringBuilder();
 			sql
-			.append("select rownum ,title,views,input_date,userid,cnt ")
+			.append("select rownum ,title,views,input_date,userid,cnt ,bd_id ")
 			.append("from ")
 			.append("(select row_number() over(order by b.input_date desc) rnum, b.bd_id,b.title,b.views,b.input_date,b.userid,count(c.cm_id) cnt ")
 			.append("from board b, comment_table c ")
 			.append("where (b.bd_id=c.bd_id(+)) and b.cat_num=? ");
-			if(bVO.getUserid() != null) {
+			if(bVO.getTitle() != null ) {
 				sql
-				.append("and userid=? or title=?");
+				.append(" and ( b.userid=? or b.title=?) ");
 			}
 			sql.append("group by b.bd_id,b.title,b.views,b.input_date,b.userid) ")
 			.append("where rnum between ? and ? ");
@@ -54,7 +54,7 @@ private static BoardDAO bDAO;
 			pstmt=con.prepareStatement(sql.toString());
 			pstmt.setInt(1, bVO.getCat_num());
 		
-			if(bVO.getUserid() != null ) {
+			if(bVO.getTitle() != null ) {
 					pstmt.setString(2, bVO.getUserid());
 					pstmt.setString(3, bVO.getTitle());
 					pstmt.setInt(4, bVO.getPageNum());
@@ -75,6 +75,7 @@ private static BoardDAO bDAO;
 				eVO.setInput_date(rs.getString("input_date"));
 				eVO.setViews(rs.getInt("views"));
 				eVO.setRecommend(rs.getInt("cnt"));
+				eVO.setBd_id(rs.getInt("bd_id"));
 				
 				list.add(eVO);
 				

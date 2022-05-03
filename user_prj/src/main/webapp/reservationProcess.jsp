@@ -9,7 +9,7 @@
 	  String count=request.getParameter("people");
 	  String exNum=request.getParameter("exNum");
 	  MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
-		String userid=sessionMember.getUserId();
+		String userid=sessionMember.getUserId(); 
 	  
 	 
 

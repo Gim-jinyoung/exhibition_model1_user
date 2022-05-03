@@ -111,7 +111,7 @@
                                 <ul class="nav nav-pills nav-stacked">
                               		 <li> <a href="#void">비밀번호 입력</a></li>
                                     <li class="active"><a href="#void">예약상황</a></li>
-                                    <li><a href="my_accoWQAWnt_modify.jsp">내 정보 수정</a></li>
+                                    <li><a href="http://localhost/user_prj/my_account_modify.jsp">내 정보 수정</a></li>
                                     
                                     
                                 </ul>

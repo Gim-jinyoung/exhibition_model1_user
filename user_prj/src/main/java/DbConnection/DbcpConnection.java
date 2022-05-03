@@ -17,11 +17,11 @@ public class DbcpConnection {
 		Connection con=null;
 		
 		try {
-		//1.JNDI »ç¿ë°´Ã¼ »ı¼º
+		//1.JNDI ï¿½ï¿½ë°´Ã¼ ï¿½ï¿½ï¿½ï¿½
 		Context ctx=new InitialContext();
-		//2.DBCP¸¦ Ã£¾Æ DataSource ¾ò±â
-		DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/dbcp");
-		//3.Ä¿³Ø¼Ç ¾ò±â
+		//2.DBCPï¿½ï¿½ Ã£ï¿½ï¿½ DataSource ï¿½ï¿½ï¿½
+		DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/dbcp");//managerì—ìš”? dbcpì—ìš”?dbcpìš”
+		//3.Ä¿ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½
 		con=ds.getConnection();
 		}catch (NamingException ne) {
 			ne.printStackTrace();

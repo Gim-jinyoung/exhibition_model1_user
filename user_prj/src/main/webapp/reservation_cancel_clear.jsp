@@ -6,7 +6,7 @@
     <head>
 
         <!-- /.website title -->
-        <title>예약 성공</title>
+        <title>예약 취소 성공</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />

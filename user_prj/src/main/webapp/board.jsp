@@ -108,11 +108,17 @@ $(function(){
                     <div class="title-line wow fadeInRight"></div>
                 </div>
    <%
+   String catNum=request.getParameter("Exhibition");
+   if(catNum == null){
+   	catNum="5";
+   }
+   pageContext.setAttribute("catNum", catNum);
    String search=request.getParameter("searchDescription");
    %>
       <div >
-      <form class="d-flex" id="search" name="search" action="board.jsp" method="post">
+      <form class="d-flex" id="search" name="search" action="board.jsp" method="get">
         <input class="btn btn-outline-success" type="button" style="float: right; height: 50px" value="검색" id="searchBtn"/>
+        <input type="hidden" name="Exhibition" value="${catNum }"/>
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="float: right; width: 200px" name="searchDescription">
       </form>
 </div>
@@ -129,15 +135,12 @@ $(function(){
                                 <ul class="nav nav-pills nav-stacked">
                                             <%
                                             
-                                            String catNum=request.getParameter("Exhibition");
-                                            if(catNum == null){
-                                            	catNum="5";
-                                            }
+                                        
 								BoardDAO bDAO=BoardDAO.getInstance();
 								List<BoardrVO> catList=bDAO.selectCategory();
 								
 								pageContext.setAttribute("catList", catList);
-								pageContext.setAttribute("catNum", catNum);
+								
 								%>
                                     <li class="active" >  <select class="form-control input-lg" name="Exhibition" id="Exhibition">
 								<c:forEach var="catList" items="${pageScope.catList }">
@@ -178,8 +181,10 @@ $(function(){
                              if(pageNum ==null){
                             	 pageNum="1";
                              }
-                             bVO.setUserid(search);
+                             if(search != null){
+                            bVO.setUserid(search);
                              bVO.setTitle(search);
+                             }
                              bVO.setPageNum(Integer.parseInt(pageNum));
 								List<BoardrVO> boardList=bDAO.selectBoard(bVO);
 								

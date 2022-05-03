@@ -1,4 +1,3 @@
-<%@page import="oracle.net.aso.j"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="VO.MemberVO"%>
 <%@page import="DAO.UserMemberDAO"%>

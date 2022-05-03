@@ -243,8 +243,8 @@ $(function(){
                         <input type="button"  class="btn btn-warning btn-block btn-lg" value="우편번호 찾기" id="find_addr">
                             </div>
                                 <input type="button"  value="수정" id="next" style="width:260px; background-color: #F0AD4E;color:#ffffff; border:0px">
-                        </form>
                                 <a href="my_account_modify.jsp"><input type="button"   value="취소" style="width:260px; margin-left: 15px ;background-color: #F0AD4E;color:#ffffff; border:0px"></a> 
+                        </form>
                             
                     </div>
                 </div>
