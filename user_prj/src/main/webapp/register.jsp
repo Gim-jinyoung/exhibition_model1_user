@@ -173,38 +173,38 @@ if($("#password1").val() != $("#password2").val()){
                         <form action="registerSucess.jsp" method="post" name="pFrm"  id="pFrm">
                             <div class="form-group">
                                 <label for="email-login">이메일</label>
-                                <input class="form-control" id="id" type="text" name="userId"   value="test@test.com">
+                                <input class="form-control" id="id" type="text" name="userId"   value="">
                                 <input type="button" id="checkmail" class="btn btn-warning btn-block btn-lg" value="중복확인">
                              	<font id="checkId" size="2"></font>
                             </div>
                          
                             <div class="form-group">
                                 <label for="password-login">비밀번호</label>
-                                <input class="form-control" id="password1" type="password" name="password" value="1234">
+                                <input class="form-control" id="password1" type="password" name="password" value="">
                             </div>
                             <div class="form-group">
                                 <label for="password-login">비밀번호 확인</label>
-                                <input class="form-control" id="password2" type="password" value="1234">
+                                <input class="form-control" id="password2" type="password" value="">
                                 <div id="output" style="height: 50px; width: 500px"></div>
                             </div>
                             <div class="form-group">
                                 <label for="name-login">이름</label>
-                                <input class="form-control" id="name" type="text" name="name" value="테스트">
+                                <input class="form-control" id="name" type="text" name="name" value="">
                             </div>
                             <div class="form-group">
                                 <label for="name-login">전화번호</label>
-                                <input class="form-control" id="name" type="text" name="tel" value="01012345678">
+                                <input class="form-control" id="name" type="text" name="tel" value="">
                             </div>
                             <div class="form-group">
                                 <label for="addr-login">주소</label>
-                                <input class="form-control" id="addr1" type="text" name="address1" value="역삼"/>
-                                <input class="form-control" id="addr2" type="text" name="address2" value="쌍용교육센터"><br/>
+                                <input class="form-control" id="addr1" type="text" name="address1" value=""/>
+                                <input class="form-control" id="addr2" type="text" name="address2" value=""><br/>
                             <a href="#void"><input type="button" id="find_addr" class="btn btn-warning btn-block btn-lg" value="우편번호 찾기"></a> 
                             </div>
                             <div class="text-center">
                             <div class="form-group">
                                 <label for="name-login">우편번호</label>
-                                <input class="form-control" id="name" type="text" name="zipcode" value="12345">
+                                <input class="form-control" id="name" type="text" name="zipcode" value="">
                             </div>
                                 <input type="button" id="next" class="btn btn-warning btn-block btn-lg" value="다음">
                             </div>

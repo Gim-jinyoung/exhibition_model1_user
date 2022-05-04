@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    %>
+    errorPage="/error.jsp"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -75,18 +75,18 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="passfind_process.jsp" method="post" id="frm" >
+                        <form action="http://localhost/user_prj/passfind_process.jsp" method="post" id="frm" >
                             <div class="form-group">
                                 <label for="name">이름</label>
-                                <input class="form-control" id="name" type="text" name="name" value="테스트">
+                                <input class="form-control" id="name" type="text" name="name" value="">
                             </div>
                              <div class="form-group">
                                 <label for="id">아이디</label>
-                                <input class="form-control" id="userId" name="userId" type="text" value="kang@test.test">
+                                <input class="form-control" id="userId" name="userId" type="text" value="">
                             </div>
                             <div class="form-group">
                                 <label for="phone_num">휴대번호</label>
-                                <input class="form-control" id="tel" name="tel" type="text" value="01012345678">
+                                <input class="form-control" id="tel" name="tel" type="text" value="">
                             </div>
                             
                             <div class="text-center">
