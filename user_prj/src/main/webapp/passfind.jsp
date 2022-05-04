@@ -75,7 +75,7 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="http://localhost/user_prj/passfind_process.jsp" method="post" id="frm" >
+                        <form action="passfind_process.jsp" method="post" id="frm" >
                             <div class="form-group">
                                 <label for="name">이름</label>
                                 <input class="form-control" id="name" type="text" name="name" value="">

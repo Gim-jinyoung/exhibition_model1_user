@@ -40,7 +40,7 @@ $(function(){
 		$("#frm").submit();
 	});//click
 	$("#find_addr").click(function(){
-		new daum.Postcode({
+		/* new daum.Postcode({
 		    oncomplete: function(data) {
 		    	 var addr = ''; // 주소 변수
 	                var extraAddr = ''; // 참고항목 변수
@@ -79,7 +79,13 @@ $(function(){
 	                document.getElementById("addr1").value = addr;
 	                // 커서를 상세주소 필드로 이동한다.
 	                document.getElementById("addr2").focus();
-		    }
+		    } */
+		    new daum.Postcode({
+	              oncomplete: function(data) {
+	                  // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	            $('#zipcode').val(data.zonecode);      // 우편번호(5자리)
+	            $('#addr1').val(data.address);       // 기본주소 
+	              }
 		}).open();
 	});
 	
@@ -204,7 +210,7 @@ if($("#password1").val() != $("#password2").val()){
                             <div class="text-center">
                             <div class="form-group">
                                 <label for="name-login">우편번호</label>
-                                <input class="form-control" id="name" type="text" name="zipcode" value="">
+                                <input class="form-control" id="zipcode" type="text" name="zipcode" value="">
                             </div>
                                 <input type="button" id="next" class="btn btn-warning btn-block btn-lg" value="다음">
                             </div>

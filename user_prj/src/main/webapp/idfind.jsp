@@ -75,7 +75,7 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="http://localhost/user_prj/idclear.jsp" method="post" name="frm" id="frm">
+                        <form action="idclear.jsp" method="post" name="frm" id="frm">
                             <div class="form-group">
                                 <label for="email">이름</label>
                                 <input class="form-control" id="name" type="text" name="name" value="">
