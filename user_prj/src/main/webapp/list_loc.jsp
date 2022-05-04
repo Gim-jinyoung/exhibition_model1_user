@@ -86,7 +86,7 @@
 				class="collapse navbar-collapse navbar-backyard navbar-right">
 				<ul class="nav navbar-nav">
 					<li><a href="list.jsp">전체 전시 보기</a></li>
-					<li><a href="list.jsp">지역별 전시 보기</a></li>
+					<li><a href="loc.jsp">지역별 전시 보기</a></li>
 					<li><a href="reservation.jsp">예약하기</a></li>
 					<li><a href="board.jsp">게시판</a></li>
 
@@ -192,7 +192,7 @@
 				</a></li>
 				<%} %>
 				<%for(int i=startPage;i<=endPage;i++){ %>
-				<li class="page-item"><a class="page-link" href="list_loc.jsp?ex_hall_num=<%=hall_num %>&pageNum=<%=i%>"><%=i%></a></li>
+				<li class="page-item"><a class="page-link" href="list_.jsp?ex_hall_num=<%=hall_num %>&pageNum=<%=i%>"><%=i%></a></li>
 				<%} %>
 				<%if(endPage<pageCount){ %>
 				<li class="page-item"><a class="page-link" href="list_loc.jsp?ex_hall_num=<%=hall_num %>&pageNum=<%=startPage+pageBlock %>"

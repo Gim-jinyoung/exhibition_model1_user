@@ -54,6 +54,8 @@
 						poster=ehVO.getEx_poster();
 						intro=ehVO.getEx_intro();
 						hall_num=ehVO.getEx_hall_num();
+						
+
 					}
 					%>
 	<!-- /.preloader -->
@@ -62,43 +64,67 @@
 
 	<!-- /.parallax full screen background image -->
 	<div class="fullscreen landing parallax"
-		style="background-image: url('<%=poster %>');" data-img-width="2000"
+		data-img-width="2000"
 		data-img-height="1333" data-diff="100">
 
-		<div class="overlay">
-			<div class="container">
+		<div class="overlay"  style="background-image:url('./img/<%=poster %>')"; >
+		
+			<div class="container"  >
 				<div class="row">
-					<div class="col-md-7">
+					<div class="col-md-7" >
 
 						<!-- /.logo -->
-						<div class="logo wow fadeInDown">
+						<div class="logo wow fadeInDown" >
 							<a href="index.jsp">Exhibition</a>
 						</div>
 						<div class="head-btn wow fadeInLeft" style="width: 1300px;">
-							<a href="my_account_pass.jsp" class="btn btn-primary"
-								style="float: right;">내 정보</a> <a href="login.jsp"
-								class="btn btn-default" style="float: right;">로그인/회원가입</a>
+							<%
+							
+							Object value= null; 
+							if((Object)session.getAttribute("mVO")!=null){
+							value=(Object)session.getAttribute("mVO");
+							}
+							 %>
+							 <%
+							if(value==null){
+								%>
+								<a href="login.jsp" class="btn btn-default" id="login_btn"
+								style="float: right;">로그인/회원가입</a>
+								<%
+							}else{
+								%>
+								<a href="my_account_pass.jsp"
+										class="btn btn-primary" id="my_info_btn" style="float: right;">내
+										정보</a>  
+										
+										<a href="index_logout.jsp"
+										class="btn btn-default" id="logout_btn" style="float: right">로그아웃</a>
+									<%
+							}
+							 
+							 %>
+							 
+
+							<!-- /.main title -->
+							<h1 class="wow fadeInLeft">
+								<span class="color"><a
+									href="exhibition_detail.jsp?ex_num=<%=num%>&ex_hall_num=<%=hall_num%>"><%=num%>.
+										<%=name%> </a></span>
+							</h1>
+
+							<!-- /.header paragraph -->
+							<div class="landing-text wow fadeInUp">
+								<p><%=intro%></p>
+							</div>
+
 						</div>
-
-						<!-- /.main title -->
-						<h1 class="wow fadeInLeft">
-							<span class="color"><a href="exhibition_detail.jsp?ex_num=<%=num%>&ex_hall_num=<%=hall_num%>"><%=num%>. <%=name %>
-									</a></span>
-						</h1>
-
-						<!-- /.header paragraph -->
-						<div class="landing-text wow fadeInUp">
-							<p><%=intro %></p>
-						</div>
-
-
 					</div>
 				</div>
 			</div>
+
+
 		</div>
-
-
-	</div>
+		</div>
 
 
 	<!-- NAVIGATION -->
