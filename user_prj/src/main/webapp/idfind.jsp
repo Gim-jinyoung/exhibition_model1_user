@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    errorPage="/error.jsp"%>
+    %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -75,14 +75,14 @@
                     </div>
                     <div class="row sign-in">
 
-                        <form action="http://localhost/user_prj/idclear.jsp" method="post" name="frm" id="frm">
+                        <form action="idclear.jsp" method="post" name="frm" id="frm">
                             <div class="form-group">
                                 <label for="email">이름</label>
-                                <input class="form-control" id="name" type="text" name="name" value="역삼">
+                                <input class="form-control" id="name" type="text" name="name" value="테스트">
                             </div>
                             <div class="form-group">
                                 <label for="password">휴대번호</label>
-                                <input class="form-control" id="tel" type="text" name="tel" value="1234">
+                                <input class="form-control" id="tel" type="text" name="tel" value="01012345678">
                             </div>
                             
                             <div class="text-center">

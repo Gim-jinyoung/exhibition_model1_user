@@ -8,7 +8,7 @@
     pageEncoding="UTF-8"
   %>
 <%
-File saveDirectory=new File("C:/Users/user/git/user_prj/user_prj/src/main/webapp/ImageFile");
+File saveDirectory=new File("E:/project2/ImageFile");
 
 //2.업로드 될 파일의 크기 설정
 int fileSize=1024*1024*10; //10MByte

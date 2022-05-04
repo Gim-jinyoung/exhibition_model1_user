@@ -160,7 +160,7 @@ a{
 					<input class="form-control" type="text" readonly="readonly"
 						style="background: #ffffff" value="${boardDetail.title}" disabled="disabled"/>
 						<div style="border: 1px solid #A5A5A5; margin-top: 10px">
-						<img src="http://211.63.89.140:80/user_prj/ImageFile/${boardDetail.imgfile }"/>
+					 <img src="ImageFile/${boardDetail.imgfile }"/> 
 					<textarea name="ta" readonly="readonly"  id="textDesc"
 						style="background: #ffffff;border: 0px ;resize: none; width: 100%; height1000px;margin-top: 10px;" disabled="disabled">${boardDetail.description}</textarea> 
 						</div>
@@ -168,12 +168,9 @@ a{
 				</div>
 				<%
 				String userid=boardDetail.getUserid();
-				if((MemberVO)session.getAttribute("mVO") != null){
 				MemberVO sessionMember=(MemberVO)session.getAttribute("mVO");
 				String sessionId=sessionMember.getUserId();
 					
-				}
-				String sessionId="test@test.com";
 				pageContext.setAttribute("sessionId", sessionId);
 				pageContext.setAttribute("bd_id",bd_id);%>
 					<i class="fa fa-comment fa" ></i> 댓글
@@ -195,10 +192,9 @@ a{
 						<input type="text" value="${boardComment.cm_userid }" style="border:none; text-align: center" readonly="readonly" disabled="disabled" />
 						<input type="text" style="width: 50%; margin-top: 10px ; border:none" readonly="readonly" disabled="disabled" value="${boardComment.cm_description }"/>
 						<input type="text" value="${boardComment.cm_input_date }"  style="border:none; text-align: center" readonly="readonly" disabled="disabled"/>
-							<c:if test="${sessinId eq boardComment.cm_id}">
+							<c:if test="${sessionId eq boardComment.cm_userid}"> 
 							<a href="commentDelete.jsp?cm_id=${boardComment.cm_id  }&bd_id=${bd_id}"><button type="button" class="btn btn-dark mt-3" style="margin-top:10px;" id="commenDeltBtn">댓글 삭제</button></a>
-							</c:if>
-							
+						</c:if> 
 							</div>
 						</li>
 						</c:forEach>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-   	isErrorPage="true"
+  
     %>
 <!DOCTYPE html>
 <html>
@@ -52,7 +52,7 @@
             <div class="container">
                 <div class="col-sm-6">
                     <div class="text-center">
-                        <h2 class="wow fadeInLeft">잘못된 접근입니다. 다시 시도해 주세요</h2>
+                        <h2 class="wow fadeInLeft">404 잘못된 접근입니다. 다시 시도해 주세요</h2>
                         <div class="title-line wow fadeInRight"></div>
                     </div>
                     <div class="row sign-in">

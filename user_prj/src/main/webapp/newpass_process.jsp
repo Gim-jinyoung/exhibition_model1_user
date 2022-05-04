@@ -2,7 +2,7 @@
 <%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    errorPage="/error.jsp"%>
+    %>
   <script>
 <%
 request.setCharacterEncoding("UTF-8");
@@ -29,7 +29,7 @@ boolean newpass=ipfDAO.updateNewPw(mVO);
 %>
  if(<%=newpass  %>){
 
-	location.href ="http://localhost/user_prj/passclear.jsp";
+	location.href ="passclear.jsp";
 
  }
 

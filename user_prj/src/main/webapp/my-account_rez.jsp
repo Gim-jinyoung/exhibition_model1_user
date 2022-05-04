@@ -4,7 +4,7 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-     errorPage="/error.jsp"%>
+     %>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -112,7 +112,7 @@
                                 <ul class="nav nav-pills nav-stacked">
                               		 <li> <a href="#void">비밀번호 입력</a></li>
                                     <li class="active"><a href="#void">예약상황</a></li>
-                                    <li><a href="http://localhost/user_prj/my_account_modify.jsp">내 정보 수정</a></li>
+                                    <li><a href="my_account_modify.jsp">내 정보 수정</a></li>
                                     
                                     
                                 </ul>

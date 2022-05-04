@@ -119,7 +119,7 @@ System.out.println("my_accunt_pass.jsp --- " + session.getAttribute("mVO") );
                         <div id="tab2" class="box-old-booking box-section animated fadeInUp">
                             <h2 style="padding-bottom: 17px;">비밀번호 확인</h2>
 								<br/>
-							<form action="http://localhost/user_prj/my_account_pass_process.jsp" id="frm" method="post">	
+							<form action="my_account_pass_process.jsp" id="frm" method="post">	
                            	<div class="form-group" style="width:500px; margin-left: 150px">
                                 <input class="form-control" id="password" type="password" name="password">
                             </div>

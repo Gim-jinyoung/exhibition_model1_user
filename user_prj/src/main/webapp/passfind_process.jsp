@@ -2,7 +2,7 @@
 <%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    errorPage="/error.jsp"%>
+    %>
 <!DOCTYPE html>
  <script>
           
@@ -26,7 +26,7 @@ session.setAttribute("userId", userId);
 %>
 if(<%=passfind != null%>){
 
-location.href ="http://localhost/user_prj/newpass.jsp";
+location.href ="newpass.jsp";
 
 }else{
 	alert("잘못된정보입니다.")

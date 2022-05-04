@@ -26,7 +26,7 @@ System.out.println("비밀번호값 : "+mVO.getPassword()+"비밀번호확인값
 <script type="text/javascript">
 
 	<%if( result == 1){ // %>
-			location.href ="http://localhost/user_prj/my-account_rez.jsp"; // 비밀번호가맞을때 내정보로 보냄
+			location.href ="my-account_rez.jsp"; // 비밀번호가맞을때 내정보로 보냄
 			<%
 			/* session.setAttribute("userId",userId);
 			session.setAttribute("password",password);

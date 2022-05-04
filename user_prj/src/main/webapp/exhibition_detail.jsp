@@ -9,7 +9,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     trimDirectiveWhitespaces="true"
-    errorPage="/error.jsp"%>
+    %>
 <%
 int ex_num= Integer.parseInt(request.getParameter("ex_num"));
 int ex_hall_num = Integer.parseInt(request.getParameter("ex_hall_num"));

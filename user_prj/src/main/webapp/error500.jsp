@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-     %>
+   	
+    %>
 <!DOCTYPE html>
 <html>
     <head>
 
         <!-- /.website title -->
-        <title>예약 취소 성공</title>
+        <title>에러페이지</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <meta charset="UTF-8" />
@@ -35,22 +36,30 @@
 
     <body data-spy="scroll" data-target="#navbar-scroll">
 
-       
+        <!-- /.preloader -->
+        <div id="preloader"></div>
+        <div id="top"></div>
+
+        <!-- /.parallax full screen background image -->
+
+
+        
+        
+            
+
         <!-- /.Cars section -->
-        <div id="sign-in" style="float:left;">
+        <div id="sign-in" style="margin-left: 30%">
             <div class="container">
                 <div class="col-sm-6">
                     <div class="text-center">
-                        <h2 class="wow fadeInLeft">취소되었습니다.</h2>
+                        <h2 class="wow fadeInLeft">500 잘못된 접근입니다. 다시 시도해 주세요</h2>
                         <div class="title-line wow fadeInRight"></div>
                     </div>
                     <div class="row sign-in">
 
                         <form action="my-account.jsp" method="post">
                             
-                            <div class="text-center">
-                              <a href="#void" onclick="self.close()"><input type="button" id="find_direction" class="btn btn-warning btn-block btn-lg" value="닫기"></a>  
-                            </div>
+                            
                         </form>
 
                     </div>
@@ -60,8 +69,9 @@
 </div>
 
         
-        
      
+
+
         <!-- /.javascript files -->
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap.min.js"></script>

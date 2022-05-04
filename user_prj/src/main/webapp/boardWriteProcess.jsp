@@ -15,7 +15,7 @@
 	
 		//<form enctype="multipart/form-data">라면 FileUpload Component를 사용하여 값을 받는다.
 		//1. 업로드 될 파일의 경로 얻기
-		File saveDirectory=new File("C:/Users/user/git/user_prj/user_prj/src/main/webapp/ImageFile");
+		File saveDirectory=new File("E:/project2/ImageFile");
 
 		//2.업로드 될 파일의 크기 설정
 		int fileSize=1024*1024*10; //10MByte

@@ -1,7 +1,7 @@
 <%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    errorPage="/error.jsp"%>
+    %>
 <!DOCTYPE html>
 <%
 request.setCharacterEncoding("UTF-8");
@@ -77,7 +77,7 @@ MemberVO mVO=new MemberVO(userId,tel,"",address1,address2,password,"",name,' ');
         
             <!-- NAVIGATION -->
         <div id="menu">
-               <div class="container""> 
+               <div class="container"> 
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-backyard">
                             <span class="sr-only">Toggle navigation</span>
@@ -110,7 +110,7 @@ MemberVO mVO=new MemberVO(userId,tel,"",address1,address2,password,"",name,' ');
                     </div>
                     <div class="row sign-in">
 
-                        <form action="http://localhost/user_prj/loginAction.jsp" method="post" id="frmlog">
+                        <form action="loginAction.jsp" method="post" id="frmlog">
                             <div class="form-group">
                                 <label for="email">아이디</label>
                                 <input class="form-control" type="text" id="id-box" name="userId" value="">

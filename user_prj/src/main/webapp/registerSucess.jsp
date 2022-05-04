@@ -2,7 +2,7 @@
 <%@page import="DAO.UserMemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    errorPage="/error.jsp"%>
+    %>
     <%
     //한글
     request.setCharacterEncoding("UTF-8");

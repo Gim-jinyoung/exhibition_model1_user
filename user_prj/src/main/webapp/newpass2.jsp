@@ -2,7 +2,7 @@
 <%@page import="VO.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    errorPage="/error.jsp"%>
+    %>
 
 <!DOCTYPE html>
 <html>
@@ -86,7 +86,7 @@ System.out.println("newpass2 --- " + session.getAttribute("mVO") );
 
 	<div class="w3-content w3-container w3-margin-top" style="width: 500px">
 		<div class="w3-container w3-card-4">
-			<form action="http://localhost/user_prj/newpass_process2.jsp" method="post" id="frm">
+			<form action="newpass_process2.jsp" method="post" id="frm">
 				
 				<div>
 					<p>
