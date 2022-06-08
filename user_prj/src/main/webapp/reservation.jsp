@@ -182,7 +182,11 @@
                         <ul class="nav navbar-nav">
                              <li><a href="list.jsp">전체 전시 보기</a></li>
                             <li><a href="loc.jsp">지역별 전시 보기</a></li>
+<<<<<<< HEAD
                             <li><a href="reservation_clear.jsp">예약하기</a></li>
+=======
+                            <li><a href="reservation.jsp">예약하기</a></li>
+>>>>>>> branch 'master' of https://github.com/Gim-jinyoung/user_prj.git
                                     <li><a href="board.jsp">게시판</a></li>
                         
                         </ul>

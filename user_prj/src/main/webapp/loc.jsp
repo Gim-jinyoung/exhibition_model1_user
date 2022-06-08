@@ -290,7 +290,11 @@
         <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
+<<<<<<< HEAD
         center: new kakao.maps.LatLng(37.53844,126.99921), // 지도의 중심좌표
+=======
+        center: new kakao.maps.LatLng(37.53844 , 126.99921), // 지도의 중심좌표
+>>>>>>> branch 'master' of https://github.com/Gim-jinyoung/user_prj.git
         level: 1 // 지도의 확대 레벨
     };
 
